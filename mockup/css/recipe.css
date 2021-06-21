@@ -1,0 +1,150 @@
+.cuisine{
+    width: 100%;
+    margin: 3rem 0 5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, auto) 2fr repeat(2, auto);
+    grid-template-areas: 
+    "good-make empty"
+    "title post-user"
+    "image category-material"
+    "how-to how-to"
+    "comment comment";
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+
+.good-make-wrap{
+    grid-area: good-make;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+.good-make-wrap .iconify{
+    font-size: 4rem;
+}
+.good-make-wrap .good:hover,
+.good-make-wrap .make:hover,
+.good-make-wrap .delete:hover {
+    cursor: pointer;
+}
+
+.good-make-wrap .good,
+.good-make-wrap .make{
+    opacity: .35;
+    transition: opacity 0.35s;
+}
+.good-make-wrap .good-num {
+    font-size: 3.2rem;
+}
+
+.good-make-wrap .make{
+    color: #81B000;
+}
+.good-make-wrap .delete{
+    margin-left: auto;
+}
+
+.empty{
+    grid-area: empty;
+}
+
+.cuisine .title{
+    grid-area: title;
+    font-weight: bold;
+}
+
+.post-user{
+    grid-area: post-user;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 2.8rem;
+}
+.post-user .iconify{
+    color: #81b000;
+    font-size: 4rem;
+}
+
+.cuisine-image{
+    grid-area: image;
+}
+
+.category-material-wrap{
+    grid-area: category-material;
+}
+.category-material-wrap h3{
+    font-size: 2.8rem;
+}
+.underbar {
+    width: 100%;
+    height: 2px;
+    background: rgba(196, 196, 196, 0.5);
+}
+
+.category-material-wrap .category{
+    display: flex;
+    flex-direction: column;
+}
+.category-material-wrap .categories{
+    margin: 2rem;
+}
+
+.category-material-wrap .material h3 span{
+    font-size: 2rem;
+    color: #999999;
+    font-weight: normal;
+}
+.category-material-wrap .materials {
+    margin-top: 2rem;
+}
+.category-material-wrap .materials li{
+    font-size: 1.8rem;
+    width: 95%;
+    margin: 0 auto 2rem;
+}
+.materials li .name-amount-wrap{
+    display: flex;
+    justify-content: space-between;
+}
+
+.how-to{
+    grid-area: how-to;
+    margin-top: 3rem;
+}
+.how-to h3{
+    font-size: 2.8rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+.how-to h3 span{
+    font-size: 2.4rem;
+    font-weight: normal;
+}
+.how-to ul{
+    margin-top: 2rem;
+    counter-reset: number 0;
+    flex-direction: column;
+    gap: 1rem;
+}
+.how-to li::before{
+    counter-increment: number 1;
+    content: counter(number)".";
+    margin-right: 0.5rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+.how-to li span{
+    font-size: 2.4rem;
+}
+
+.comment{
+    grid-area: comment;
+    margin-top: 3rem;
+}
+.comment h3 {
+    font-size: 2.8rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+.comment p{
+    margin-top: 2rem;
+    font-size: 2rem;
+}
