@@ -13,4 +13,4 @@
 - [ ] edit
 - [ ] admin
 
-## js
+## Javescript
