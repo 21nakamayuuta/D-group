@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- test -->
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
