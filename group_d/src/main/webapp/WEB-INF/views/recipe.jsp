@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- test -->
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -28,7 +29,7 @@
               <input type="text" name="userId" id="userId" placeholder="ID" />
               <!-- エラー時
                 <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span> 
+                <span class="error_msg">エラーメッセージ</span>
               -->
             </label>
           </div>
