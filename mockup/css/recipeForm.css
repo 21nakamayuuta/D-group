@@ -1,0 +1,99 @@
+header .btn-wrap{
+    margin-left: 25rem;
+}
+.recipe-form .title{
+    font-size: 2.8rem;
+}
+.recipe-form{
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: 2fr auto;
+    grid-template-rows: repeat(7, auto);
+    grid-row-gap: 2rem;
+    grid-template-areas: 
+    "name name" 
+    "image material"
+    "image time"
+    "how-to how-to"
+    "comment comment"
+    "category category"
+    "submit submit"
+}
+.name{
+    grid-area: name;
+}
+.name input{
+    width: calc(100% *(2/3));
+    height: 40px;
+}
+.image {
+    grid-area: image;
+    background: #C4C4C4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.material {
+    grid-area: material;
+    padding: 0 2rem;
+}
+.material .input{
+    display: flex;
+    gap: 2rem;
+}
+.material .input label{
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+.material input, .time input{
+    width: 140px;
+    height: 32px;
+}
+.material ul{
+    margin-top: 1rem;
+}
+.material li{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+}
+.material li input:first-of-type{
+    width: 200px;
+}
+.material li button{
+    margin-left: auto;
+}
+
+.time {
+    grid-area: time;
+    padding: 0 2rem;
+    font-size: 2rem;
+    height: min-content;
+    margin-top: auto;
+}
+.time .input {
+    display: flex;
+    align-items: center;
+}
+
+.how-to {
+    grid-area: how-to;
+}
+
+.comment {
+    grid-area: comment;
+}
+
+.category {
+    grid-area: category;
+}
+
+.submit {
+    grid-area: submit;
+}

@@ -18,6 +18,17 @@ input::placeholder {
 .btn {
     color: #000;
 }
+.form-btn{
+    padding: 0.5rem 2.5rem;
+    border: 1px solid #D5D2CD;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 16px;
+    /* line-height: 14px; */
+    color: rgba(0, 0, 0, 0.5);
+    background: #FFFFFF;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
 
 button:hover,
 .btn:hover,
@@ -298,3 +309,4 @@ main ul {
      background: #FFFFFF;
      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
+
