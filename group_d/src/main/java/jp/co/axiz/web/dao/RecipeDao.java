@@ -4,6 +4,6 @@ import java.util.List;
 
 import jp.co.axiz.web.entity.Recipe;
 
-public interface UserInfoDao {
+public interface RecipeDao {
 	public List<Recipe> newRecipe();
 }
