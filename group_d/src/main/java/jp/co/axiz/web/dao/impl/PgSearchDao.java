@@ -35,7 +35,8 @@ public class PgSearchDao implements SearchDao {
 		param.addValue("keyword", "%"+searchKeyword+"%");
 
 		String sql = SELECT;
-		return jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Search>(Search.class));
+		List<Search> searchResultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Search>(Search.class));
 
+		return searchResultList.isEmpty() ? null : searchResultList;
 	}
 }

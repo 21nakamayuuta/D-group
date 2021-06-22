@@ -23,11 +23,20 @@ public class SearchController {
 		return "top";
 	}
 
-	@RequestMapping(value= "/searchResult", method = RequestMethod.POST)
+	@RequestMapping(value= "/search", method = RequestMethod.POST)
 	public String search(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
 		//String seatchInfo  = form.getSearchKeyword();
-		List<Search> searchList = searchService.find(form.getSearchKeyword());
-		System.out.println(searchList.get(0).getRecipeId());
+
+		if(searchService.find(form.getSearchKeyword()) == null){
+			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
+		}else {
+			List<Search> searchList = searchService.find(form.getSearchKeyword());
+			System.out.println(searchList.size());
+			model.addAttribute("searchList", searchList);
+		}
+
+		model.addAttribute("searchKeyword", form.getSearchKeyword());
+
 		return "searchResult";
 	}
 }
