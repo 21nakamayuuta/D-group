@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -98,21 +99,23 @@
     <header>
       <div class="header-wrap">
         <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
-        <form action="searchResult" class="search-recipe">
-          <input
-            type="text"
-            name="searchKeyword"
+
+        <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          <form:input
+            path="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
-          />
-          <button type="submit">レシピ検索</button>
-        </form>
-        <!-- 権限ごとに切り替える部分 -->
+          /><%-- type="text" name="searchKeyword" --%>
+          <form:button>レシピ検索</form:button>
+        </form:form>
+
+        <%-- <!-- 権限ごとに切り替える部分 --> --%>
         <div class="btn-wrap">
           <button type="button" id="singUp">新規登録</button>
           <button type="button" id="login">ログイン</button>
         </div>
         <!--  -->
+        <%-- --%>
       </div>
     </header>
     <main>
