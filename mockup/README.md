@@ -8,9 +8,9 @@
   - [ ] 検索結果が 0 件のときの処理
 - [x] recipe
 - [x] user
-- [ ] post
+- [x] post
 - [x] myPage
-- [ ] edit
+- [x] edit
 - [ ] admin
 
 ## Javescript

@@ -71,7 +71,12 @@
         <form class="recipe-form" enctype="multipart/form-data">
           <div class="name">
             <label for="title" class="title">レシピタイトル</label>
-            <input type="text" id="title" name="title" />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="さるでも作れるカレーライス"
+            />
           </div>
           <div class="image">
             <img src="" class="preview display-none" />
@@ -100,9 +105,31 @@
 
             <ul>
               <li>
-                <input type="text" class="material" /><input
+                <input type="text" class="material" value="ニンジン" /><input
                   type="text"
                   class="amount"
+                  value="1本"
+                /><button type="button" class="form-btn">削除</button>
+              </li>
+              <li>
+                <input type="text" class="material" value="ジャガイモ" /><input
+                  type="text"
+                  class="amount"
+                  value="1個"
+                /><button type="button" class="form-btn">削除</button>
+              </li>
+              <li>
+                <input type="text" class="material" value="玉ねぎ" /><input
+                  type="text"
+                  class="amount"
+                  value="1個"
+                /><button type="button" class="form-btn">削除</button>
+              </li>
+              <li>
+                <input type="text" class="material" value="鶏肉" /><input
+                  type="text"
+                  class="amount"
+                  value="200"
                 /><button type="button" class="form-btn">削除</button>
               </li>
             </ul>
@@ -110,7 +137,14 @@
           <div class="time">
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
-              <input type="number" name="time" id="time" />分以内
+              <input
+                type="number"
+                name="time"
+                id="time"
+                min="1"
+                max="150"
+                value="5"
+              />分以内
             </div>
           </div>
           <div class="how-to">
@@ -123,7 +157,19 @@
             </div>
             <ul>
               <li>
-                <input type="text" /><button type="button" class="form-btn">
+                <input type="text" value="手順1 野菜を洗う" /><button
+                  type="button"
+                  class="form-btn"
+                  
+                >
+                  削除
+                </button>
+              </li>
+              <li>
+                <input type="text" value="手順2 野菜を切る"/><button
+                  type="button"
+                  class="form-btn"
+                >
                   削除
                 </button>
               </li>
@@ -133,7 +179,9 @@
             <h3 class="title">
               コメント<span class="error_msg">エラーメッセージ</span>
             </h3>
-            <textarea name="comment" id="" cols="30" rows="10"></textarea>
+            <textarea name="comment" id="" cols="30" rows="20">
+                サルでも作れるくらい簡単なカレーライスですね。
+            </textarea>
           </div>
           <div class="category">
             <h3 class="title">カテゴリ</h3>

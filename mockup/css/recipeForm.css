@@ -4,10 +4,18 @@ header .btn-wrap{
 .recipe-form .title{
     font-size: 2.8rem;
 }
+.recipe-form .error_msg{
+    font-size: 2rem;
+}
+.how-to .title, .comment .title{
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+}
 .recipe-form{
     margin-top: 4rem;
     display: grid;
-    grid-template-columns: 2fr auto;
+    grid-template-columns: 2fr minmax(auto, 1fr);
     grid-template-rows: repeat(7, auto);
     grid-row-gap: 2rem;
     grid-template-areas: 
@@ -28,11 +36,34 @@ header .btn-wrap{
 }
 .image {
     grid-area: image;
-    background: #C4C4C4;
+    height: 400px;
+    position: relative;
+}
+.image .image-wrap{
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    position:absolute;
+    background: #000000;
+    opacity: .4;
+}
+.image .image-wrap .text,
+.image .image-wrap .iconify {
+    color: #fefefe;
+    font-size: 2.8rem;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.image .image-wrap .text {
+    padding: 1rem;
+}
+.image .image-wrap .iconify {
+    font-size: 3.2rem;
+}
+.image img{
+    position: absolute;
+    top: 0;
 }
 
 .material {
@@ -50,6 +81,9 @@ header .btn-wrap{
     gap: 1rem;
 
 }
+.material input {
+    padding: 0;
+}
 .material input, .time input{
     width: 140px;
     height: 32px;
@@ -62,6 +96,7 @@ header .btn-wrap{
     display: flex;
     align-items: center;
     gap: 5rem;
+    margin-bottom: 1rem;
 }
 .material li input:first-of-type{
     width: 200px;
@@ -85,15 +120,49 @@ header .btn-wrap{
 .how-to {
     grid-area: how-to;
 }
+.how-to .input, .how-to li{
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.how-to input{
+    width: 90%;
+    height: 40px;
+    margin-right: auto;
+}
 
+.how-to ul{
+    margin-top: 2rem;
+}
 .comment {
     grid-area: comment;
+}
+.comment textarea{
+    width: 100%;
 }
 
 .category {
     grid-area: category;
 }
+.category ul {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    width: fit-content;
+}
+.category li{
+    font-size: 2rem;
+}
+
 
 .submit {
     grid-area: submit;
+    width: 260px;
+    height: 50px;
+    font-size: 2.4rem;
+    background: #fff;
+    border: 1px solid #81B000;
+    color: #81B000;
+    margin: 3rem auto;
 }
