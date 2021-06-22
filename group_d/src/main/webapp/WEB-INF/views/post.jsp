@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -70,10 +73,10 @@
     </header>
     <main>
       <div class="wrapper">
-        <form class="recipe-form" enctype="multipart/form-data">
+        <form:form action="postInfoCheck" modelAttribute="postInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
             <label for="title" class="title">レシピタイトル</label>
-            <input type="text" id="title" name="title" />
+            <form:input type="text" id="title" path="recipeTitle" />
           </div>
           <div class="image">
             <img src="" class="preview display-none" />
@@ -87,17 +90,18 @@
                 ><br />
                 <span>クリックして料理の写真を載せる</span>
               </div>
-              <input type="file" name="image" id="file" class="display-none" />
+              <form:input type="file" name="image" accept="image/png" id="file" class="display-none" path="completeImage"/>
             </label>
           </div>
           <div class="material">
             <h3 class="title">材料・分量</h3>
             <div class="input">
               <label
-                >材料名<input type="text" name="material" id="material"
+                >材料名<form:input type="text" name="material" id="material" path="foodName"
               /></label>
-              <label>分量<input type="text" name="amount" id="amount" /></label>
+              <label>分量<form:input type="text" name="amount" id="amount" path="amount"/></label>
               <button type="button" class="form-btn">追加</button>
+<!--               ここで追加したい -->
             </div>
 
             <ul>
@@ -107,12 +111,13 @@
                   class="amount"
                 /><button type="button" class="form-btn">削除</button>
               </li>
+<!--               ここら辺わからん -->
             </ul>
           </div>
           <div class="time">
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
-              <input type="number" name="time" id="time" />分以内
+              <form:input type="number" name="time" id="time" path="cookingTime"/>分以内
             </div>
           </div>
           <div class="how-to">
@@ -120,8 +125,9 @@
               作り方<span class="error_msg">エラーメッセージ</span>
             </h3>
             <div class="input">
-              <input type="text" />
+              <form:input type="text" path="processDescription"/>
               <button type="button" class="form-btn">追加</button>
+<!--               わからん -->
             </div>
             <ul>
               <li>
@@ -135,20 +141,20 @@
             <h3 class="title">
               コメント<span class="error_msg">エラーメッセージ</span>
             </h3>
-            <textarea name="comment" id="" cols="30" rows="10"></textarea>
+            <form:textarea name="comment" id="" cols="30" rows="10" path="overview"></form:textarea>
           </div>
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-              <li><input type="checkbox" value="和食" />和食</li>
+              <li><form:input type="checkbox" value="和食" path="categoryName"/>和食</li>
               <li><input type="checkbox" value="洋食" />洋食</li>
               <li><input type="checkbox" value="中華" />中華</li>
               <li><input type="checkbox" value="デザート" />デザート</li>
               <li><input type="checkbox" value="つけあわせ" />つけあわせ</li>
             </ul>
           </div>
-          <button type="submit" class="submit post-btn">レシピ投稿</button>
-        </form>
+          <form:button type="submit" class="submit post-btn">レシピ投稿</form:button>
+        </form:form>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

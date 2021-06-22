@@ -10,7 +10,8 @@ public class IndexController {
 
 	@RequestMapping("/top" )
 	public String top(Model model) {
-		System.out.println("aaaa");
 		return "top";
 	}
+
+
 }
