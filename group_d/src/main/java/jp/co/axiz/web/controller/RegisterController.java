@@ -1,5 +1,7 @@
 package jp.co.axiz.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.PostForm;
+import jp.co.axiz.web.entity.Category;
+import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 
 @Controller
@@ -15,11 +19,15 @@ public class RegisterController {
 	@Autowired
 	RecipeService recipeService;
 
+	@Autowired
+	CategoryService categoryService;
+
 	@RequestMapping("/post" )
 	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
-//		List<Category> recipeInfo = recipeService.searchRecipeInfo();
-
-
+		List<Category> categoryInfo = categoryService.searchCategory();
+		System.out.println(categoryInfo);
+		System.out.println(categoryInfo.get(0).getCategoryName());
+		model.addAttribute("categoryInfo",categoryInfo);
 		return "post";
 	}
 

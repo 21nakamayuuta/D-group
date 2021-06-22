@@ -27,7 +27,7 @@
         </form>
         <!-- 権限ごとに切り替える部分 -->
         <div class="btn-wrap">
-          <a href="" class="to-post btn">レシピを投稿する</a>
+          <a href="post" class="to-post btn">レシピを投稿する</a>
           <div class="user-icon">
             <div class="btn">
               <span
