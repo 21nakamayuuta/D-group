@@ -28,8 +28,6 @@ public class SearchController {
 	public String recipeSearch(@RequestParam(name = "recipeId", required = false) Integer recipeId ,Model model) {
 
 
-		recipeId = 1;
-
 		Integer totalGood = recipeService.totalGood(recipeId);
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
