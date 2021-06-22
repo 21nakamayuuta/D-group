@@ -17,8 +17,11 @@
 
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- aaa --><!-- bbb -->
 =======
+=======
+>>>>>>> 677b7b9dd6e07af69e17099d32f09650258d5043
     <header>
         <div class="header-wrap">
             <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
@@ -267,7 +270,10 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/header.js"></script>
     <script src="js/form.js"></script>
+<<<<<<< HEAD
 >>>>>>> e6af26989d4ced849d37f3cdc369d9c151617bfe
+=======
+>>>>>>> 677b7b9dd6e07af69e17099d32f09650258d5043
 </body>
 
 </html>

@@ -17,6 +17,9 @@ public class RegisterController {
 
 	@RequestMapping("/post" )
 	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
+//		List<Category> recipeInfo = recipeService.searchRecipeInfo();
+
+
 		return "post";
 	}
 
