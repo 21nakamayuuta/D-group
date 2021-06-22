@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -32,38 +31,6 @@
             <label
               >ID<br />
               <input type="text" name="userId" id="userId" placeholder="ID" />
-              <!-- エラー時
-=======
-<%@ page pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>おさるのレシピ</title>
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/header.css" />
-<link rel="stylesheet" href="css/recipeList.css" />
-<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-</head>
-<body>
-	<div class="cover display-none">
-		<form action="userTop.html" class="login-form display-none">
-			<div class="btn" id="cancel">
-				<span class="iconify" data-inline="false" data-icon="topcoat:cancel"></span>
-			</div>
-			<div class="form-wrap">
-				<div class="userId">
-					<label>ID<br /> <input type="text"
-						name="userId" id="userId" placeholder="ID" /> <!-- エラー時
->>>>>>> 677b7b9dd6e07af69e17099d32f09650258d5043
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
             </label>
           </div>
           <div class="password">
@@ -81,7 +48,7 @@
         </div>
       </form>
       <!-- 新規登録 -->
-      <form:form action="signUp" modelAttribute="signUp" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
+      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
 
         <div class="btn" id="cancel">
           <span
