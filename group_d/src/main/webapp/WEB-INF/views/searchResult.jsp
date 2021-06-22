@@ -28,7 +28,7 @@
               <input type="text" name="userId" id="userId" placeholder="ID" />
               <!-- エラー時
                 <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span> 
+                <span class="error_msg">エラーメッセージ</span>
               -->
             </label>
           </div>
@@ -138,14 +138,21 @@
                   data-inline="false"
                   data-icon="bx:bxs-like"
                 ></span
-                ><span class="good-num">1000</span>
+                ><span class="good-num">1100</span>
               </div>
-              <a href="./recipe.html">
+              <a href="recipeSearch">
                 <div class="img-wrap">
                   <img
                     src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
                     alt=""
                   />
+<!--                   ここにレシピIDを渡せる方法を考える -->
+     <%--             <form action="recipeSearch" class="search-recipe"> --%>
+<!-- 		            <input -->
+<!-- 		              type="number" -->
+<!-- 		              name="recipeId" -->
+<!-- 		            /> -->
+<%-- 		          </form> --%>
                 </div>
                 <span class="recipe-title"
                   >オーツミルクで全粒粉入りパンケーキ</span
