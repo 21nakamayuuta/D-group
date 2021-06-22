@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.axiz.web.entity.Food;
+import jp.co.axiz.web.entity.Process;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.service.RecipeService;
 
@@ -28,10 +30,17 @@ public class SearchController {
 
 		recipeId = 1;
 
-
+		Integer totalGood = recipeService.totalGood(recipeId);
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
+		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
+		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
+
+		model.addAttribute("totalGood",totalGood);
 		model.addAttribute("recipeInfo",recipeInfo.get(0));
+		model.addAttribute("foodInfo",foodInfo);
 		model.addAttribute("categoryInfo",recipeInfo);
+		model.addAttribute("processInfo",processInfo);
+
 
 		return "recipe";
 	}

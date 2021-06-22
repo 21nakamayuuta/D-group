@@ -133,7 +133,7 @@
                 data-inline="false"
                 data-icon="bx:bxs-like"
               ></span>
-              <span class="good-num">1000</span>
+              <span class="good-num"> ${fn:escapeXml(totalGood)}</span>
             </div>
             <!--  -->
             <!-- 会員ユーザー、管理者のみ表示 -->
@@ -194,34 +194,15 @@
               <h3>材料<span>(1人分)</span></h3>
               <div class="underbar"></div>
               <ul class="materials">
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ニラ</span>
-                    <span>100g</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ツナ油漬け (汁ごと)</span>
-                    <span>小さじ1/4</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>塩こしょう</span>
-                    <span>大さじ1</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ごま油</span>
-                    <span>70g</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
+                <c:forEach var="f" items="${foodInfo }">
+                  <li>
+                    <div class="name-amount-wrap">
+                      <span>${fn:escapeXml(f.foodName)}</span>
+                      <span>${fn:escapeXml(f.amount)}</span>
+                    </div>
+                    <div class="underbar"></div>
+                  </li>
+                </c:forEach>
               </ul>
             </div>
           </div>
@@ -229,24 +210,12 @@
             <h3>作り方<span> - 5分以内</span></h3>
             <div class="underbar"></div>
             <ul class="process">
-              <li>
-                <span>ニラは5cm幅に切ります。</span>
-              </li>
-              <li>
-                <span
-                  >フライパンにごま油を入れ中火で加熱し、ツナ油漬けを入れ2分程炒めます。</span
-                >
-              </li>
-              <li>
-                <span
-                  >ニラがしんなりしてきたら中火のまま、塩こしょうを入れ炒め合わせます。</span
-                >
-              </li>
-              <li>
-                <span
-                  >全体に味がなじんだら火から下ろし、器に盛り付けて完成です。</span
-                >
-              </li>
+              <c:forEach var="p" items="${processInfo }">
+                <li>
+                  <span
+                    >${fn:escapeXml(p.processDescription)}</span>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">

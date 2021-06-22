@@ -14,9 +14,15 @@ public class Recipe {
 
 	private String userName;
 	private String categoryName;
+    private Integer goodCount;
 
 
-
+	public Integer getGoodCount() {
+		return goodCount;
+	}
+	public void setGoodCount(Integer goodCount) {
+		this.goodCount = goodCount;
+	}
 	public String getCategoryName() {
 		return categoryName;
 	}
