@@ -1,5 +1,8 @@
 package jp.co.axiz.web.dao;
 
-public interface UserInfoDao {
+import jp.co.axiz.web.entity.UserInfo;
 
+public interface UserInfoDao {
+	public void insert(UserInfo user);
+	public boolean findLoginName(String loginName);
 }
