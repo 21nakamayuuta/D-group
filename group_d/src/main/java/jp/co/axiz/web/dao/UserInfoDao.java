@@ -1,5 +1,9 @@
 package jp.co.axiz.web.dao;
 
-public interface UserInfoDao {
+import java.util.List;
 
+import jp.co.axiz.web.entity.Recipe;
+
+public interface UserInfoDao {
+	public List<Recipe> newRecipe();
 }
