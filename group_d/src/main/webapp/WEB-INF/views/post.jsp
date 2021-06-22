@@ -146,11 +146,11 @@
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-              <li><form:checkboxes items="value="和食" path="categoryName"/>和食</li>
-              <li><input type="checkbox" value="洋食" />洋食</li>
-              <li><input type="checkbox" value="中華" />中華</li>
-              <li><input type="checkbox" value="デザート" />デザート</li>
-              <li><input type="checkbox" value="つけあわせ" />つけあわせ</li>
+	          <form:checkboxes items="${fn:escapeXml(categoryInfo)}" itemvalue="categoryId" itemLavel="categoryName" path="categoryName" delimiter="/" /> --%>
+<!--               <li><input type="checkbox" value="洋食" />洋食</li> -->
+<!--               <li><input type="checkbox" value="中華" />中華</li> -->
+<!--               <li><input type="checkbox" value="デザート" />デザート</li> -->
+<!--               <li><input type="checkbox" value="つけあわせ" />つけあわせ</li> -->
             </ul>
           </div>
           <form:button type="submit" class="submit post-btn">レシピ投稿</form:button>

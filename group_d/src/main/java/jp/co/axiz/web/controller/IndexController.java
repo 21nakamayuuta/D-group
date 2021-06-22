@@ -18,12 +18,20 @@ public class IndexController {
 	private RecipeService recipeService;
 
 	@RequestMapping("/top" )
-	public String top(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
+	public String top(@ModelAttribute("RecipeSearch") SearchForm form,Model model) {
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList",recipeList);
 
 		return "top";
 	}
+
+//	@RequestMapping("/userTop" )
+//	public String userTop(Model model) {
+//		List<Recipe> recipeList = recipeService.newRecipe();
+//		model.addAttribute("recipeList",recipeList);
+//
+//		return "userTop";
+//	}
 
 
 }
