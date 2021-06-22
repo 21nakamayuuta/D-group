@@ -146,7 +146,13 @@
                     src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
                     alt=""
                   />
-                  <input type="hidden" name="test" value="aa"/>
+<!--                   ここにレシピIDを渡せる方法を考える -->
+     <%--             <form action="recipeSearch" class="search-recipe"> --%>
+<!-- 		            <input -->
+<!-- 		              type="number" -->
+<!-- 		              name="recipeId" -->
+<!-- 		            /> -->
+<%-- 		          </form> --%>
                 </div>
                 <span class="recipe-title"
                   >オーツミルクで全粒粉入りパンケーキ</span
