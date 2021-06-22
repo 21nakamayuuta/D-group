@@ -4,11 +4,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.RecipeDao;
+import jp.co.axiz.web.entity.Food;
+import jp.co.axiz.web.entity.Process;
 import jp.co.axiz.web.entity.Recipe;
-@Repository
+
 public class NewRecipeDao implements RecipeDao{
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -19,6 +20,30 @@ public class NewRecipeDao implements RecipeDao{
 	public List<Recipe> newRecipe() {
 		List<Recipe> resultList = jdbcTemplate.query(SELECT_NEW_RECIPE,new BeanPropertyRowMapper<Recipe>(Recipe.class));
 		return resultList;
+	}
+
+	@Override
+	public List<Recipe> searchRecipeInfo(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public List<Food> searchFoodInfo(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public List<Process> searchProcessInfo(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public Integer totalGood(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 

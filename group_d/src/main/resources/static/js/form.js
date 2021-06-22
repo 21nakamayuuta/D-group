@@ -35,3 +35,25 @@ saveBtnOfPassForMyPage.click(() => {
         saveBtnOfPassForMyPage.toggleClass("display-none");
     }
 });
+
+// admin
+let editCategoryBtn = $(".categories .edit");
+let saveCategoryBtn = $(".categories .save");
+
+editCategoryBtn.click(function () {
+    let input = $(this).siblings()[0];
+    let save = $(this).siblings()[1];
+
+    $(input).prop("disabled", false);
+    $(this).toggleClass("display-none");
+    $(save).removeClass("display-none");
+});
+
+saveCategoryBtn.click(function () {
+    let input = $(this).siblings()[0];
+    let edit = $(this).siblings()[1];
+
+    $(input).prop("disabled", true);
+    $(this).toggleClass("display-none");
+    $(edit).toggleClass("display-none");
+})

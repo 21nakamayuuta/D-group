@@ -15,7 +15,6 @@ public class IndexController {
 	@Autowired
 	private RecipeService recipeService;
 
-
 	@RequestMapping("/top" )
 	public String top(Model model) {
 		List<Recipe> recipeList = recipeService.newRecipe();
@@ -23,4 +22,6 @@ public class IndexController {
 
 		return "top";
 	}
+
+
 }

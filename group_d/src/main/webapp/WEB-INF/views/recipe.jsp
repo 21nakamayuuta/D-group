@@ -1,6 +1,9 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
-<!-- test -->
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -130,7 +133,7 @@
                 data-inline="false"
                 data-icon="bx:bxs-like"
               ></span>
-              <span class="good-num">1000</span>
+              <span class="good-num"> ${fn:escapeXml(totalGood)}</span>
             </div>
             <!--  -->
             <!-- 会員ユーザー、管理者のみ表示 -->
@@ -161,7 +164,7 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span
-            >すぐ作れる ニラとツナの塩こしょう炒め
+            > ${fn:escapeXml(recipeInfo.recipeTitle)}
           </h3>
           <a href="./user.html" class="post-user">
             <span
@@ -169,11 +172,13 @@
               data-inline="false"
               data-icon="carbon:user-avatar-filled"
             ></span>
-            田中
+            ${fn:escapeXml(recipeInfo.userName)}
           </a>
           <div class="cuisine-img">
+
+<!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
-              src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+			  src= "${fn:escapeXml(recipeInfo.completeImage)}"
               alt=""
             />
           </div>
@@ -182,75 +187,44 @@
               <h3>カテゴリ</h3>
               <div class="underbar"></div>
               <ul class="categories">
-                <li class="btn"><span>和食</span></li>
+                <c:forEach var="c" items="${categoryInfo }">
+                  <li class="btn"><span>${fn:escapeXml(c.categoryName)}</span></li>
+                </c:forEach>
               </ul>
             </div>
             <div class="material">
               <h3>材料<span>(1人分)</span></h3>
               <div class="underbar"></div>
               <ul class="materials">
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ニラ</span>
-                    <span>100g</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ツナ油漬け (汁ごと)</span>
-                    <span>小さじ1/4</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>塩こしょう</span>
-                    <span>大さじ1</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
-                <li>
-                  <div class="name-amount-wrap">
-                    <span>ごま油</span>
-                    <span>70g</span>
-                  </div>
-                  <div class="underbar"></div>
-                </li>
+                <c:forEach var="f" items="${foodInfo }">
+                  <li>
+                    <div class="name-amount-wrap">
+                      <span>${fn:escapeXml(f.foodName)}</span>
+                      <span>${fn:escapeXml(f.amount)}</span>
+                    </div>
+                    <div class="underbar"></div>
+                  </li>
+                </c:forEach>
               </ul>
             </div>
           </div>
           <div class="how-to">
-            <h3>作り方<span> - 5分以内</span></h3>
+            <h3>作り方<span> - ${fn:escapeXml(recipeInfo.cookingTime)}分以内</span></h3>
             <div class="underbar"></div>
             <ul class="process">
-              <li>
-                <span>ニラは5cm幅に切ります。</span>
-              </li>
-              <li>
-                <span
-                  >フライパンにごま油を入れ中火で加熱し、ツナ油漬けを入れ2分程炒めます。</span
-                >
-              </li>
-              <li>
-                <span
-                  >ニラがしんなりしてきたら中火のまま、塩こしょうを入れ炒め合わせます。</span
-                >
-              </li>
-              <li>
-                <span
-                  >全体に味がなじんだら火から下ろし、器に盛り付けて完成です。</span
-                >
-              </li>
+              <c:forEach var="p" items="${processInfo }">
+                <li>
+                  <span
+                    >${fn:escapeXml(p.processDescription)}</span>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">
             <h3>コメント</h3>
             <div class="underbar"></div>
             <p>
-              すぐ作れる、ニラとツナの塩こしょう炒めはいかがですか。香りのよいニラと旨味のある
-              ツナに、塩こしょうのシンプルな味つけがよく合い、おいしいですよ。ぜひお試しくださ
-              い。
+              ${fn:escapeXml(recipeInfo.overview)}
             </p>
           </div>
         </section>
