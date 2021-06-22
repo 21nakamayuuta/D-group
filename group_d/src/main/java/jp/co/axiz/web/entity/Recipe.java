@@ -12,6 +12,23 @@ public class Recipe {
 	private Timestamp createDateTime;
 	private Timestamp updateDateTime;
 
+	private String userName;
+	private String categoryName;
+
+
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public Integer getRecipeId() {
 		return recipeId;
 	}

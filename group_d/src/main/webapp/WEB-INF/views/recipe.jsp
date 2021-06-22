@@ -1,4 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -160,7 +164,7 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span
-            >すぐ作れる ニラとツナの塩こしょう炒め
+            > ${fn:escapeXml(recipeInfo.recipeTitle)}
           </h3>
           <a href="./user.html" class="post-user">
             <span
@@ -168,7 +172,7 @@
               data-inline="false"
               data-icon="carbon:user-avatar-filled"
             ></span>
-            田中
+            ${fn:escapeXml(recipeInfo.userName)}
           </a>
           <div class="cuisine-img">
             <img
@@ -181,7 +185,9 @@
               <h3>カテゴリ</h3>
               <div class="underbar"></div>
               <ul class="categories">
-                <li class="btn"><span>和食</span></li>
+                <c:forEach var="c" items="${categoryInfo }">
+                  <li class="btn"><span>${fn:escapeXml(c.categoryName)}</span></li>
+                </c:forEach>
               </ul>
             </div>
             <div class="material">
@@ -247,9 +253,7 @@
             <h3>コメント</h3>
             <div class="underbar"></div>
             <p>
-              すぐ作れる、ニラとツナの塩こしょう炒めはいかがですか。香りのよいニラと旨味のある
-              ツナに、塩こしょうのシンプルな味つけがよく合い、おいしいですよ。ぜひお試しくださ
-              い。
+              ${fn:escapeXml(recipeInfo.overview)}
             </p>
           </div>
         </section>
