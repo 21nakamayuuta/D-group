@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.UserInfoDao;
+import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 
 @Repository
@@ -48,5 +49,11 @@ public class PgUserInfoDao implements UserInfoDao{
 		}
 
 		return true;
+	}
+
+	@Override
+	public List<Recipe> newRecipe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }
