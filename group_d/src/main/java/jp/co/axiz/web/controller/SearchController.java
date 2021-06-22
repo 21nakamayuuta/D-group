@@ -41,7 +41,6 @@ public class SearchController {
 		model.addAttribute("categoryInfo",recipeInfo);
 		model.addAttribute("processInfo",processInfo);
 
-
 		return "recipe";
 	}
 }

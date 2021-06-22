@@ -175,8 +175,10 @@
             ${fn:escapeXml(recipeInfo.userName)}
           </a>
           <div class="cuisine-img">
+
+<!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
-              src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+			  src= "${fn:escapeXml(recipeInfo.completeImage)}"
               alt=""
             />
           </div>
@@ -207,7 +209,7 @@
             </div>
           </div>
           <div class="how-to">
-            <h3>作り方<span> - 5分以内</span></h3>
+            <h3>作り方<span> - ${fn:escapeXml(recipeInfo.cookingTime)}分以内</span></h3>
             <div class="underbar"></div>
             <ul class="process">
               <c:forEach var="p" items="${processInfo }">
