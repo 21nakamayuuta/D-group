@@ -20,4 +20,11 @@ public class PgSearchService implements SearchService {
 		// TODO 自動生成されたメソッド・スタブ
 		return searchDao.find(searchKeyword);
 	}
+
+	//カテゴリーIDで検索
+	@Override
+	public List<Search> categoryFind(Integer categoryId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return searchDao.categoryFind(categoryId);
+	}
 }

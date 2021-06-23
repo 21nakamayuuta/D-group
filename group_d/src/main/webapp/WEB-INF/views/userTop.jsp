@@ -15,8 +15,8 @@
   <body>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
-        <form action="./searchResult.html" class="search-recipe">
+        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+        <form action="" class="search-recipe">
           <input
             type="text"
             name="searchKeyword"
