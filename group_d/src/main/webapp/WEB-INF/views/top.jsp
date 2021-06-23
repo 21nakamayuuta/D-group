@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-=======
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
->>>>>>> 7f407d88f7c0a1dd9413d2edbfec8df0bc7a736c
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -28,15 +20,8 @@
   </head>
   <body>
     <div class="cover ${ display ? '' : 'display-none' }">
-<<<<<<< HEAD
-      <form action="userTop.html" class="login-form  ${ display ? '' : 'display-none' }">
-=======
-
-
-
 
       <form:form action="login" class="login-form ${ display ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
->>>>>>> 7f407d88f7c0a1dd9413d2edbfec8df0bc7a736c
         <div class="btn" id="cancel">
           <span
             class="iconify"
@@ -45,44 +30,26 @@
           ></span>
         </div>
         <div class="form-wrap">
-<<<<<<< HEAD
-          <div class="userId">
-            <label
-              >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
-=======
          <label style="color:red;">${errMsg }</label>
           <div class="userId">
-
             <label>ID<br />
               <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
               <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
->>>>>>> 7f407d88f7c0a1dd9413d2edbfec8df0bc7a736c
             </label>
           </div>
           <div class="password">
             <label>パスワード<br />
               <form:input type="password" name="password" id="password" placeholder="パスワード" path="password"/>
               <form:errors path="password" class="error_msg" cssStyle="color:red"/>
-
             </label>
           </div>
           <button>ログイン</button>
         </div>
-<<<<<<< HEAD
-      </form>
+      </form:form>
+
       <!-- 新規登録 -->
       <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
 
-=======
-      </form:form>
-
-
-
-
-
-      <form action="userTop.html" class="singUp-form display-none">
->>>>>>> 7f407d88f7c0a1dd9413d2edbfec8df0bc7a736c
         <div class="btn" id="cancel">
           <span
             class="iconify"
