@@ -2,6 +2,7 @@ package jp.co.axiz.web.controller;
 
 
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.axiz.web.controller.form.LoginForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
+import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
+import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
 
@@ -27,7 +30,8 @@ import jp.co.axiz.web.service.UserInfoService;
 @Controller
 public class AuthController {
 
-
+	@Autowired
+	private RecipeService recipeService;
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired
@@ -113,6 +117,12 @@ public class AuthController {
 
 			//sessionInfo.setLoginUser(user);
 			//			sessionInfo.setRoleList(roleList);
+			List<Recipe> recipeList = recipeService.newRecipe();
+			model.addAttribute("recipeList",recipeList);
+
+			//ランキング
+			List<Recipe> rankingList = recipeService.ranking();
+			model.addAttribute("rankingList",rankingList);
 
 			session.setAttribute("user", user);
 			session.setAttribute("login",false);
