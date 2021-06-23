@@ -47,7 +47,7 @@
                 管理ページ
               </a>
               <!--  -->
-              <a href="./mypage.html" class="to-mypage item">
+              <a href="./mypage" class="to-mypage item">
                 <span
                   class="iconify"
                   data-inline="false"
