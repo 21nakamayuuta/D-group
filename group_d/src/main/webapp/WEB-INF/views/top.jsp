@@ -109,7 +109,7 @@
     </div>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
+        <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
 
         <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
