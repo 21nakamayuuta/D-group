@@ -47,6 +47,7 @@ public class RegisterController {
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
 
+//		Recipe InsertRecipe = new(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview())
 
 
 		return "redirect:/top";
