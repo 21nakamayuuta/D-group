@@ -1,8 +1,10 @@
 package jp.co.axiz.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.PostForm;
 import jp.co.axiz.web.entity.Category;
+import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
-
+import jp.co.axiz.web.util.ParamUtil;
 @Controller
 public class RegisterController {
 	@Autowired
@@ -33,15 +36,14 @@ public class RegisterController {
 	@RequestMapping("/post" )
 	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
 		List<Category> categoryList = categoryService.searchCategory();
-		System.out.println(categoryList);
-		System.out.println(categoryList.get(0).getCategoryName());
-		System.out.println(categoryList.get(0).getCategoryId());
 		model.addAttribute("categoryList",categoryList);
 
+		List<Food> foodList = new ArrayList<Food>();
+		session.setAttribute("foodList",foodList);
 		return "post";
 	}
 
-	@RequestMapping(value="/postInfoCheck", method=RequestMethod.POST)
+	@RequestMapping(value="/postInfoCheck",params="register", method=RequestMethod.POST)
 	public String postInfoCheck(@ModelAttribute ("postInfo") PostForm form, Model model) {
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
@@ -62,6 +64,33 @@ public class RegisterController {
 
 
 
-		return "redirect:/top";
+		return "redirect:/userTop";
 	}
+
+	@RequestMapping(value="/postInfoCheck",params="foodAdd", method=RequestMethod.POST)
+	public String foodAdd(@ModelAttribute ("postInfo") PostForm form, Model model) {
+		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
+		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
+		foodList.add(newFoodList);
+		session.setAttribute("foodList", foodList);
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList",categoryList);
+		return "post";
+	}
+
+	@RequestMapping(value="/postInfoCheck",params="foodDel", method=RequestMethod.POST)
+	public String foodDel(@ModelAttribute ("postInfo") PostForm form,HttpServletRequest req, Model model) {
+		String selectButtonValue = req.getParameter("foodDel");
+
+		System.out.println(selectButtonValue);
+		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
+		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
+		foodList.remove(0);
+		session.setAttribute("foodList", foodList);
+
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList",categoryList);
+		return "post";
+	}
+
 }
