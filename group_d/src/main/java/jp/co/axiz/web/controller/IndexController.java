@@ -27,9 +27,18 @@ public class IndexController {
 	HttpSession session;
 
 	@RequestMapping("/top" )
-	public String top(@ModelAttribute("loginForm") LoginForm loginForm,@ModelAttribute("RecipeSearch") SearchForm searchForm,@ModelAttribute("sign") SignUpForm signForm,Model model) {
+
+		public String top(@ModelAttribute("loginForm") LoginForm loginForm,
+				@ModelAttribute("RecipeSearch") SearchForm searchForm,@ModelAttribute("sign") SignUpForm signForm,Model model) {
+
+		//新着レシピ
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList",recipeList);
+
+		//ランキング
+		List<Recipe> rankingList = recipeService.ranking();
+		model.addAttribute("rankingList",rankingList);
+
 		session.setAttribute("login",true);
 		return "top";
 	}
@@ -37,13 +46,13 @@ public class IndexController {
 
 
 	@RequestMapping("/userTop" )
-	public String userTop(@ModelAttribute("signUp") SignUpForm form ,Model model) {
-		List<Recipe> recipeList = recipeService.newRecipe();
-		model.addAttribute("recipeList",recipeList);
+	public String userTop(@ModelAttribute("sign") SignUpForm form ,@ModelAttribute("RecipeSearch") SearchForm searchForm,Model model) {
+
 		//ログインしてない状態でユーザートップに来たらトップへ遷移
 				if((boolean)session.getAttribute("login")) {
 					return "redirect:top";
 				}
+
 		return "userTop";
 	}
 }

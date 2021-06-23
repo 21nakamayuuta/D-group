@@ -57,6 +57,9 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.searchNewRecipe();
 	}
 
+	public List<Recipe> ranking() {
+		return recipeDao.ranking();
+	}
 
 
 

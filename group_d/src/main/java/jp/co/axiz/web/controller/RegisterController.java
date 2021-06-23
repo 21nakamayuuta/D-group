@@ -56,7 +56,7 @@ public class RegisterController {
 //		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), createTime);
 //		recipeService.registerRecipe(InsertRecipe);
 		Integer newRecipeId = recipeService.searchNewRecipe();
-
+//		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
 
 
 

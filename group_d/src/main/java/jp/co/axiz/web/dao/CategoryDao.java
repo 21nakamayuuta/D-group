@@ -6,4 +6,5 @@ import jp.co.axiz.web.entity.Category;
 
 public interface CategoryDao {
 	public List<Category> searchCategory();
+	public void registerRecipeAndCategory(Integer recipeId, Integer[] categoryId);
 }

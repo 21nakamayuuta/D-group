@@ -114,4 +114,11 @@ public class PgRecipeDao implements RecipeDao{
 
 		return resultList.isEmpty() ? null : resultList.get(0).getRecipeId();
 	}
+
+
+	@Override
+	public List<Recipe> ranking() {
+		List<Recipe> rankingList = jT.query(SELECT_NEW_RECIPE,new BeanPropertyRowMapper<Recipe>(Recipe.class));
+		return rankingList;
+	}
 }
