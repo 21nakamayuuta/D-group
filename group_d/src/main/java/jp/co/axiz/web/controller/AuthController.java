@@ -72,15 +72,6 @@ public class AuthController {
 		return "userTop";
 	}
 
-	@RequestMapping(value="/userTop" )
-	public String userTop(@ModelAttribute("signUp") SignUpForm form ,Model model) {
-		//ログインしてない状態でユーザートップに来たらトップへ遷移
-		if((boolean)session.getAttribute("login")) {
-			return "redirect:top";
-		}
-		return "userTop";
-	}
-
 
 	  //ログイン処理 (ログイン画面のログインボタン押下)
 
