@@ -1,8 +1,9 @@
 package jp.co.axiz.web.entity;
 
-public class process {
+public class Process {
 	private Integer displayOrderProcess;
 	private String processDescription;
+
 	public Integer getDisplayOrderProcess() {
 		return displayOrderProcess;
 	}
@@ -15,6 +16,4 @@ public class process {
 	public void setProcessDescription(String processDescription) {
 		this.processDescription = processDescription;
 	}
-
-
 }
