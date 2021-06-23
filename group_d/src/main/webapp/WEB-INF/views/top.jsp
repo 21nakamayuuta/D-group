@@ -20,12 +20,8 @@
   </head>
   <body>
     <div class="cover ${ display ? '' : 'display-none' }">
-<<<<<<< HEAD
-      <form action="login" class="login-form  ${ display ? '' : 'display-none' }">
-=======
-
       <form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
->>>>>>> develop
+
         <div class="btn" id="cancel">
           <span
             class="iconify"

@@ -38,16 +38,9 @@ public class AuthController {
 	HttpSession session;
 
 	@RequestMapping(value="/signUp" ,method = RequestMethod.POST)
-<<<<<<< HEAD
-	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form ,
-			BindingResult binding ,
-			@ModelAttribute("RecipeSearch") SearchForm Recipeform,
-			Model model) {
-=======
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form ,BindingResult binding ,
 			@ModelAttribute("RecipeSearch") SearchForm Recipeform,
 			@ModelAttribute("loginForm") LoginForm loginForm,Model model) {
->>>>>>> develop
 		//バリデーション
 		if (binding.hasErrors()) {
 			model.addAttribute("SignUpDisplay", true);
