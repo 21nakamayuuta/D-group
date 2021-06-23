@@ -14,12 +14,8 @@
 
 .calendar-wrap .calendar {
     grid-area: calendar;
-    /* height: 300px; */
     background: #FFFFFF;
-    /* box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.25),
-        inset -2px -2px 8px rgba(0, 0, 0, 0.25); */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    /* border-radius: 0; */
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: repeat(2, 1fr) 6fr;
@@ -28,6 +24,7 @@
         "dayOfWeek"
         "days"
     ;
+    aspect-ratio: 1;
     /* padding: 1rem; */
     /* margin: -1rem; */
 }
@@ -93,6 +90,9 @@
     font-size: 1.8rem;
     padding: 1rem;
 }
+.calendar .days .cell:hover{
+    cursor: pointer;
+}
 .selected{
     position: absolute;
     display: inline-flex;
@@ -131,7 +131,7 @@
 .calendar-wrap .info {
     padding: 0.5rem 1rem;
     border: 3px dashed #DBB34D;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto 1fr;
