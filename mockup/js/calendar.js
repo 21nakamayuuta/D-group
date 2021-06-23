@@ -56,7 +56,6 @@ let getDates = (year, month) => {
 
     createCalendar(year, month, result);
     recipeInfoTitle.text(`${selectDate[0]}年${selectDate[1]+1}月${selectDate[2]}日`);
-
 }
 
 let createCalendar = (year, month, dates) => {
@@ -157,4 +156,4 @@ $(".days").click(function (e) {
         }
     }
 
-})
+});
