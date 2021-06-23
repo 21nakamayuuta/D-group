@@ -20,5 +20,12 @@ public class PgCategoryService implements CategoryService{
 		return categoryDao.searchCategory();
 	}
 
+	@Override
+	public void registerRecipeAndCategory(Integer recipeId, Integer[] categoryId) {
+		// TODO 自動生成されたメソッド・スタブ
+		categoryDao.registerRecipeAndCategory(recipeId, categoryId);
+
+	}
+
 
 }
