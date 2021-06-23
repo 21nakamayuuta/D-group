@@ -11,7 +11,7 @@
 - [x] post
 - [x] myPage
 - [x] edit
-- [ ] admin
+- [x] admin
 
 ## Javescript
 
