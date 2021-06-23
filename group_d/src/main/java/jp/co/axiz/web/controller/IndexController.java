@@ -37,7 +37,7 @@ public class IndexController {
 
 
 	@RequestMapping("/userTop" )
-	public String userTop(@ModelAttribute("signUp") SignUpForm form ,Model model) {
+	public String userTop(@ModelAttribute("sign") SignUpForm form ,Model model) {
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList",recipeList);
 		//ログインしてない状態でユーザートップに来たらトップへ遷移

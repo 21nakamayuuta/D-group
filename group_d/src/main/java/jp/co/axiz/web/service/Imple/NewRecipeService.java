@@ -43,5 +43,10 @@ public class NewRecipeService implements RecipeService{
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+	@Override
+	public Recipe totalRecipe(Integer userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 
 }

@@ -1,4 +1,9 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -76,7 +81,7 @@
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="text" id="name" value="田中" disabled></input>
+              <input type="text" id="name" value="${ user.userName}" disabled></input>
               </div>
               <button type="button" class="edit" >編集</button>
               <button type="button" class="save display-none" >保存</button>
@@ -87,7 +92,7 @@
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="password" id="pass" value="tanakaPass" disabled></input>
+              <input type="password" id="pass" value="${ user.password}" disabled></input>
               </div>
               <button type="button" class="edit">編集</button>
               <button type="button" class="save display-none">保存</button>
@@ -102,7 +107,15 @@
               data-icon="fluent:food-24-filled"
             ></span>
             レシピの総数：
-            <span class="recipe-num">9</span>
+            <c:choose>
+			<c:when test="${ empty sumResult }">
+			<p>0</p>
+			</c:when>
+			<c:otherwise>
+			<p>${ sumResult.recipeCount }</p>
+			</c:otherwise>
+			</c:choose>
+            <span class="recipe-num"></span>
           </h3>
           <ul class="recipe-list">
             <li class="card">

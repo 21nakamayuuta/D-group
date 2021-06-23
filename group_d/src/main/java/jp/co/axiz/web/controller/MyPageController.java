@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
+import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
 
@@ -24,6 +26,8 @@ public class MyPageController {
 	@Autowired
 	private SignUpService userService;
 	@Autowired
+	private RecipeService recipeService;
+	@Autowired
 	MessageSource messageSource;
 	@Autowired
 	HttpSession session;
@@ -31,7 +35,11 @@ public class MyPageController {
 	@RequestMapping(value="/mypage")
 	public String mypage(Model model) {
 		UserInfo user= (UserInfo)session.getAttribute("user");
-		System.out.println(user.getLoginName());
+		Recipe sumResult = recipeService.totalRecipe(user.getUserId());
+
+		model.addAttribute("user",user);
+		model.addAttribute("sumResult", sumResult);
+
 		return "mypage";
 	}
 	/*@RequestMapping(value="/signUp" ,method = RequestMethod.POST)

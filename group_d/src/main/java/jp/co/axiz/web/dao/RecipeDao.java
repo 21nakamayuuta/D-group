@@ -12,4 +12,5 @@ public interface RecipeDao {
 	public List<Food> searchFoodInfo(Integer recipeId);
 	public List<Process> searchProcessInfo(Integer recipeId);
 	public Integer totalGood(Integer recipeId);
+	public List<Recipe> totalRecipe(Integer userId);
 }

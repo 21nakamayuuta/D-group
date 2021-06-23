@@ -45,6 +45,18 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.newRecipe();
 	}
 
+	@Override
+	public Recipe totalRecipe(Integer userId) {
+		Recipe recipe= null;
+		List<Recipe> resultList = null;
+		resultList = recipeDao.totalRecipe(userId);
+		try{
+			recipe = resultList.get(0);
+		} catch(Exception e) {
+		}
+		return recipe;
+	}
+
 
 
 

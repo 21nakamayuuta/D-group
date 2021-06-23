@@ -70,7 +70,7 @@ public class AuthController {
 			return "top";
 		}
 
-		//ヘッダーのページ遷移用にセッションにfalse保存
+		session.setAttribute("user", user);
 		session.setAttribute("login",false);
 		return "userTop";
 	}

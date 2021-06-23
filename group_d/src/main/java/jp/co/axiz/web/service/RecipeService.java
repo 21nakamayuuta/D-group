@@ -12,4 +12,5 @@ public interface RecipeService {
 	public List<Food> searchFoodInfo(Integer recipeId);
 	public List<Process> searchProcessInfo(Integer recipeId);
 	public Integer totalGood(Integer recipeId);
+	public Recipe totalRecipe(Integer integer);
 }
