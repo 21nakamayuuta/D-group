@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.SignUpService;
@@ -31,12 +32,15 @@ public class AuthController {
 	HttpSession session;
 
 	@RequestMapping(value="/signUp" ,method = RequestMethod.POST)
-	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form ,BindingResult binding ,Model model) {
+	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form ,BindingResult binding ,@ModelAttribute("RecipeSearch") SearchForm Recipeform,Model model) {
 		//バリデーション
 		if (binding.hasErrors()) {
 			model.addAttribute("display", true);
             return "top";
         }
+
+		//入力情報でユーザー作成
+		UserInfo user = new UserInfo(form.getUserId(),form.getUserName(),form.getPassword());
 
 		//パスワード一致チェック
 		if(!(form.getRepass().equals(form.getPassword()))) {
@@ -45,9 +49,6 @@ public class AuthController {
 			model.addAttribute("display", true);
 	        return "top";
 		}
-
-		//入力情報でユーザー作成
-		UserInfo user = new UserInfo(form.getUserId(),form.getUserName(),form.getPassword());
 
 		//サービスで同じログインネームの有無チェック
 		//なければそのままユーザーを登録する
