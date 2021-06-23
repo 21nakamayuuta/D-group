@@ -23,6 +23,12 @@ public class NewRecipeDao implements RecipeDao{
 	}
 
 	@Override
+	public List<Recipe> ranking() {
+		List<Recipe> rankingList = jdbcTemplate.query(SELECT_NEW_RECIPE,new BeanPropertyRowMapper<Recipe>(Recipe.class));
+		return rankingList;
+	}
+
+	@Override
 	public List<Recipe> searchRecipeInfo(Integer recipeId) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
@@ -45,6 +51,20 @@ public class NewRecipeDao implements RecipeDao{
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+
+	@Override
+	public void registerRecipe(Recipe recipe) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public Integer searchNewRecipe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+
 
 
 }
