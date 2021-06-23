@@ -43,6 +43,7 @@ public class AuthController {
 			@ModelAttribute("loginForm") LoginForm loginForm,Model model) {
 		//バリデーション
 		if (binding.hasErrors()) {
+			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
             return "top";
         }
@@ -54,6 +55,7 @@ public class AuthController {
 		if(!(form.getRepass().equals(form.getPassword()))) {
 			String errMsg = messageSource.getMessage("form.lbl.notture", null, Locale.getDefault());
 			model.addAttribute("errMsgPASS" ,errMsg);
+			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 	        return "top";
 		}
@@ -63,6 +65,7 @@ public class AuthController {
 		if(!(userService.INSERT_AND_CHECK(user))) {
 			String errMsg = messageSource.getMessage("form.lbl.notUseId", null, Locale.getDefault());
 			model.addAttribute("errMsgID" ,errMsg);
+			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 			return "top";
 		}
@@ -87,6 +90,7 @@ public class AuthController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("display", true);
+			model.addAttribute("LoginDisplay", true);
 			return "top";
 		}
 
@@ -95,6 +99,7 @@ public class AuthController {
 		if (user == null) {
 			// ログイン失敗
 			model.addAttribute("display", true);
+			model.addAttribute("LoginDisplay", true);
 			model.addAttribute("errMsg", "IDまたはパスワードが一致しません");
 			return "top";
 		} else {

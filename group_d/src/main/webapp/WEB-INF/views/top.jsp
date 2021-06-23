@@ -21,7 +21,7 @@
   <body>
     <div class="cover ${ display ? '' : 'display-none' }">
 
-      <form:form action="login" class="login-form ${ display ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
+      <form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
         <div class="btn" id="cancel">
           <span
             class="iconify"
@@ -48,7 +48,7 @@
       </form:form>
 
       <!-- 新規登録 -->
-      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
+      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ SignUpDisplay ? '' : 'display-none' }">
 
         <div class="btn" id="cancel">
           <span
