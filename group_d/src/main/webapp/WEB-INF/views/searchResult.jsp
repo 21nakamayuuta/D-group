@@ -49,7 +49,9 @@
           <button>ログイン</button>
         </div>
       </form>
-      <form action="userTop.html" class="singUp-form display-none">
+ <!-- 新規登録 -->
+      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
+
         <div class="btn" id="cancel">
           <span
             class="iconify"
@@ -61,49 +63,52 @@
           <div class="userId">
             <label
               >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
+              <form:input
+              path="userId"
+              id="userId"
+              placeholder="ID" />
+              <form:errors path="userId" class="error_msg"/>
+              <span class="error_msg">${errMsgID}</span>
             </label>
           </div>
           <div class="userName">
             <label
               >名前<br />
-              <input
-                type="text"
-                name="userName"
+              <form:input
+                path="userName"
                 id="userName"
-                placeholder="名前"
-              />
+                placeholder="名前" />
+                <form:errors path="userName" class="error_msg"/>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
-              <input
-                type="text"
-                name="password"
+              <form:password
+                path="password"
                 id="password"
-                placeholder="パスワード"
-              />
+                placeholder="パスワード"/>
+                <form:errors path="password" class="error_msg"/>
             </label>
           </div>
           <div class="repass">
             <label
               >パスワード-確認<br />
-              <input
-                type="text"
-                name="repass"
+              <form:password
+                path="repass"
                 id="repass"
-                placeholder="パスワード"
-              />
+                placeholder="パスワード"/>
+                <form:errors path="repass" class="error_msg"/>
+                <span class="error_msg">${errMsgPASS}</span>
             </label>
           </div>
-          <button>新規登録</button>
+          <form:button type="submit">新規登録</form:button>
         </div>
-      </form>
-    </div>
+      </form:form>
+      </div>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
+        <h1><a href=${ login ? 'userTop' : 'top' } class="page-title">おさるのレシピ</a></h1>
 
 		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
@@ -150,8 +155,8 @@
                 ></span
                 ><span class="good-num">${fn:escapeXml(search.goodCount)}</span>
               </div>
-
-              <a href="recipeSearch">
+              <a href="/recipe?recipeID=${fn:escapeXml(search.recipeId)}">
+              <%-- <a href="recipeSearch">  --%>
                 <div class="img-wrap">
                   <img
                     src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
@@ -166,11 +171,13 @@
  		            />
  		          </form:form>
  		          --%>
+
                 </div>
                 <span class="recipe-title"
                   >${fn:escapeXml(search.recipeTitle)}</span
                 ></a
               >
+
             </li>
             </c:forEach>
 
@@ -428,11 +435,14 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
-            <li class="category btn"><span>和食</span></li>
-            <li class="category btn"><span>洋食</span></li>
+          <c:forEach var="category" items="${categoryList}">
+            <li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>
+           <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
+           --%>
+          </c:forEach>
           </ul>
         </div>
       </div>

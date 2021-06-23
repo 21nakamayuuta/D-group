@@ -3,6 +3,8 @@ package jp.co.axiz.web.entity;
 public class Category {
 	private Integer categoryId;
 	private String categoryName;
+
+
 	public Integer getCategoryId() {
 		return categoryId;
 	}
