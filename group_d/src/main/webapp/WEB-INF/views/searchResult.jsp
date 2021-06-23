@@ -430,11 +430,14 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
-            <li class="category btn"><span>和食</span></li>
-            <li class="category btn"><span>洋食</span></li>
+          <c:forEach var="category" items="${categoryList}">
+            <li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>
+           <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
+           --%>
+          </c:forEach>
           </ul>
         </div>
       </div>

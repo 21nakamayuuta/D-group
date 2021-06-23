@@ -26,9 +26,9 @@ public class PgSearchDao implements SearchDao {
 											+ "OR food_name LIKE :keyword ) ";
 
 	private static final String WHERE_CATEGORY = "WHERE g.recipe_id IN "
-											+ "(SELECT rc.recipe_id FROM recipe "
+											+ "(SELECT r.recipe_id FROM recipe r"
 											+ "INNER JOIN recipe_and_category rc "
-											+ "ON rc.recipe_id = re.recipe_id "
+											+ "ON rc.recipe_id = r.recipe_id "
 											+ "WHERE category_id = :categoryNum) ";
 
 	private static final String GROUPBY = "GROUP BY recipe_title, r.recipe_id, complete_image;";
@@ -43,6 +43,19 @@ public class PgSearchDao implements SearchDao {
 		param.addValue("keyword", "%"+searchKeyword+"%");
 
 		String sql = SELECT + WHERE + GROUPBY;
+		List<Search> searchResultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Search>(Search.class));
+
+		return searchResultList.isEmpty() ? null : searchResultList;
+	}
+
+
+	@Override
+	public List<Search> categoryFind(Integer categoryId){
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		param.addValue("categoryNum", categoryId);
+
+		String sql = SELECT + WHERE_CATEGORY + GROUPBY;
 		List<Search> searchResultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Search>(Search.class));
 
 		return searchResultList.isEmpty() ? null : searchResultList;
