@@ -1,4 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -13,8 +17,12 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <div class="cover display-none">
-      <form action="userTop.html" class="login-form display-none">
+    <div class="cover ${ display ? '' : 'display-none' }">
+
+
+
+
+      <form:form action="login" class="login-form ${ display ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
         <div class="btn" id="cancel">
           <span
             class="iconify"
@@ -23,30 +31,33 @@
           ></span>
         </div>
         <div class="form-wrap">
+         <label style="color:red;">${errMsg }</label>
           <div class="userId">
-            <label
-              >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
-              <!-- エラー時
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
+
+            <label>ID<br />
+              <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
+              <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
+
+
+<!--                <input type="text" class="error" name="userId" id="userId" placeholder="ID" /> -->
+<!--                 <span class="error_msg">エラーメッセージ</span> -->
             </label>
           </div>
           <div class="password">
-            <label
-              >パスワード<br />
-              <input
-                type="text"
-                name="password"
-                id="password"
-                placeholder="パスワード"
-              />
+            <label>パスワード<br />
+              <form:input type="password" name="password" id="password" placeholder="パスワード" path="password"/>
+              <form:errors path="password" class="error_msg" cssStyle="color:red"/>
+
             </label>
           </div>
           <button>ログイン</button>
         </div>
-      </form>
+      </form:form>
+
+
+
+
+
       <form action="userTop.html" class="singUp-form display-none">
         <div class="btn" id="cancel">
           <span
