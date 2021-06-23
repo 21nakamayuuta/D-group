@@ -45,6 +45,10 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.newRecipe();
 	}
 
+	@Override
+	public List<Recipe> ranking() {
+		return recipeDao.ranking();
+	}
 
 
 
