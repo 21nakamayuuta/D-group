@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostForm {
+
 	private String recipeTitle;
+
 	private MultipartFile completeImage;
+
 	private Integer displayOrderFood;
 	private String foodName;
 	private String amount;

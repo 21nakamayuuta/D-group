@@ -1,5 +1,6 @@
 package jp.co.axiz.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -44,10 +45,21 @@ public class RegisterController {
 	public String postInfoCheck(@ModelAttribute ("postInfo") PostForm form, Model model) {
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
+		//画像保存クラス
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
 
-//		Recipe InsertRecipe = new(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview())
+		//投稿時刻の取得
+		Date nowdate = new Date();
+		java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
+
+//		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), createTime);
+//		recipeService.registerRecipe(InsertRecipe);
+		Integer newRecipeId = recipeService.searchNewRecipe();
+
+
+
+
 
 
 		return "redirect:/top";

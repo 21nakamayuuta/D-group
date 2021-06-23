@@ -46,5 +46,17 @@ public class NewRecipeDao implements RecipeDao{
 		return null;
 	}
 
+	@Override
+	public void registerRecipe(Recipe recipe) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public Integer searchNewRecipe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
 
 }

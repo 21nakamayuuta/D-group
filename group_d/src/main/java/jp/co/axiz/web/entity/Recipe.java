@@ -18,7 +18,8 @@ public class Recipe {
 
 
 
-
+	public Recipe() {
+	}
 	public Recipe(Integer userId, String recipeTitle, String completeImage, Integer cookingTime, String overview,
 			Timestamp createDateTime) {
 		this.userId = userId;
