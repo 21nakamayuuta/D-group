@@ -20,7 +20,7 @@
   </head>
   <body>
     <div class="cover ${ display ? '' : 'display-none' }">
-      <form action="userTop.html" class="login-form  ${ display ? '' : 'display-none' }">
+      <form action="login" class="login-form  ${ display ? '' : 'display-none' }">
         <div class="btn" id="cancel">
           <span
             class="iconify"

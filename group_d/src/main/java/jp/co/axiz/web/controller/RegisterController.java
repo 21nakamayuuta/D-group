@@ -42,7 +42,7 @@ public class RegisterController {
 		System.out.println(form.getDisplayOrderProcess());
 		System.out.println(form.getProcessDescription());
 		System.out.println(form.getOverview());
-		System.out.println(form.getCategoryName());
+	//	System.out.println(form.getCategoryName());
 
 		return "top";
 	}
