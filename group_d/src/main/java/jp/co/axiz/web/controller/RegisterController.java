@@ -45,15 +45,11 @@ public class RegisterController {
 		System.out.println(form.getDisplayOrderProcess());
 		System.out.println(form.getProcessDescription());
 		System.out.println(form.getOverview());
-<<<<<<< HEAD
-	//	System.out.println(form.getCategoryName());
-=======
+
 		System.out.println(form.getFormCategoryId());
 
 		Images imgSave = new Images();
 		String result = imgSave.imagePathSave(form.getCompleteImage(), "test");
-
->>>>>>> develop
 
 		return "redirect:/top";
 	}
