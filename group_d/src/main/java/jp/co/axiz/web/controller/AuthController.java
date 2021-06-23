@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.axiz.web.controller.form.LoginForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
+import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
+import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
@@ -34,6 +36,8 @@ public class AuthController {
 	@Autowired
 	private SignUpService userService;
 	@Autowired
+	private CategoryService categoryService;
+	@Autowired
 	MessageSource messageSource;
 	@Autowired
 	HttpSession session;
@@ -41,7 +45,8 @@ public class AuthController {
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm Recipeform,
-			@ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+			@ModelAttribute("loginForm") LoginForm loginForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 		//バリデーション
 		if (binding.hasErrors()) {
 			model.addAttribute("SignUpDisplay", true);
@@ -53,6 +58,10 @@ public class AuthController {
 			//ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
+
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 
 			return "top";
 		}
@@ -74,6 +83,10 @@ public class AuthController {
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
 
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+
 			return "top";
 		}
 
@@ -91,6 +104,9 @@ public class AuthController {
 			//ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 
 			return "top";
 		}
@@ -108,6 +124,7 @@ public class AuthController {
 			BindingResult bindingResult,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
 			@ModelAttribute("sign") SignUpForm signUpForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
 			Model model) {
 
 		//String errMsg = messageSource.getMessage("login.error", null, Locale.getDefault());
@@ -121,6 +138,9 @@ public class AuthController {
 			//ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 			return "top";
 		}
 
@@ -137,6 +157,9 @@ public class AuthController {
 			//ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 			return "top";
 		} else {
 			// ログイン成功
@@ -156,6 +179,10 @@ public class AuthController {
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
 
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+
 			session.setAttribute("user", user);
 			session.setAttribute("login", false);
 			return "userTop";
@@ -170,6 +197,7 @@ public class AuthController {
 			@ModelAttribute("loginForm") LoginForm form,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
 			@ModelAttribute("sign") SignUpForm signUpForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
 			Model model) {
 
 		//新着レシピ
@@ -178,6 +206,10 @@ public class AuthController {
 		//ランキング
 		List<Recipe> rankingList = recipeService.ranking();
 		model.addAttribute("rankingList", rankingList);
+
+		//カテゴリの表示
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
 
 		session.invalidate();
 		return "top";

@@ -27,7 +27,7 @@ public class IndexController {
 	private RecipeService recipeService;
 
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@Autowired
 	HttpSession session;
