@@ -1,5 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -38,41 +37,6 @@
             <label>ID<br />
               <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
               <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
-
-
-<!--                <input type="text" class="error" name="userId" id="userId" placeholder="ID" /> -->
-<!--                 <span class="error_msg">エラーメッセージ</span> -->
-=======
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>おさるのレシピ</title>
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/header.css" />
-<link rel="stylesheet" href="css/recipeList.css" />
-<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-</head>
-<body>
-	<div class="cover display-none">
-		<form action="userTop.html" class="login-form display-none">
-			<div class="btn" id="cancel">
-				<span class="iconify" data-inline="false" data-icon="topcoat:cancel"></span>
-			</div>
-			<div class="form-wrap">
-				<div class="userId">
-					<label>ID<br /> <input type="text"
-						name="userId" id="userId" placeholder="ID" /> <!-- エラー時
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
->>>>>>> b30b2e0d75a6f8f92537301522f4a00410c57492
             </label>
           </div>
           <div class="password">

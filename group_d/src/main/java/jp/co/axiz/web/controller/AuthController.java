@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.form.LoginForm;
 import jp.co.axiz.web.service.UserInfoService;
@@ -32,7 +33,10 @@ public class AuthController {
 	 * ログイン処理 (ログイン画面のログインボタン押下)
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
+	public String login(
+			@Validated @ModelAttribute("loginForm") LoginForm form,
+			BindingResult bindingResult,
+			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
 			Model model) {
 
 		//String errMsg = messageSource.getMessage("login.error", null, Locale.getDefault());
