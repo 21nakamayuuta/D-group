@@ -1,4 +1,4 @@
-package jp.co.axiz.web.form;
+package jp.co.axiz.web.controller.form;
 
 import javax.validation.constraints.NotBlank;
 

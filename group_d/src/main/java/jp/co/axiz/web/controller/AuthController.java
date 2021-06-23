@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.axiz.web.controller.form.LoginForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.UserInfo;
-import jp.co.axiz.web.form.LoginForm;
 import jp.co.axiz.web.service.UserInfoService;
 
 //ログイン処理
