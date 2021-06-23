@@ -16,7 +16,6 @@ import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.UserInfoService;
 
-//ログイン処理
 @Controller
 public class AuthController {
 
@@ -69,6 +68,18 @@ public class AuthController {
 
 			return "userTop";
 		}
+	}
+
+	/*
+	 * ログアウト
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(
+			@ModelAttribute("loginForm") LoginForm form,
+			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
+			Model model) {
+		session.invalidate();
+		return "top";
 	}
 
 }

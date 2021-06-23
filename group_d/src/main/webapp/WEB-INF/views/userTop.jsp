@@ -1,4 +1,9 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -55,7 +60,8 @@
                 ></span>
                 マイページ
               </a>
-              <button type="button" class="logout item">
+              <form:form action="logout" method="POST">
+              <button type="submit" class="logout item">
                 <span
                   class="iconify"
                   data-inline="false"
@@ -63,6 +69,7 @@
                 ></span>
                 ログアウト
               </button>
+              </form:form>
             </div>
           </div>
         </div>
