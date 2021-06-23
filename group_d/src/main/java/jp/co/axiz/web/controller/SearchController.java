@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.axiz.web.controller.form.SearchForm;
+import jp.co.axiz.web.controller.form.SignUpForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.Process;
@@ -43,26 +44,45 @@ public class SearchController {
 	}
 
 	@RequestMapping(value= "/search", method = RequestMethod.POST)
-	public String search(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
-		//String seatchInfo  = form.getSearchKeyword();
+	public String search(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, @ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
 		//カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
-		//カテゴリIDが入力されたと仮定して、カテゴリ検索が出来るか確認
-		System.out.println(searchService.categoryFind(4).get(0).getRecipeTitle());
-
-
-		if(searchService.find(form.getSearchKeyword()) == null){
+		//検索の処理
+		if(searchService.find(SearchKeywordForm.getSearchKeyword()) == null){
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
 		}else {
-			List<Search> searchList = searchService.find(form.getSearchKeyword());
+			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
 		}
 
-		model.addAttribute("searchKeyword", form.getSearchKeyword());
+		model.addAttribute("searchKeyword", SearchKeywordForm.getSearchKeyword());
+
+		return "searchResult";
+	}
+
+	@RequestMapping(value= "/categorySearch", method = RequestMethod.GET)
+	public String categorySearch(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, @ModelAttribute("sign") SignUpForm form, Model model) {
+
+		//カテゴリの表示
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+
+		//カテゴリ検索の処理
+		if(searchService.categoryFind(categorySearchForm.getCategoryId()) == null){
+			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
+		}else {
+			List<Search> searchList = searchService.categoryFind(categorySearchForm.getCategoryId());
+			model.addAttribute("searchList", searchList);
+		}
+
+		//レシピ一覧表示の”○○のレシピ”用
+		model.addAttribute("searchKeyword", categorySearchForm.getCategoryName());
 
 		return "searchResult";
 	}

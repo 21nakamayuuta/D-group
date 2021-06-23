@@ -138,7 +138,7 @@
             ></span>
             <span class="search-keyword">${fn:escapeXml(searchKeyword)}</span>
             のレシピ
-            <span class="result-num">${searchList.size()}</span>件
+            <span class="result-num"><c:if test="${empty searchList.size()}"> 0 </c:if>${searchList.size()}</span>件
           </h3>
           <%--検索結果がないときのエラーメッセージ 表示の仕方を直す必要がある--%>
           <span class="result-num"> ${fn:escapeXml(message)}</span>
@@ -436,13 +436,19 @@
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
           <c:forEach var="category" items="${categoryList}">
-            <li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>
+      		<form:form action="categorySearch" modelAttribute="categorySearch" method="get">
+      		  <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
+       		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
+       		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
+       		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
+       		</form:form>
+		  </c:forEach>
            <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
            --%>
-          </c:forEach>
+
           </ul>
         </div>
       </div>

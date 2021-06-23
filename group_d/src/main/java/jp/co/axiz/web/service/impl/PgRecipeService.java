@@ -45,6 +45,21 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.newRecipe();
 	}
 
+	@Override
+	public void registerRecipe(Recipe recipe) {
+		// TODO 自動生成されたメソッド・スタブ
+		recipeDao.registerRecipe(recipe);
+	}
+
+	@Override
+	public Integer searchNewRecipe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return recipeDao.searchNewRecipe();
+	}
+
+	public List<Recipe> ranking() {
+		return recipeDao.ranking();
+	}
 
 
 
