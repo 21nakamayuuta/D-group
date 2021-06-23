@@ -115,7 +115,7 @@
             path="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
+          />
           <form:button>レシピ検索</form:button>
         </form:form>
 
@@ -441,7 +441,6 @@
        		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
        		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
        		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
-       		<%--	<li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>  --%>
        		</form:form>
 
            <%-- <li class="category btn"><span>洋食</span></li>和食
