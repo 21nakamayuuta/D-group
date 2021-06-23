@@ -13,17 +13,25 @@ import jp.co.axiz.web.entity.Search;
 
 @Repository
 public class PgSearchDao implements SearchDao {
-	private static final String SELECT = "select r.recipe_id, recipe_title, complete_image, count(g.recipe_id) good_count "
-			+ "from recipe r "
-			+ "inner join good_table g "
-			+ "on r.recipe_id = g.recipe_id "
-			+ "where g.recipe_id in "
-			+ "(select r.recipe_id from recipe r "
-			+ "inner join food f "
-			+ "on r.recipe_id = f.recipe_id "
-			+ "where recipe_title like :keyword "
-			+ "or food_name like :keyword ) "
-			+ "group by recipe_title, r.recipe_id, complete_image;";
+	private static final String SELECT = "SELECT r.recipe_id, recipe_title, complete_image, count(g.recipe_id) good_count "
+											+ "FROM recipe r "
+											+ "INNER JOIN good_table g "
+											+ "ON r.recipe_id = g.recipe_id ";
+
+	private static final String WHERE = "WHERE g.recipe_id IN "
+											+ "(SELECT r.recipe_id FROM recipe r "
+											+ "INNER JOIN food f "
+											+ "ON r.recipe_id = f.recipe_id "
+											+ "WHERE recipe_title LIKE :keyword "
+											+ "OR food_name LIKE :keyword ) ";
+
+	private static final String WHERE_CATEGORY = "WHERE g.recipe_id IN "
+											+ "(SELECT rc.recipe_id FROM recipe "
+											+ "INNER JOIN recipe_and_category rc "
+											+ "ON rc.recipe_id = re.recipe_id "
+											+ "WHERE category_id = :categoryNum) ";
+
+	private static final String GROUPBY = "GROUP BY recipe_title, r.recipe_id, complete_image;";
 
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -34,7 +42,7 @@ public class PgSearchDao implements SearchDao {
 
 		param.addValue("keyword", "%"+searchKeyword+"%");
 
-		String sql = SELECT;
+		String sql = SELECT + WHERE + GROUPBY;
 		List<Search> searchResultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Search>(Search.class));
 
 		return searchResultList.isEmpty() ? null : searchResultList;
