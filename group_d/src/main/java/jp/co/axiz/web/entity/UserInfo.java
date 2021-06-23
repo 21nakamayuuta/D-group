@@ -10,9 +10,15 @@ public class UserInfo {
 
 
 	//SQLで取得する際に必要になりそうな情報は随時追加
+	public UserInfo() {
+	}
 
 
-
+	public UserInfo(String login_name, String user_name, String password) {
+		this.loginName = login_name;
+		this.userName = user_name;
+		this.password = password;
+	}
 
 
 	public Integer getUserId() {

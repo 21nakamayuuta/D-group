@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -18,7 +19,7 @@
   <body>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
+        <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
         <form action="./searchResult.html" class="search-recipe">
           <input
             type="text"
@@ -90,7 +91,7 @@
                 ><br />
                 <span>クリックして料理の写真を載せる</span>
               </div>
-              <form:input type="file" name="image" accept="image/png" id="file" class="display-none" path="completeImage"/>
+              <form:input path="completeImage" type="file" name="image" accept="image/jpeg,image/png" id="file" class="display-none" />
             </label>
           </div>
           <div class="material">
@@ -146,11 +147,8 @@
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-	          <form:checkboxes items="${fn:escapeXml(categoryInfo)}" itemvalue="categoryId" itemLavel="categoryName" path="categoryName" delimiter="/" /> --%>
-<!--               <li><input type="checkbox" value="洋食" />洋食</li> -->
-<!--               <li><input type="checkbox" value="中華" />中華</li> -->
-<!--               <li><input type="checkbox" value="デザート" />デザート</li> -->
-<!--               <li><input type="checkbox" value="つけあわせ" />つけあわせ</li> -->
+
+	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
           <form:button type="submit" class="submit post-btn">レシピ投稿</form:button>
