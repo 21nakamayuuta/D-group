@@ -441,15 +441,14 @@
        		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
        		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
        		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
-       		<%--	<li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>  --%>
        		</form:form>
-
+		  </c:forEach>
            <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
            --%>
-          </c:forEach>
+
           </ul>
         </div>
       </div>
