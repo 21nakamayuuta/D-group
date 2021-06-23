@@ -25,13 +25,13 @@ public class IndexController {
 		return "top";
 	}
 
-//	@RequestMapping("/userTop" )
-//	public String userTop(Model model) {
-//		List<Recipe> recipeList = recipeService.newRecipe();
-//		model.addAttribute("recipeList",recipeList);
-//
-//		return "userTop";
-//	}
+	@RequestMapping("/userTop" )
+	public String userTop(Model model) {
+		List<Recipe> recipeList = recipeService.newRecipe();
+		model.addAttribute("recipeList",recipeList);
+
+		return "userTop";
+	}
 
 
 }
