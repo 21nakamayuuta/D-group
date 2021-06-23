@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.UserInfoDao;
+import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 
 //User_infoテーブル用のDAO
@@ -22,9 +23,40 @@ public class PgUserInfoDao implements UserInfoDao {
 	private static final String SELECT_LOGIN_NAME = "SELECT user_id, login_name, user_name, password, role_id FROM user_info WHERE login_name = :loginName";
 	private static final String SELECT_LOGIN_NAME_AND_PASS = "SELECT user_id, login_name, user_name, password, role_id FROM user_info WHERE login_name = :loginName AND password = :password";
 
-	/**
-	 * user_idによる検索
-	 */
+	public static final String INSERT =
+			"INSERT INTO user_info (login_name, user_name, password, role_id) VALUES (:login_name, :user_name, :password, 2)";
+
+	public static final String FIND_LOGIN_NAME =
+			"SELECT * FROM user_info WHERE login_name = :login_name";
+
+	//新規登録
+	@Override
+	public void insert(UserInfo user) {
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("login_name", user.getLoginName());
+		param.addValue("user_name", user.getUserName());
+		param.addValue("password", user.getPassword());
+
+		jdbcTemplate.update(INSERT,param);
+	}
+
+	//入力されたログインネームがいるかチェック
+	@Override
+	public boolean isFindLoginName(String loginName) {
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("login_name", loginName);
+
+
+		List<UserInfo> resultList = jdbcTemplate.query(FIND_LOGIN_NAME,param,new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+
+		if(resultList.isEmpty()) {
+			return false;
+		}
+
+		return true;
+	}
+
+
 	@Override
 	public UserInfo findLoginName(String loginName) {
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -49,5 +81,11 @@ public class PgUserInfoDao implements UserInfoDao {
 				new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
 
 		return resultList.isEmpty() ? null : resultList.get(0);
+	}
+
+	@Override
+	public List<Recipe> newRecipe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

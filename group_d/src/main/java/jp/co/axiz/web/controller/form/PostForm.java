@@ -3,8 +3,11 @@ package jp.co.axiz.web.controller.form;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostForm {
+
 	private String recipeTitle;
+
 	private MultipartFile completeImage;
+
 	private Integer displayOrderFood;
 	private String foodName;
 	private String amount;
@@ -12,12 +15,8 @@ public class PostForm {
 	private Integer displayOrderProcess;
 	private String processDescription;
 	private String overview;
-	private Integer categoryId;
-	private String categoryName;
 
-
-
-
+	private Integer[] formCategoryId;
 
 	public String getRecipeTitle() {
 		return recipeTitle;
@@ -75,20 +74,11 @@ public class PostForm {
 	public void setOverview(String overview) {
 		this.overview = overview;
 	}
-	public Integer getCategoryId() {
-		return categoryId;
+	public Integer[] getFormCategoryId() {
+		return formCategoryId;
 	}
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
+	public void setFormCategoryId(Integer[] formCategoryId) {
+		this.formCategoryId = formCategoryId;
 	}
-	public String getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-
-
 
 }

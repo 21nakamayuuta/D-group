@@ -1,3 +1,4 @@
+
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -20,8 +21,8 @@
   <body>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
-        <form action="./searchResult.html" class="search-recipe">
+        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+        <form action="" class="search-recipe">
           <input
             type="text"
             name="searchKeyword"
@@ -60,7 +61,7 @@
                 ></span>
                 マイページ
               </a>
-              <form:form action="logout" method="POST">
+              <form:form action="top" method="POST">
               <button type="submit" class="logout item">
                 <span
                   class="iconify"
@@ -89,219 +90,56 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
-            人気ランキング
+
+             人気ランキング
           </h3>
           <ul class="ranking recipe-list">
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>1位</span></div>
-                <div class="good">
+          	<c:forEach items="${rankingList}" var="recipe" varStatus="loop">
+            	<li class="card">
+              	<div class="rank-good-wrap">
+
+                	<div class="rank"><span>${fn:escapeXml(loop.index+1)}位</span></div>
+                	<div class="good">
                   <span
+
                     class="iconify"
                     data-inline="false"
                     data-icon="bx:bxs-like"
                   ></span
-                  ><span class="good-num">1000</span>
+                  ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
                 </div>
               </div>
-              <a href="#">
+              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
+                  ${fn:escapeXml(recipe.completeImage)}
                 </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
+                <span class="recipe-title">${fn:escapeXml(recipe.recipeTitle)}</span>
               </a>
             </li>
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>2位</span></div>
-                <div class="good">
-                  <span
-                    class="iconify"
-                    data-inline="false"
-                    data-icon="bx:bxs-like"
-                  ></span
-                  ><span class="good-num">500</span>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>3位</span></div>
-                <div class="good">
-                  <span
-                    class="iconify"
-                    data-inline="false"
-                    data-icon="bx:bxs-like"
-                  ></span
-                  ><span class="good-num">300</span>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
+            </c:forEach>
           </ul>
         </div>
-        <div class="new-recipe recipes">
-          <h3 class="title">
-            <span
-              class="iconify"
-              data-inline="false"
-              data-icon="fluent:food-24-filled"
-            ></span
-            >新着レシピ
-          </h3>
-          <ul class="recipe recipe-list">
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
+
+
+      <div class="new-recipe recipes">
+				<h3 class="title">
+					<span class="iconify" data-inline="false"
+						data-icon="fluent:food-24-filled"></span>新着レシピ
+				</h3>
+				<ul class="recipe-list">
+					<c:forEach items="${recipeList}" var="recipe">
+						<li class="card">
+							<div class="good">
+								<span class="iconify" data-inline="false"
+									data-icon="bx:bxs-like"> </span> <span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
+							</div> <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
+								<div class="img-wrap">
+									${fn:escapeXml(recipe.completeImage)}</div> <span
+								class="recipe-title"> ${fn:escapeXml(recipe.recipeTitle)}
+							</span>
+						</a>
+						</li>
+					</c:forEach>
           </ul>
         </div>
         <div class="recipe-category">
