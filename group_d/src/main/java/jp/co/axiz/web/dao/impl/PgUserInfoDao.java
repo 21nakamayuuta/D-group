@@ -12,17 +12,22 @@ import jp.co.axiz.web.dao.UserInfoDao;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 
+//User_infoテーブル用のDAO
+
 @Repository
-public class PgUserInfoDao implements UserInfoDao{
+public class PgUserInfoDao implements UserInfoDao {
+
+	@Autowired
+	private NamedParameterJdbcTemplate jdbcTemplate;
+
+	private static final String SELECT_LOGIN_NAME = "SELECT user_id, login_name, user_name, password, role_id FROM user_info WHERE login_name = :loginName";
+	private static final String SELECT_LOGIN_NAME_AND_PASS = "SELECT user_id, login_name, user_name, password, role_id FROM user_info WHERE login_name = :loginName AND password = :password";
 
 	public static final String INSERT =
 			"INSERT INTO user_info (login_name, user_name, password, role_id) VALUES (:login_name, :user_name, :password, 2)";
 
 	public static final String FIND_LOGIN_NAME =
 			"SELECT * FROM user_info WHERE login_name = :login_name";
-
-	@Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
 
 	//新規登録
 	@Override
@@ -37,7 +42,7 @@ public class PgUserInfoDao implements UserInfoDao{
 
 	//入力されたログインネームがいるかチェック
 	@Override
-	public boolean findLoginName(String loginName) {
+	public boolean isFindLoginName(String loginName) {
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("login_name", loginName);
 
@@ -49,6 +54,33 @@ public class PgUserInfoDao implements UserInfoDao{
 		}
 
 		return true;
+	}
+
+
+	@Override
+	public UserInfo findLoginName(String loginName) {
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("loginName", loginName);
+
+		List<UserInfo> resultList = jdbcTemplate.query(SELECT_LOGIN_NAME, param,
+				new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+
+		return resultList.isEmpty() ? null : resultList.get(0);
+	}
+
+	/**
+	 * user_id、passwordによる検索
+	 */
+	@Override
+	public UserInfo findLoginNameAndPassword(String loginName, String password) {
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("loginName", loginName);
+		param.addValue("password", password);
+
+		List<UserInfo> resultList = jdbcTemplate.query(SELECT_LOGIN_NAME_AND_PASS, param,
+				new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 
 	@Override

@@ -155,8 +155,8 @@
                 ></span
                 ><span class="good-num">${fn:escapeXml(search.goodCount)}</span>
               </div>
-
-              <a href="recipeSearch">
+              <a href="/recipe?recipeID=${fn:escapeXml(search.recipeId)}">
+              <%-- <a href="recipeSearch">  --%>
                 <div class="img-wrap">
                   <img
                     src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
@@ -171,11 +171,13 @@
  		            />
  		          </form:form>
  		          --%>
+
                 </div>
                 <span class="recipe-title"
                   >${fn:escapeXml(search.recipeTitle)}</span
                 ></a
               >
+
             </li>
             </c:forEach>
 
@@ -433,11 +435,14 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
-            <li class="category btn"><span>和食</span></li>
-            <li class="category btn"><span>洋食</span></li>
+          <c:forEach var="category" items="${categoryList}">
+            <li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>
+           <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
+           --%>
+          </c:forEach>
           </ul>
         </div>
       </div>

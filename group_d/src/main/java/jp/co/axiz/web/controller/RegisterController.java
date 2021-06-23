@@ -13,6 +13,7 @@ import jp.co.axiz.web.controller.form.PostForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
+import jp.co.axiz.web.util.Images;
 
 @Controller
 public class RegisterController {
@@ -24,10 +25,12 @@ public class RegisterController {
 
 	@RequestMapping("/post" )
 	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
-		List<Category> categoryInfo = categoryService.searchCategory();
-		System.out.println(categoryInfo);
-		System.out.println(categoryInfo.get(0).getCategoryName());
-		model.addAttribute("categoryInfo",categoryInfo);
+		List<Category> categoryList = categoryService.searchCategory();
+		System.out.println(categoryList);
+		System.out.println(categoryList.get(0).getCategoryName());
+		System.out.println(categoryList.get(0).getCategoryId());
+		model.addAttribute("categoryList",categoryList);
+
 		return "post";
 	}
 
@@ -42,8 +45,16 @@ public class RegisterController {
 		System.out.println(form.getDisplayOrderProcess());
 		System.out.println(form.getProcessDescription());
 		System.out.println(form.getOverview());
+<<<<<<< HEAD
 	//	System.out.println(form.getCategoryName());
+=======
+		System.out.println(form.getFormCategoryId());
 
-		return "top";
+		Images imgSave = new Images();
+		String result = imgSave.imagePathSave(form.getCompleteImage(), "test");
+
+>>>>>>> develop
+
+		return "redirect:/top";
 	}
 }
