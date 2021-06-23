@@ -44,4 +44,10 @@ public class NewRecipeService implements RecipeService{
 		return null;
 	}
 
+	@Override
+	public List<Recipe> ranking() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
 }

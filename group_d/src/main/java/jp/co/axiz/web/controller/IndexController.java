@@ -19,8 +19,21 @@ public class IndexController {
 
 	@RequestMapping("/top" )
 	public String top(@ModelAttribute("RecipeSearch") SearchForm form,Model model) {
+
+
+		//新着
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList",recipeList);
+
+		//ランキング
+		List<Recipe> rankingList = recipeService.ranking();
+		model.addAttribute("rankingList",rankingList);
+
+//		String num[] = {"1", "2", "3"};
+//		for(String i : num) {
+//			model.addAttribute("i",i);
+//			System.out.println(i);
+//		}
 
 		return "top";
 	}
