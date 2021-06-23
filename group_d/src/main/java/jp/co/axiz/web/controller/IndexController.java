@@ -1,6 +1,7 @@
 package jp.co.axiz.web.controller;
 
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import jp.co.axiz.web.service.RecipeService;
 
 @Controller
 public class IndexController {
+
 	@Autowired
 	private RecipeService recipeService;
 	@Autowired
@@ -29,18 +31,20 @@ public class IndexController {
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList",recipeList);
 		session.setAttribute("login",true);
-
 		return "top";
 	}
+
+
+
+	@RequestMapping("/userTop" )
+	public String userTop(Model model) {
+		List<Recipe> recipeList = recipeService.newRecipe();
+		model.addAttribute("recipeList",recipeList);
+
+		return "userTop";
 	}
+}
 
 
 
-	//	@RequestMapping("/userTop" )
-	//	public String userTop(Model model) {
-	//		List<Recipe> recipeList = recipeService.newRecipe();
-	//		model.addAttribute("recipeList",recipeList);
-	//
-	//		return "userTop";
-	//	}
 
