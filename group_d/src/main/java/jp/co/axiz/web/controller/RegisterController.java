@@ -2,6 +2,8 @@ package jp.co.axiz.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.PostForm;
 import jp.co.axiz.web.entity.Category;
+import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
@@ -22,6 +25,9 @@ public class RegisterController {
 
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	HttpSession session;
 
 	@RequestMapping("/post" )
 	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
@@ -36,19 +42,11 @@ public class RegisterController {
 
 	@RequestMapping(value="/postInfoCheck", method=RequestMethod.POST)
 	public String postInfoCheck(@ModelAttribute ("postInfo") PostForm form, Model model) {
-		System.out.println(form.getRecipeTitle());
-		System.out.println(form.getCompleteImage());
-		System.out.println(form.getDisplayOrderFood());
-		System.out.println(form.getFoodName());
-		System.out.println(form.getAmount());
-		System.out.println(form.getCookingTime());
-		System.out.println(form.getDisplayOrderProcess());
-		System.out.println(form.getProcessDescription());
-		System.out.println(form.getOverview());
-		System.out.println(form.getFormCategoryId());
+		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
 		Images imgSave = new Images();
-		String result = imgSave.imagePathSave(form.getCompleteImage(), "test");
+		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
+
 
 
 		return "redirect:/top";

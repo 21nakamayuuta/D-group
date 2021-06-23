@@ -1,8 +1,5 @@
 package jp.co.axiz.web.util;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -12,26 +9,18 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-import javax.imageio.stream.ImageOutputStream;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public class Images {
-	public String imagePathSave(MultipartFile imageFile, String userName){
+	public String imagePathSave(MultipartFile imageFile, Integer userId){
 
 		if(imageFile.isEmpty()) {
 			return null;
 		}
 
 
-		Path path = Paths.get("C:/pleiades/workspace/group_d/src/main/webapp/imgs/");
+		Path path = Paths.get("C:/D-group/group_d/src/main/webapp/imgs/");
 		if (!Files.exists(path)) {
 		    try {
 		      Files.createDirectory(path);
@@ -53,12 +42,12 @@ public class Images {
 	    }
 
 	    //fileName ここをなんの名前にするかで悩み中(現在は保存時刻と登録したユーザー名をファイル名として保存しようとしている。
-	    String filename = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()) + userName;
+	    String filename = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()) + userId;
 
 
 	    //格納ディレクトリ,ファイル名,拡張子をパスとして取得
 	    Path uploadfile = Paths
-	    		.get("C:/pleiades/workspace/group_d/src/main/webapp/imgs/" + filename + extention);
+	    		.get("C:/D-group/group_d/src/main/webapp/imgs/" + filename + extention);
 
 	    //保存している
 	    try (OutputStream os = Files.newOutputStream(uploadfile, StandardOpenOption.CREATE)) {
@@ -72,36 +61,38 @@ public class Images {
 		return "/imgs/"+ filename + extention;
 	}
 
-	public void changeSize(String filepath) {
-		try {
-			BufferedImage original = ImageIO.read(new File("C:/pleiades/workspace/group_d/src/main/webapp/" + filepath));
-
-		    int resizeW = 200;
-		    int resizeH = 200;
-
-		    System.out.println(resizeW);
-
-		    // 画像サイズ変更
-		    BufferedImage scaleImg = new BufferedImage(resizeW, resizeH, BufferedImage.TYPE_3BYTE_BGR);
-		    scaleImg.createGraphics().drawImage(
-		      original.getScaledInstance(resizeW, resizeH, Image.SCALE_AREA_AVERAGING),
-		      0, 0, resizeW, resizeH, null);
 
 
-		    //指定したfileに上書き
-		    try (ImageOutputStream imageStream = ImageIO.createImageOutputStream(new File("C:/pleiades/workspace/group_d/src/main/webapp/" + filepath))) {
-		        JPEGImageWriteParam param = new JPEGImageWriteParam(Locale.getDefault());
-		        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-		        param.setCompressionQuality(1f);
-		        ImageWriter writer = ImageIO.getImageWritersByFormatName("png").next();
-		        writer.setOutput(imageStream);
-		        writer.write(null, new IIOImage(scaleImg, null, null), param);
-		        imageStream.flush();
-		        writer.dispose();
-
-		    }
-		}catch(Exception e) {
-	    	System.out.println(e);
-	    }
-	}
+//	public void changeSize(String filepath) {
+//		try {
+//			BufferedImage original = ImageIO.read(new File("C:/D-group/group_d/src/main/webapp" + filepath));
+//
+//		    int resizeW = 200;
+//		    int resizeH = 200;
+//
+//		    System.out.println(resizeW);
+//
+//		    // 画像サイズ変更
+//		    BufferedImage scaleImg = new BufferedImage(resizeW, resizeH, BufferedImage.TYPE_3BYTE_BGR);
+//		    scaleImg.createGraphics().drawImage(
+//		      original.getScaledInstance(resizeW, resizeH, Image.SCALE_AREA_AVERAGING),
+//		      0, 0, resizeW, resizeH, null);
+//
+//
+//		    //指定したfileに上書き
+//		    try (ImageOutputStream imageStream = ImageIO.createImageOutputStream(new File("\"C:/D-group/group_d/src/main/webapp" + filepath))) {
+//		        JPEGImageWriteParam param = new JPEGImageWriteParam(Locale.getDefault());
+//		        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//		        param.setCompressionQuality(1f);
+//		        ImageWriter writer = ImageIO.getImageWritersByFormatName("png").next();
+//		        writer.setOutput(imageStream);
+//		        writer.write(null, new IIOImage(scaleImg, null, null), param);
+//		        imageStream.flush();
+//		        writer.dispose();
+//
+//		    }
+//		}catch(Exception e) {
+//	    	System.out.println(e);
+//	    }
+//	}
 }
