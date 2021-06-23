@@ -192,21 +192,11 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
-           <c:forEach var="category" items="${categoryList}">
-	      		<form:form action="categorySearch" modelAttribute="categorySearch" method="get">
-	      		  <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
-	       		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
-	       		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
-	       		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
-	       		</form:form>
-       		</c:forEach>
-<%--
             <li class="btn"><span>和食</span></li>
             <li class="btn"><span>洋食</span></li>
             <li class="btn"><span>中華</span></li>
             <li class="btn"><span>デザート</span></li>
             <li class="btn"><span>つけあわせ</span></li>
---%>
           </ul>
         </div>
       </div>

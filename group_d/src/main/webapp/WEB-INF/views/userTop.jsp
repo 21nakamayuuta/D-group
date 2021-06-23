@@ -22,14 +22,15 @@
     <header>
       <div class="header-wrap">
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-          <form:input
-            path="searchKeyword"
+        <form action="" class="search-recipe">
+          <input
+            type="text"
+            name="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
           />
           <button type="submit">レシピ検索</button>
-        </form:form>
+        </form>
         <!-- 権限ごとに切り替える部分 -->
         <div class="btn-wrap">
           <a href="post" class="to-post btn">レシピを投稿する</a>
@@ -142,21 +143,11 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
-           <c:forEach var="category" items="${categoryList}">
-      		  <form:form action="categorySearch" modelAttribute="categorySearch" method="get">
-      		  <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
-	       		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
-	       		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
-	       		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
-       		  </form:form>
-       		</c:forEach>
-
-<%--            <li class="btn"><span>和食</span></li>
+            <li class="btn"><span>和食</span></li>
             <li class="btn"><span>洋食</span></li>
             <li class="btn"><span>中華</span></li>
             <li class="btn"><span>デザート</span></li>
             <li class="btn"><span>つけあわせ</span></li>
- --%>
           </ul>
         </div>
       </div>
