@@ -1,0 +1,21 @@
+.recipe-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+    width: 100%;
+    margin: 2rem auto;
+}
+.recipe-list .card{
+    /* text-align: center; */
+}
+.card a:visited {
+    color: #000000;
+}
+.card .img-wrap {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card .recipe-title {
+    font-size: 1.8rem;
+}
