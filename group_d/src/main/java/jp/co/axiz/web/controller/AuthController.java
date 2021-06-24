@@ -109,7 +109,7 @@ public class AuthController {
 			model.addAttribute("categoryList", categoryList);
 
 			return "top";
-		}else {
+		} else {
 
 			//新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
@@ -203,7 +203,7 @@ public class AuthController {
 	/*
 	 * ログアウト
 	 */
-	@RequestMapping(value = "/top", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(
 			@ModelAttribute("loginForm") LoginForm form,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,

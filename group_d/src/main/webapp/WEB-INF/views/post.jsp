@@ -57,7 +57,8 @@
                 ></span>
                 マイページ
               </a>
-              <button type="button" class="logout item">
+              <form:form action="logout" method="POST">
+              <button type="submit" class="logout item">
                 <span
                   class="iconify"
                   data-inline="false"
@@ -65,6 +66,7 @@
                 ></span>
                 ログアウト
               </button>
+              </form:form>
             </div>
           </div>
         </div>
