@@ -136,81 +136,33 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
+
             人気ランキング
           </h3>
           <ul class="ranking recipe-list">
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>1位</span></div>
-                <div class="good">
+          	<c:forEach items="${rankingList}" var="recipe" varStatus="loop">
+            	<li class="card">
+              	<div class="rank-good-wrap">
+
+                	<div class="rank"><span>${fn:escapeXml(loop.index+1)}位</span></div>
+                	<div class="good">
                   <span
+
                     class="iconify"
                     data-inline="false"
                     data-icon="bx:bxs-like"
                   ></span
-                  ><span class="good-num">1000</span>
+                  ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
                 </div>
               </div>
-              <a href="#">
+              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
+                  ${fn:escapeXml(recipe.completeImage)}
                 </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
+                <span class="recipe-title">${fn:escapeXml(recipe.recipeTitle)}</span>
               </a>
             </li>
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>2位</span></div>
-                <div class="good">
-                  <span
-                    class="iconify"
-                    data-inline="false"
-                    data-icon="bx:bxs-like"
-                  ></span
-                  ><span class="good-num">500</span>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
-            <li class="card">
-              <div class="rank-good-wrap">
-                <div class="rank"><span>3位</span></div>
-                <div class="good">
-                  <span
-                    class="iconify"
-                    data-inline="false"
-                    data-icon="bx:bxs-like"
-                  ></span
-                  ><span class="good-num">300</span>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                >
-              </a>
-            </li>
+            </c:forEach>
           </ul>
         </div>
 
@@ -240,11 +192,21 @@
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
+            <c:forEach var="category" items="${categoryList}">
+      		  <form:form action="categorySearch" modelAttribute="categorySearch" method="get">
+      		    <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
+       		    <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
+       		    <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
+       		    <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
+       		  </form:form>
+		    </c:forEach>
+<%--
             <li class="btn"><span>和食</span></li>
             <li class="btn"><span>洋食</span></li>
             <li class="btn"><span>中華</span></li>
             <li class="btn"><span>デザート</span></li>
             <li class="btn"><span>つけあわせ</span></li>
+--%>
           </ul>
         </div>
       </div>

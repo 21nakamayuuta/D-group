@@ -19,6 +19,18 @@ public class Recipe {
     private Integer recipeCount;
 
 
+
+	public Recipe() {
+	}
+	public Recipe(Integer userId, String recipeTitle, String completeImage, Integer cookingTime, String overview,
+			Timestamp createDateTime) {
+		this.userId = userId;
+		this.recipeTitle = recipeTitle;
+		this.completeImage = completeImage;
+		this.cookingTime = cookingTime;
+		this.overview = overview;
+		this.createDateTime = createDateTime;
+	}
 	public Integer getGoodCount() {
 		return goodCount;
 	}

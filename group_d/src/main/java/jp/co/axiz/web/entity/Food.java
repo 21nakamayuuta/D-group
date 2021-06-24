@@ -4,6 +4,19 @@ public class Food {
 	private Integer displayOrderFood;
 	private String foodName;
 	private String amount;
+
+	public Food() {
+	}
+	public Food(String foodName, String amount) {
+		this.foodName = foodName;
+		this.amount = amount;
+	}
+
+	public Food(Integer displayOrderFood, String foodName, String amount) {
+		this.displayOrderFood = displayOrderFood;
+		this.foodName = foodName;
+		this.amount = amount;
+	}
 	public Integer getDisplayOrderFood() {
 		return displayOrderFood;
 	}
