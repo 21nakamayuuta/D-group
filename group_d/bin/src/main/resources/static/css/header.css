@@ -4,7 +4,6 @@ header {
     height: 64px;
     background: #FFFFFF;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0 50px;
     position: fixed;
     z-index: 100;
     display: flex;
@@ -14,12 +13,19 @@ header {
 
 header .header-wrap {
     width: 100%;
-    max-width: 2000px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0px 50px;
+    min-width: 1100px;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns:repeat(3, auto);
+    grid-template-rows: auto;
+    grid-gap: 1rem;
+    margin: 0 auto;
 }
 
+header h1{
+    width: fit-content;
+}
 header .page-title {
     font-size: 2.4rem;
     line-height: 2.4rem;
@@ -74,7 +80,6 @@ header .to-post {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 2.5rem;
     border-radius: 0.5rem;
 }
 
@@ -82,10 +87,14 @@ header .user-icon .iconify {
     color: #81b000;
     font-size: 3.4rem;
 }
+header .user-icon{
+    position: relative;
+}
 
 header .tooltip {
+    width: max-content;
     position: absolute;
-    right: 50px;
+    left: -40%;
     background: #FFFFFF;
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1),
         2px 2px 4px rgba(0, 0, 0, 0.25);
@@ -98,6 +107,7 @@ header .tooltip .item {
     align-items: center;
     gap: 1rem;
     margin: 2rem;
+    background: #ffffff;
 }
 
 header .tooltip .iconify {
@@ -191,4 +201,9 @@ header .tooltip button .iconify {
     font-weight: bold;
     background: #FFAA4E;
     color: #ffffff;
+}
+
+label.error_msg {
+    position: absolute;
+    top: 2rem;
 }
