@@ -101,17 +101,18 @@
                 >材料名<form:input type="text" name="material" id="material" path="foodName"
               /></label>
               <label>分量<form:input type="text" name="amount" id="amount" path="amount"/></label>
-              <button type="button" class="form-btn">追加</button>
-<!--               ここで追加したい -->
+              <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
-
             <ul>
+            <c:forEach var="f" items="${foodList }">
               <li>
-                <input type="text" class="material" /><input
+                <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" /><input
                   type="text"
                   class="amount"
-                /><button type="button" class="form-btn">削除</button>
+                  value="${fn:escapeXml(f.amount)}"
+                /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
+            </c:forEach>
 <!--               ここら辺わからん -->
             </ul>
           </div>
@@ -151,7 +152,7 @@
 	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
-          <form:button type="submit" class="submit post-btn">レシピ投稿</form:button>
+          <form:button type="submit" class="submit post-btn" name="register">レシピ投稿</form:button>
         </form:form>
       </div>
     </main>

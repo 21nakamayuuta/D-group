@@ -71,8 +71,111 @@
     <main>
       <div class="wrapper">
         <div class="calendar-wrap">
-          <div class="calendar"></div>
-          <div class="info"></div>
+          <div class="calendar">
+            <div class="header">
+              <div class="year-month-wrap">
+                <span class="year"></span>
+                <span class="month"></span>
+              </div>
+              <div class="month-change">
+                <button type="button" class="prev">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="akar-icons:chevron-left"
+                  ></span>
+                </button>
+                <button type="button" class="next">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="akar-icons:chevron-right"
+                  ></span>
+                </button>
+              </div>
+            </div>
+            <ul class="day-of-week">
+              <li class="cell">日</li>
+              <li class="cell">月</li>
+              <li class="cell">火</li>
+              <li class="cell">水</li>
+              <li class="cell">木</li>
+              <li class="cell">金</li>
+              <li class="cell">土</li>
+            </ul>
+            <div class="days"></div>
+          </div>
+          <div class="info">
+            <h3 class="title date">2021年6月23日</h3>
+            <div class="made-recipe">
+              <div class="title-wrap">
+                <h3 class="title">作ったレシピ</h3>
+              </div>
+              <ul class="made-recipe-list">
+                <li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title"
+                      >オーツミルクで全粒粉入りパンケーキ
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title"
+                      >オーツミルクで全粒粉入りパンケーキ
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="post-recipe">
+              <div class="title-wrap">
+                <h3 class="title">投稿したレシピ</h3>
+              </div>
+              <ul class="post-recipe-list">
+                <li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title">レシピリンク</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title"
+                      >オーツミルクで全粒粉入りパンケーキ
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="popular-ranking recipes">
           <h3 class="title">
@@ -310,5 +413,6 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/header.js"></script>
+    <script src="js/calendar.js"></script>
   </body>
 </html>
