@@ -1,6 +1,7 @@
 package jp.co.axiz.web.entity;
 
 public class UserInfo {
+
 	//table情報
 	private Integer userId;
 	private String loginName;
@@ -51,8 +52,6 @@ public class UserInfo {
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
-
-
 
 
 }

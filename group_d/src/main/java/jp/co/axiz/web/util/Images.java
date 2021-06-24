@@ -16,7 +16,7 @@ public class Images {
 	public String imagePathSave(MultipartFile imageFile, Integer userId){
 
 		if(imageFile.isEmpty()) {
-			return null;
+			return "noImage";
 		}
 
 
