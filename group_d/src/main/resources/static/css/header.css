@@ -107,6 +107,7 @@ header .tooltip .item {
     align-items: center;
     gap: 1rem;
     margin: 2rem;
+    background: #ffffff;
 }
 
 header .tooltip .iconify {
@@ -200,4 +201,9 @@ header .tooltip button .iconify {
     font-weight: bold;
     background: #FFAA4E;
     color: #ffffff;
+}
+
+label.error_msg {
+    position: absolute;
+    top: 2rem;
 }

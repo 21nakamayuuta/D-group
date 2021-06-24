@@ -40,7 +40,7 @@ public class UserTopController {
     @Autowired
     private MadeRecipeService madeRecipeService;
 
-    @GetMapping("/getRecipe")
+    @GetMapping("/getRecipeTitle")
     @ResponseBody
     public Map<String, Object> getMadePostHistory(
             @RequestParam(name = "year", required = false, defaultValue = "2021") Integer year,
@@ -49,16 +49,18 @@ public class UserTopController {
             @ModelAttribute("RecipeSearch") SearchForm RecipeForm) {
 
         UserInfo user = (UserInfo) session.getAttribute("user");
-        System.out.println(user.getUserId() + ", " + year + ", " + month + ", " + day);
+        UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
+        // System.out.println(loginUser.getUserId() + ", " + year + ", " + month + ", "
+        // + day);
         // 投稿したレシピを表示
-        PostRecipe postRecipe = new PostRecipe(user.getUserId(), year, month, day);
+        PostRecipe postRecipe = new PostRecipe(loginUser.getUserId(), year, month, day);
         List<PostRecipe> postRecipeList = postRecipeService.getPostRecipe(postRecipe);
 
         for (PostRecipe pr : postRecipeList) {
             pr.getAllData();
         }
         // 投稿したレシピを表示
-        MadeRecipe madeRecipe = new MadeRecipe(user.getUserId(), year, month, day);
+        MadeRecipe madeRecipe = new MadeRecipe(loginUser.getUserId(), year, month, day);
         List<MadeRecipe> madeRecipeList = madeRecipeService.getMadeRecipe(madeRecipe);
         for (MadeRecipe mr : madeRecipeList) {
             mr.getAllData();
@@ -73,11 +75,12 @@ public class UserTopController {
     @ResponseBody
     public Map<String, Object> getPostMadeDate() {
         UserInfo user = (UserInfo) session.getAttribute("user");
-        List<PostRecipe> postRecipeList = postRecipeService.getAllPostRecipe(user.getUserId());
-        List<MadeRecipe> madeRecipeList = madeRecipeService.getAllMadeRecipe(user.getUserId());
-        System.out.println(user.getUserId());
-        System.out.println(postRecipeList);
-        System.out.println(madeRecipeList);
+        UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
+        List<PostRecipe> postRecipeList = postRecipeService.getAllPostRecipe(loginUser.getUserId());
+        List<MadeRecipe> madeRecipeList = madeRecipeService.getAllMadeRecipe(loginUser.getUserId());
+        // System.out.println(loginUser.getUserId());
+        // System.out.println(postRecipeList);
+        // System.out.println(madeRecipeList);
         Map<String, Object> map = new HashMap<>();
         map.put("postRecipe", postRecipeList);
         map.put("madeRecipe", madeRecipeList);

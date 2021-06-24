@@ -57,7 +57,7 @@ public class IndexController {
 			@ModelAttribute("RecipeSearch") SearchForm searchForm, Model model) {
 
 		// ログインしてない状態でユーザートップに来たらトップへ遷移
-		if ((boolean) session.getAttribute("login")) {
+		if (session.getAttribute("user") == null || (boolean) session.getAttribute("login")) {
 			return "redirect:top";
 		}
 

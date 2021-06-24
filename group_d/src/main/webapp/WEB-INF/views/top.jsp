@@ -32,7 +32,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           ></span>
         </div>
         <div class="form-wrap">
-          <label style="color: red">${errMsg}</label>
+          <label class="error_msg">${errMsg}</label>
           <div class="userId">
             <label
               >ID<br />
