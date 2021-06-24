@@ -2,27 +2,235 @@
 .calendar-wrap {
     margin-top: 4rem;
     width: 100%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: minmax(360px, 1fr) minmax(auto, 2fr);
+    grid-template-rows: auto;
+    grid-template-areas: "calendar info";
+    grid-gap: 5rem;
 }
 
 .calendar-wrap .calendar {
-    width: 30%;
-    height: 100%;
+    grid-area: calendar;
     background: #FFFFFF;
-    box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.25),
-        inset -2px -2px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 5px 0 0 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(2, 1fr) 6fr;
+    grid-template-areas:
+        "header"
+        "dayOfWeek"
+        "days"
+    ;
+    aspect-ratio: 1;
 }
 
-.calendar-wrap .info {
-    width: 67%;
-    height: 100%;
+.calendar .header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem 0;
+}
+
+.calendar .year-month-wrap,
+.calendar .month-change .iconify {
+    font-size: 2.4rem;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), 0 0 0 rgba(0, 0, 0, 0.25);
+    color: #DBB34D;
+}
+.calendar .month-change {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+.month-change button {
+    border: none;
+    background: transparent;
+        height: 24px;
+    /* width: ; */
+}
+
+.calendar .day-of-week {
+    grid-area: dayOfWeek;
+}
+
+.calendar .day-of-week li {
+    font-size: 2rem;
+}
+
+.cell {
+    width: calc(100% / 7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+}
+
+.not-this-date {
+    opacity: .5;
+}
+
+.calendar .days {
+    grid-area: days;
+    width: 100%;
+}
+
+.calendar .days ul {
+    display: flex;
+    height: calc(100% / 6);
+}
+
+.calendar .days .cell {
+    font-size: 1.8rem;
+    padding: 1rem;
+}
+.calendar .days .cell:hover{
+    cursor: pointer;
+}
+.selected{
+    position: absolute;
+    display: inline-flex;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #DBB34D;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-left: 1px;
+}
+.mark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 5px;
+}
+.pMark, .mMark{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+.pMark{
     background: #FFAA4E;
-    box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.25),
-        inset 0px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 0px 5px 5px 0px;
+}
+.mMark{
+    background: #81B000;
 }
 
 /* --- */
+
+.calendar-wrap .info {
+    padding: 0.5rem 1rem;
+    border: 3px dashed #DBB34D;
+    /* border-radius: 10px; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "title title"
+    "made-recipe post-recipe"
+    ;
+    column-gap: 2rem;
+}
+.calendar-wrap .info .title{
+    font-size: 2.4rem;
+}
+.calendar-wrap .info .title{
+    grid-area: title;
+}
+.info .made-recipe .title,
+.info .post-recipe .title {
+    color: #000000;
+    font-size: 2rem;
+}
+.info ul{
+    padding: .25rem;
+    gap: 0.5rem;
+    height: 280px;
+    align-content: flex-start;
+    overflow-y: auto;
+}
+
+.info li {
+    height: max-content;
+}
+.info a {
+    font-size: 1.8rem;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+.info a .icon{
+    height: 24px;
+}
+.info .made-recipe a .iconify,
+.info .post-recipe a .iconify{
+    font-size: 2.4rem;
+}
+.info .made-recipe,
+.info .post-recipe{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.calendar-wrap .info .made-recipe{
+    grid-area: made-recipe;
+}
+.made-recipe .title::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #81B000;
+    margin: auto 1rem;
+}
+.info .made-recipe a{
+    color: #81B000;
+}
+.info .made-recipe a .iconify{
+    color: #81B000;
+}
+
+.calendar-wrap .info .post-recipe {
+    grid-area: post-recipe;
+}
+.post-recipe .title::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFAA4E;
+    margin: auto 1rem;
+}
+.info .post-recipe a {
+    color: #FFAA4E;
+}
+.info .post-recipe a .iconify {
+    color: #FFAA4E;
+}
+
+/* scrollbar */
+.info ul::-webkit-scrollbar {
+    width: 7px;
+    height: 10px;
+}
+
+.info ul.made-recipe-list::-webkit-scrollbar-thumb {
+    background: #81b000;
+    border-radius: 10px;
+}
+.info ul.post-recipe-list::-webkit-scrollbar-thumb {
+    background: #FFAA4E;
+    border-radius: 10px;
+}
+
+.info ul::-webkit-scrollbar-track {
+    background: #eeeeee;
+    border-radius: 10px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+}
