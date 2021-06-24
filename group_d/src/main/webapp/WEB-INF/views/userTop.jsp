@@ -60,7 +60,7 @@
                 ></span>
                 マイページ
               </a>
-              <form:form action="top" method="POST">
+              <form:form action="logout" method="POST">
               <button type="submit" class="logout item">
                 <span
                   class="iconify"

@@ -91,6 +91,7 @@ public class SearchController {
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
 			@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform,
 			Model model) {
 
 		//カテゴリの表示
