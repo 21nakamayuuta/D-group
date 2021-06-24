@@ -201,3 +201,8 @@ header .tooltip button .iconify {
     background: #FFAA4E;
     color: #ffffff;
 }
+
+label.error_msg {
+    position: absolute;
+    top: 2rem;
+}

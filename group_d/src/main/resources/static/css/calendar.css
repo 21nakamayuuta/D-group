@@ -99,6 +99,7 @@
     align-items: center;
     color: #fff;
     margin-left: 1px;
+    margin-top: -0.75px;
 }
 .mark{
     display: flex;
