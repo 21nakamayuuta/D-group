@@ -41,11 +41,6 @@ public class SearchController {
 	@Autowired
 	HttpSession session;
 
-	//	@RequestMapping("/top" )
-	//	public String top(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
-	//		return "top";
-	//	}
-
 	@RequestMapping("/searchResult")
 	public String searchResult(
 			Model model) {
@@ -68,6 +63,10 @@ public class SearchController {
 			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
+
+			//List<Search> sbList = searchList.subList(0,3);
+			//model.addAttribute("searchList", sbList);
+
 		}
 
 		model.addAttribute("searchKeyword", SearchKeywordForm.getSearchKeyword());
@@ -86,6 +85,7 @@ public class SearchController {
 		return "searchResult";
 	}
 
+
 	@RequestMapping(value = "/categorySearch", method = RequestMethod.GET)
 	public String categorySearch(
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
@@ -97,6 +97,8 @@ public class SearchController {
 		//カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
+
+
 
 		//カテゴリ検索の処理
 		if (searchService.categoryFind(categorySearchForm.getCategoryId()) == null) {
