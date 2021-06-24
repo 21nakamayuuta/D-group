@@ -7,6 +7,8 @@ let recipeInfoTitle = $(".calendar-wrap .info .title.date");
 let selected = $("<span />", {
     "class": "selected"
 });
+let postRecipeListDom = $(".post-recipe-list");
+let madeRecipeListDom = $(".made-recipe-list");
 
 let cell = "";
 let prevBtn = $(".prev");
@@ -20,9 +22,50 @@ let selectDate = [
     new Date().getDate(),
 ];
 
-// test --
-let postDate = ["2021-5-21", "2021-5-22"];
-let madeDate = ["2021-5-20", "2021-5-22", "2021-5-23"];
+// サーバーからデータを取得 --
+/** Todo
+ * java側でカレンダーに表示するデータを取得
+ * java側設定したURLにjsで非同期通信を行う
+ * 非同期通信を行う際にjava側の処理にjsから必要なデータを渡す
+ * jsでjava側の処理結果を受け取り、カレンダーにデータ表示させる
+ * */
+/** 参考リンク
+ * https://b-risk.jp/blog/2020/09/ajax/
+ * https://coosy.co.jp/blog/ajax-method/
+ */
+/* 参考コード
+//axios
+function axiosApi() {
+    let url = '/library/ajaxpost.php';
+    return axios.post(url, {
+        'user_id': 'aaaa',
+        'password': 'bbbb'
+    })
+}
+console.log("--axios start--");
+axiosApi()
+    .then((data) => {
+        //resolve時ここにくる
+        console.log('--axios then--')
+        console.log(data)
+    })
+    .catch((err) => {
+        //普通の404、500エラー
+        console.log('--axios error--')
+        console.log(err);
+    })
+    .finally((data) => {
+        //dataはない
+        console.log('--axios always--');
+    });
+*/
+
+// let postDate = ["2021-5-21", "2021-5-22"];
+// let madeDate = ["2021-5-20", "2021-5-22", "2021-5-23"];
+
+let postDate = [];
+let madeDate = [];
+
 // 
 
 recipeInfoTitle.text(`${selectDate[0]}年${selectDate[1]}月${selectDate[2]}日`);
@@ -54,7 +97,9 @@ let getDates = (year, month) => {
         nDate++;
     }
 
+    // await getPostMadeDate();
     createCalendar(year, month, result);
+    getCalendarData(selectDate);
     recipeInfoTitle.text(`${selectDate[0]}年${selectDate[1]+1}月${selectDate[2]}日`);
 }
 
@@ -124,8 +169,52 @@ let createCalendar = (year, month, dates) => {
     }
 }
 
+let displayRecipe = (postRecipe, madeRecipe) => {
+    console.log(postRecipe, madeRecipe);
+    postRecipeListDom.empty();
+    madeRecipeListDom.empty();
+
+    postRecipe.forEach(el => {
+        let recipeListDom = $(`<li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title"></span>
+                  </a>
+                </li>`);
+        recipeListDom.find('a').attr("href", `recipe?recipeID=${el.recipeId}`);
+        recipeListDom.find('.recipe-title').text(el.recipeTitle);
+        postRecipeListDom.append(recipeListDom);
+    });
+
+    madeRecipe.forEach(el => {
+        let recipeListDom = $(`<li>
+                  <a href="">
+                    <span class="icon">
+                      <span
+                        class="iconify"
+                        data-inline="false"
+                        data-icon="fluent:food-24-filled"
+                      ></span>
+                    </span>
+                    <span class="recipe-title"></span>
+                  </a>
+                </li>`);
+        recipeListDom.find('a').attr("href", `recipe?recipeID=${el.recipeId}`);
+        recipeListDom.find('.recipe-title').text(el.recipeTitle);
+        madeRecipeListDom.append(recipeListDom);
+    });
+}
+
 window.onload = function () {
-    getDates(today.getFullYear(), today.getMonth());
+    getPostMadeDate();
+    // getDates(today.getFullYear(), today.getMonth());
+    console.log(postDate, madeDate);
 };
 
 prevBtn.click(() => {
@@ -153,7 +242,31 @@ $(".days").click(function (e) {
         if (Number(e.target.textContent) != NaN) {
             selectDate = [...targetDate];
             getDates(today.getFullYear(), today.getMonth());
+
         }
     }
-
 });
+
+let getCalendarData = (selectDate) => {
+    // console.log(selectDate);
+    axios.get("/userTop/getRecipe", {
+        params: {
+            year: selectDate[0],
+            month: selectDate[1],
+            day: selectDate[2],
+        }
+    }).then((res) => {
+        displayRecipe(res.data.postRecipe, res.data.madeRecipe);
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+let getPostMadeDate = () => {
+    axios.get("/userTop/getPostMadeDate").then((res) => {
+        postDate = Array.from(new Set(res.data.postRecipe.map(el => `${el.year}-${el.month}-${el.day}`)));
+        madeDate = Array.from(new Set(res.data.madeRecipe.map(el => `${el.year}-${el.month}-${el.day}`)));
+        console.log(postDate, madeDate);
+        getDates(today.getFullYear(), today.getMonth());
+    }).catch(el => console.log(el))
+}

@@ -124,7 +124,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 <h3 class="title">作ったレシピ</h3>
               </div>
               <ul class="made-recipe-list">
-                <li>
+                <!-- <li>
                   <a href="">
                     <span class="icon">
                       <span
@@ -151,7 +151,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                       >オーツミルクで全粒粉入りパンケーキ
                     </span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
             <div class="post-recipe">
@@ -159,7 +159,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 <h3 class="title">投稿したレシピ</h3>
               </div>
               <ul class="post-recipe-list">
-                <li>
+                <!-- <li>
                   <a href="">
                     <span class="icon">
                       <span
@@ -184,7 +184,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                       >オーツミルクで全粒粉入りパンケーキ
                     </span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -299,6 +299,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/header.js"></script>
     <script src="js/calendar.js"></script>
   </body>

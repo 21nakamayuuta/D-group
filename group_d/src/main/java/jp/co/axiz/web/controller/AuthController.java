@@ -21,10 +21,14 @@ import jp.co.axiz.web.controller.form.SignUpForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
+import jp.co.axiz.web.entity.PostRecipe;
+import jp.co.axiz.web.entity.MadeRecipe;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
+import jp.co.axiz.web.service.PostRecipeService;
+import jp.co.axiz.web.service.MadeRecipeService;
 
 @Controller
 public class AuthController {
@@ -37,6 +41,10 @@ public class AuthController {
 	private SignUpService userService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private PostRecipeService postRecipeService;
+	@Autowired
+	private MadeRecipeService madeRecipeService;
 	@Autowired
 	MessageSource messageSource;
 	@Autowired
@@ -179,9 +187,27 @@ public class AuthController {
 			// List<Category> categoryList = categoryService.searchCategory();
 			// model.addAttribute("categoryList", categoryList);
 
+			// System.out.println(user.getUserId());
+
+			// // 投稿したレシピを表示
+			// PostRecipe postRecipe = new PostRecipe(user.getUserId(), 2021, 5, 23);
+			// List<PostRecipe> postRecipeList =
+			// postRecipeService.getPostRecipe(postRecipe);
+
+			// for (PostRecipe pr : postRecipeList) {
+			// pr.getAllData();
+			// }
+			// // 投稿したレシピを表示
+			// MadeRecipe madeRecipe = new MadeRecipe(user.getUserId(), 2021, 5, 23);
+			// List<MadeRecipe> madeRecipeList =
+			// madeRecipeService.getMadeRecipe(madeRecipe);
+			// for (MadeRecipe mr : madeRecipeList) {
+			// mr.getAllData();
+			// }
+
 			session.setAttribute("user", user);
 			session.setAttribute("login", false);
-			return "userTop";
+			return "redirect:userTop";
 		}
 	}
 
