@@ -33,10 +33,6 @@ public class SearchController {
 	@Autowired
 	CategoryService categoryService;
 
-//	@RequestMapping("/top" )
-//	public String top(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
-//		return "top";
-//	}
 
 	@RequestMapping("/searchResult")
 	public String searchResult(Model model) {
