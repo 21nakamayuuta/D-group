@@ -1,23 +1,42 @@
 package jp.co.axiz.web.controller.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostForm {
 
+	@NotBlank(message="タイトルを入力してください")
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String recipeTitle;
+
 	private MultipartFile completeImage;
 
 
 	private Integer displayOrderFood;
+
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String foodName;
+
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String amount;
+
 	private String foodDelete;
 
-
+	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
+
 	private Integer displayOrderProcess;
+
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String processDescription;
+
+	@NotBlank(message="コメントを入力してください")
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String overview;
+
 
 	private Integer[] formCategoryId;
 
