@@ -107,6 +107,7 @@ header .tooltip .item {
     align-items: center;
     gap: 1rem;
     margin: 2rem;
+    background: #ffffff;
 }
 
 header .tooltip .iconify {

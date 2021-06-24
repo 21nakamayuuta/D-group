@@ -24,8 +24,6 @@ let selectDate = [
 
 /** Todo
  * ヘッダーの動的変更
- * カレンダーのヘッダータイトルのスタイル変更 -> text-shadowの調整
- * ヘッダーのログアウトボタンのスタイル修正
  * */
 let postDate = [];
 let madeDate = [];
