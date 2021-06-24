@@ -57,14 +57,7 @@ public class IndexController {
 
 
 	@RequestMapping("/userTop" )
-<<<<<<< HEAD
-	public String userTop(@ModelAttribute("sign") SignUpForm form ,Model model) {
-		List<Recipe> recipeList = recipeService.newRecipe();
-		model.addAttribute("recipeList",recipeList);
-=======
 	public String userTop(@ModelAttribute("sign") SignUpForm form ,@ModelAttribute("RecipeSearch") SearchForm searchForm,Model model) {
-
->>>>>>> develop
 		//ログインしてない状態でユーザートップに来たらトップへ遷移
 				if((boolean)session.getAttribute("login")) {
 					return "redirect:top";

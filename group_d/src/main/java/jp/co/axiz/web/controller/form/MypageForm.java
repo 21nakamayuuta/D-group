@@ -7,26 +7,33 @@ import javax.validation.constraints.NotBlank;
  */
 public class MypageForm {
 
-	@NotBlank(message = "IDを入力してください")
-	private String name;
+	@NotBlank(message = "空白は出来ません")
+	private String myName;
 
-	@NotBlank(message = "パスワードを入力してください")
-	private String pass;
+	@NotBlank(message = "空白は出来ません")
+	private String myPass;
 
-	public String getName() {
-		return name;
+
+
+	public void setMypageForm(String name, String pass) {
+		this.myName = name;
+		this.myPass = pass;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getMyName() {
+		return myName;
 	}
 
-	public String getPass() {
-		return pass;
+	public void setMyName(String name) {
+		this.myName = name;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public String getMyPass() {
+		return myPass;
+	}
+
+	public void setMyPass(String pass) {
+		this.myPass = pass;
 	}
 
 

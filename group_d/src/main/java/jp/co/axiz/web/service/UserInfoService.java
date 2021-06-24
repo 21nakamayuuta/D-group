@@ -11,4 +11,8 @@ public interface UserInfoService {
 
 	public UserInfo findLoginName(String loginName);
 
+	public void update_name(String name,Integer user_id);
+
+	public void update_pass(String pass, Integer user_id);
+
 }

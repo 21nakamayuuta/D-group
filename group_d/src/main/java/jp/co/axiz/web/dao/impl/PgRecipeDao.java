@@ -27,6 +27,7 @@ public class PgRecipeDao implements RecipeDao{
 
 	private static final String REGISTER_RECIPE="INSERT INTO recipe(user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) VALUES (:userId, :recipeTitle, :completeImage, :cookingTime, :overview, :createDateTime)";
 	private static final String SEARCH_NEW_RECIPE= "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
+	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jT;
@@ -121,4 +122,18 @@ public class PgRecipeDao implements RecipeDao{
 		List<Recipe> rankingList = jT.query(SELECT_NEW_RECIPE,new BeanPropertyRowMapper<Recipe>(Recipe.class));
 		return rankingList;
 	}
+
+
+	@Override
+	public List<Recipe> totalRecipe(Integer userId) {
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("user_id", userId);
+
+		List<Recipe> resultList = jT.query(SELECT_RECIPE_TOTAL,param,new BeanPropertyRowMapper<Recipe>(Recipe.class));
+
+		return resultList;
+	}
+
+
+
 }

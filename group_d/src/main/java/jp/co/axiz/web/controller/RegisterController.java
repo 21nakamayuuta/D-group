@@ -45,22 +45,8 @@ public class RegisterController {
 
 	@RequestMapping(value="/postInfoCheck",params="register", method=RequestMethod.POST)
 	public String postInfoCheck(@ModelAttribute ("postInfo") PostForm form, Model model) {
-<<<<<<< HEAD
-		System.out.println(form.getRecipeTitle());
-		System.out.println(form.getCompleteImage());
-		System.out.println(form.getDisplayOrderFood());
-		System.out.println(form.getFoodName());
-		System.out.println(form.getAmount());
-		System.out.println(form.getCookingTime());
-		System.out.println(form.getDisplayOrderProcess());
-		System.out.println(form.getProcessDescription());
-		System.out.println(form.getOverview());
 
-		System.out.println(form.getFormCategoryId());
-=======
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
->>>>>>> develop
-
 		//画像保存クラス
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
@@ -92,9 +78,7 @@ public class RegisterController {
 		return "post";
 	}
 
-<<<<<<< HEAD
-		return "redirect:/top";
-=======
+
 	@RequestMapping(value="/postInfoCheck",params="foodDel", method=RequestMethod.POST)
 	public String foodDel(@ModelAttribute ("postInfo") PostForm form,HttpServletRequest req, Model model) {
 		String selectButtonValue = req.getParameter("foodDel");
@@ -108,7 +92,6 @@ public class RegisterController {
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList",categoryList);
 		return "post";
->>>>>>> develop
 	}
 
 }

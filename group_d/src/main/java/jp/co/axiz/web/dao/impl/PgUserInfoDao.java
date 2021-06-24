@@ -28,6 +28,9 @@ public class PgUserInfoDao implements UserInfoDao {
 
 	public static final String FIND_LOGIN_NAME =
 			"SELECT * FROM user_info WHERE login_name = :login_name";
+	public static final String UPDATE_USER_NAME = "UPDATE user_info SET user_name = :user_name WHERE user_id =:user_id";
+
+	public static final String UPDATE_USER_PASS = "UPDATE user_info SET password = :password WHERE user_id =:user_id";
 
 	//新規登録
 	@Override
@@ -39,6 +42,25 @@ public class PgUserInfoDao implements UserInfoDao {
 
 		jdbcTemplate.update(INSERT,param);
 	}
+	//名前変更
+		@Override
+		public void update_name(String name,Integer user_id) {
+			MapSqlParameterSource param = new MapSqlParameterSource();
+			param.addValue("user_name", name);
+			param.addValue("user_id", user_id);
+
+			jdbcTemplate.update(UPDATE_USER_NAME,param);
+		}
+	//パスワード変更
+		@Override
+		public void update_pass(String pass, Integer user_id) {
+			MapSqlParameterSource param = new MapSqlParameterSource();
+			param.addValue("password", pass);
+			param.addValue("user_id", user_id);
+
+			jdbcTemplate.update(UPDATE_USER_PASS,param);
+
+		}
 
 	//入力されたログインネームがいるかチェック
 	@Override
@@ -88,4 +110,5 @@ public class PgUserInfoDao implements UserInfoDao {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+
 }

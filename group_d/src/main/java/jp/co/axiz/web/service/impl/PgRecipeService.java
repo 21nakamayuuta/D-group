@@ -46,7 +46,6 @@ public class PgRecipeService implements RecipeService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Recipe totalRecipe(Integer userId) {
 		Recipe recipe= null;
 		List<Recipe> resultList = null;
@@ -55,10 +54,10 @@ public class PgRecipeService implements RecipeService {
 			recipe = resultList.get(0);
 		} catch(Exception e) {
 		}
+
 		return recipe;
 	}
 
-=======
 	public void registerRecipe(Recipe recipe) {
 		// TODO 自動生成されたメソッド・スタブ
 		recipeDao.registerRecipe(recipe);
@@ -73,7 +72,6 @@ public class PgRecipeService implements RecipeService {
 	public List<Recipe> ranking() {
 		return recipeDao.ranking();
 	}
->>>>>>> develop
 
 
 

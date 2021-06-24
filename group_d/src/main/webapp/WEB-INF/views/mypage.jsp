@@ -76,28 +76,30 @@
     <main>
       <div class="wrapper">
         <div class="my-info">
-          <form action="" class="edit-name">
+
+          <form:form action="editName" class="edit-name"  method="POST" modelAttribute="MyPageForm" >
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="text" id="name" value="${ user.userName}" disabled></input>
+              <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
               </div>
-              <button type="button" class="edit" >編集</button>
-              <button type="button" class="save display-none" >保存</button>
+              <button type="button"  class="edit display-none" >編集</button>
+              <form:button type="submit" class="save " >保存</form:button>
               </div>
-            </form>
-          <form action="" class="edit-pass">
+            </form:form>
+
+          <form:form action="editPass" class="edit-pass"  method="POST" modelAttribute="MyPageForm" >
               <label for="pass">パスワード</label>
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="password" id="pass" value="${ user.password}" disabled></input>
+              <form:password path="myPass" value="${password}" /><!-- disabledは一旦無し -->
               </div>
-              <button type="button" class="edit">編集</button>
-              <button type="button" class="save display-none">保存</button>
+              <button type="button" class="edit display-none">編集</button>
+              <form:button type="submit" class="save ">保存</form:button>
               </div>
-            </form>
+            </form:form>
         </div>
         <div class="my-recipe recipes">
           <h3 class="title">
