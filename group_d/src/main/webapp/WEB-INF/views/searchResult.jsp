@@ -159,7 +159,8 @@
               <%-- <a href="recipeSearch">  --%>
                 <div class="img-wrap">
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+                    <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
+                    src = "/imgs/20210623124113test.jpg"
                     alt=""
                   />
 				<%--  ここにレシピIDを渡せる方法を考える
@@ -416,6 +417,7 @@
  --%>
           </ul>
         </div>
+        <c:if test="${searchList.size()>=1}"> <%-- searchList.size()--%>
         <ul class="pagenation">
           <li class="page-num"><a href="">1</a></li>
           <li class="page-num"><a href="">2</a></li>
@@ -432,6 +434,7 @@
             </a>
           </li>
         </ul>
+        </c:if>
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">

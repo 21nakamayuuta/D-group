@@ -58,6 +58,10 @@ public class SearchController {
 			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
+
+			//List<Search> sbList = searchList.subList(0,3);
+			//model.addAttribute("searchList", sbList);
+
 		}
 
 		model.addAttribute("searchKeyword", SearchKeywordForm.getSearchKeyword());
@@ -67,11 +71,14 @@ public class SearchController {
 
 	@RequestMapping(value= "/categorySearch", method = RequestMethod.GET)
 	public String categorySearch(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm, @ModelAttribute("sign") SignUpForm form, Model model) {
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
+			@ModelAttribute("sign") SignUpForm form, Model model) {
 
 		//カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
+
+
 
 		//カテゴリ検索の処理
 		if(searchService.categoryFind(categorySearchForm.getCategoryId()) == null){
