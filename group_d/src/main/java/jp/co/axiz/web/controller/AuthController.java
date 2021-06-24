@@ -109,6 +109,17 @@ public class AuthController {
 			model.addAttribute("categoryList", categoryList);
 
 			return "top";
+		}else {
+
+			//新着レシピ
+			List<Recipe> recipeList = recipeService.newRecipe();
+			model.addAttribute("recipeList", recipeList);
+			//ランキング
+			List<Recipe> rankingList = recipeService.ranking();
+			model.addAttribute("rankingList", rankingList);
+			//カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 		}
 
 		//ヘッダーのページ遷移用にセッションにfalse保存

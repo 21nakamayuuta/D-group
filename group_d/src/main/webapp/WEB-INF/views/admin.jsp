@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
     <header>
         <div class="header-wrap">
             <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
@@ -272,7 +271,11 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/header.js"></script>
     <script src="js/form.js"></script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'develop' of https://github.com/21nakamayuuta/D-group.git
+>>>>>>> refs/heads/maekawa
 </body>
 
 </html>
