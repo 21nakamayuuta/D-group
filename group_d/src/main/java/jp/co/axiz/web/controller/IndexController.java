@@ -44,7 +44,6 @@ public class IndexController {
 	}
 
 
-
 	@RequestMapping("/userTop" )
 	public String userTop(@ModelAttribute("sign") SignUpForm form ,@ModelAttribute("RecipeSearch") SearchForm searchForm,Model model) {
 

@@ -25,7 +25,6 @@ public class PgRecipeSearchDao implements RecipeDao {
 	private static final String SELECT_NEW_RECIPE = "select r.recipe_id,r.recipe_title,r.complete_image,count(g.good_id) as goodCount,r.create_datetime from recipe r join good_table g on r.recipe_id = g.recipe_id GROUP BY r.recipe_id order by r.create_datetime desc OFFSET 0 LIMIT 6";
 	private static final String SELECT_RANKING    = "select r.recipe_id,r.recipe_title,r.complete_image,count(g.good_id) as goodCount,r.create_datetime from recipe r join good_table g on r.recipe_id = g.recipe_id GROUP BY r.recipe_id order by goodCount desc OFFSET 0 LIMIT 3";
 
-
 	@Autowired
     private NamedParameterJdbcTemplate jT;
 
@@ -40,9 +39,6 @@ public class PgRecipeSearchDao implements RecipeDao {
 		List<Recipe> rankingList = jT.query(SELECT_RANKING,new BeanPropertyRowMapper<Recipe>(Recipe.class));
 		return rankingList;
 	}
-
-
-
 
 	@Override
 	public List<Recipe> searchRecipeInfo(Integer recipeId) {
