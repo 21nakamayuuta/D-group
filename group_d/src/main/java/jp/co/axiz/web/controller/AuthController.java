@@ -44,112 +44,109 @@ public class AuthController {
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form, BindingResult binding,
-			@ModelAttribute("RecipeSearch") SearchForm Recipeform,
-			@ModelAttribute("loginForm") LoginForm loginForm,
+			@ModelAttribute("RecipeSearch") SearchForm Recipeform, @ModelAttribute("loginForm") LoginForm loginForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
-		//バリデーション
+		// バリデーション
 		if (binding.hasErrors()) {
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
 
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
 			return "top";
 		}
 
-		//入力情報でユーザー作成
+		// 入力情報でユーザー作成
 		UserInfo user = new UserInfo(form.getUserId(), form.getUserName(), form.getPassword());
 
-		//パスワード一致チェック
+		// パスワード一致チェック
 		if (!(form.getRepass().equals(form.getPassword()))) {
 			String errMsg = messageSource.getMessage("form.lbl.notture", null, Locale.getDefault());
 			model.addAttribute("errMsgPASS", errMsg);
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
 
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
 			return "top";
 		}
 
-		//サービスで同じログインネームの有無チェック
-		//なければそのままユーザーを登録する
+		// サービスで同じログインネームの有無チェック
+		// なければそのままユーザーを登録する
 		if (!(userService.INSERT_AND_CHECK(user))) {
 			String errMsg = messageSource.getMessage("form.lbl.notUseId", null, Locale.getDefault());
 			model.addAttribute("errMsgID", errMsg);
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
 			return "top";
 		} else {
 
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 		}
 
-		//ヘッダーのページ遷移用にセッションにfalse保存
+		session.setAttribute("user", user);
+		// ヘッダーのページ遷移用にセッションにfalse保存
 		session.setAttribute("login", false);
 		return "userTop";
 	}
 
-	//ログイン処理 (ログイン画面のログインボタン押下)
+	// ログイン処理 (ログイン画面のログインボタン押下)
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(
-			@Validated @ModelAttribute("loginForm") LoginForm form,
-			BindingResult bindingResult,
-			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
-			@ModelAttribute("sign") SignUpForm signUpForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
-			Model model) {
+	public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
+			@ModelAttribute("RecipeSearch") SearchForm RecipeForm, @ModelAttribute("sign") SignUpForm signUpForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
-		//String errMsg = messageSource.getMessage("login.error", null, Locale.getDefault());
+		// String errMsg = messageSource.getMessage("login.error", null,
+		// Locale.getDefault());
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("display", true);
 			model.addAttribute("LoginDisplay", true);
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			return "top";
@@ -162,13 +159,13 @@ public class AuthController {
 			model.addAttribute("display", true);
 			model.addAttribute("LoginDisplay", true);
 			model.addAttribute("errMsg", "IDまたはパスワードが一致しません");
-			//新着レシピ
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			return "top";
@@ -176,21 +173,21 @@ public class AuthController {
 			// ログイン成功
 
 			// role一覧を取得
-			//			List<Role> roleList = roleService.findAll();
+			// List<Role> roleList = roleService.findAll();
 
 			// ログインユーザ情報、role一覧をセッションにセット
-			//SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+			// SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
-			//sessionInfo.setLoginUser(user);
-			//			sessionInfo.setRoleList(roleList);
+			// sessionInfo.setLoginUser(user);
+			// sessionInfo.setRoleList(roleList);
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
 
-			//ランキング
+			// ランキング
 			List<Recipe> rankingList = recipeService.ranking();
 			model.addAttribute("rankingList", rankingList);
 
-			//カテゴリの表示
+			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
@@ -204,21 +201,18 @@ public class AuthController {
 	 * ログアウト
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public String logout(
-			@ModelAttribute("loginForm") LoginForm form,
-			@ModelAttribute("RecipeSearch") SearchForm RecipeForm,
-			@ModelAttribute("sign") SignUpForm signUpForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
-			Model model) {
+	public String logout(@ModelAttribute("loginForm") LoginForm form,
+			@ModelAttribute("RecipeSearch") SearchForm RecipeForm, @ModelAttribute("sign") SignUpForm signUpForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
-		//新着レシピ
+		// 新着レシピ
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList", recipeList);
-		//ランキング
+		// ランキング
 		List<Recipe> rankingList = recipeService.ranking();
 		model.addAttribute("rankingList", rankingList);
 
-		//カテゴリの表示
+		// カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 

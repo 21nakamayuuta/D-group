@@ -33,8 +33,8 @@ singUpCancel.click(() => {
 userIcon.click(() => {
     tooltip.toggleClass("display-none");
 });
-logout.click((e) => {
-    if (!confirm("ログアウトしますか？")) {
-        e.preventDefault();
+logout.click(() => {
+    if (confirm("ログアウトしますか？")) {
+        location.href = "top.html";
     }
 })
