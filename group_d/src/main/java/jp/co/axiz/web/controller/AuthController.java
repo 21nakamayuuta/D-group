@@ -108,6 +108,17 @@ public class AuthController {
 			// model.addAttribute("categoryList", categoryList);
 
 			return "top";
+		} else {
+
+			// 新着レシピ
+			List<Recipe> recipeList = recipeService.newRecipe();
+			model.addAttribute("recipeList", recipeList);
+			// ランキング
+			List<Recipe> rankingList = recipeService.ranking();
+			model.addAttribute("rankingList", rankingList);
+			// カテゴリの表示
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
 		}
 
 		session.setAttribute("user", user);
@@ -189,21 +200,21 @@ public class AuthController {
 	/*
 	 * ログアウト
 	 */
-	@RequestMapping(value = "/top", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(@ModelAttribute("loginForm") LoginForm form,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm, @ModelAttribute("sign") SignUpForm signUpForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
 		// 新着レシピ
-		// List<Recipe> recipeList = recipeService.newRecipe();
-		// model.addAttribute("recipeList", recipeList);
-		// //ランキング
-		// List<Recipe> rankingList = recipeService.ranking();
-		// model.addAttribute("rankingList", rankingList);
+		List<Recipe> recipeList = recipeService.newRecipe();
+		model.addAttribute("recipeList", recipeList);
+		// ランキング
+		List<Recipe> rankingList = recipeService.ranking();
+		model.addAttribute("rankingList", rankingList);
 
-		// //カテゴリの表示
-		// List<Category> categoryList = categoryService.searchCategory();
-		// model.addAttribute("categoryList", categoryList);
+		// カテゴリの表示
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
 
 		session.invalidate();
 		return "top";

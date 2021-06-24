@@ -1,0 +1,138 @@
+.border {
+    border: 1px solid #000000;
+    padding: 2rem 4rem;
+}
+
+.border .title {
+    color: #000;
+    font-size: 2.8rem;
+}
+
+/* user-info */
+.user-info {
+    margin: 4rem auto;
+}
+
+.user-info .info-table {
+    width: 90%;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.info-table span {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.info-table .th {
+    grid-area: th;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas: "name pass role ..."
+}
+
+.info-table .td {
+    grid-area: td;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+        "name pass role btn"
+}
+
+.info-table .li .name {
+    grid-area: name;
+}
+
+.info-table .li .pass {
+    grid-area: pass;
+}
+
+.info-table .li .role {
+    grid-area: role;
+}
+
+.info-table .td .form-btn {
+    grid-area: btn;
+}
+
+/* categories */
+.categories {
+    margin: 4rem auto;
+}
+
+.categories .input,
+.categories li {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.categories .input {
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.categories .input input {
+    height: 32px;
+    width: 100%;
+}
+
+.categories ul {
+    margin: 1rem auto;
+}
+
+.categories li {
+    /* width: 100%; */
+    background: #fff;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.categories li .content-edit-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.categories li .content {
+    font-size: 2rem;
+    color: #000000;
+    border: none;
+    width: 100%;
+}
+
+.categories li input.content:disabled {
+    background: #fff;
+}
+
+.categories li input.content:not(:disabled) {
+    border: 1px solid;
+    background: rgba(238, 238, 238, 0.5);
+}
+
+/* .total-recipe */
+.total-recipe {
+    margin: 4rem auto;
+}
+
+.card .user {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.card .user .iconify {
+    font-size: 2.8rem;
+    color: #81B000;
+}
+
+.card .user span {
+    margin-left: 0.5rem;
+}
