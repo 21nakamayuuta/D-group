@@ -36,9 +36,9 @@ public class IndexController {
 			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm signForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
-		// //ランキング
-		// List<Recipe> rankingList = recipeService.ranking();
-		// model.addAttribute("rankingList",rankingList);
+		// ランキング
+		List<Recipe> rankingList = recipeService.ranking();
+		model.addAttribute("rankingList", rankingList);
 
 		// 新着レシピ
 		List<Recipe> recipeList = recipeService.newRecipe();
