@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -16,14 +19,17 @@
 </head>
 
 <body>
-
     <header>
         <div class="header-wrap">
             <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-            <form action="./searchResult.html" class="search-recipe">
-                <input type="text" name="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" />
-                <button type="submit">レシピ検索</button>
-            </form>
+		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          <form:input
+            path="searchKeyword"
+            id="searchKeyword"
+            placeholder="料理名・食材名"
+          /><%-- type="text" name="searchKeyword" --%>
+          <form:button>レシピ検索</form:button>
+        </form:form>
             <!-- 権限ごとに切り替える部分 -->
             <div class="btn-wrap">
                 <a href="./post.html" class="to-post btn">レシピを投稿する</a>
@@ -265,7 +271,11 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/header.js"></script>
     <script src="js/form.js"></script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'develop' of https://github.com/21nakamayuuta/D-group.git
+>>>>>>> refs/heads/maekawa
 </body>
 
 </html>

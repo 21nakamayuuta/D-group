@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.PostForm;
+import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.Process;
@@ -28,7 +29,6 @@ import jp.co.axiz.web.service.FoodService;
 import jp.co.axiz.web.service.ProcessService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
-
 
 @Controller
 public class RegisterController {
@@ -44,37 +44,38 @@ public class RegisterController {
 	@Autowired
 	ProcessService processService;
 
-
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/post" )
-	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
+	@RequestMapping("/post")
+	public String post(@ModelAttribute("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 
 		List<Food> foodList = new ArrayList<Food>();
-		session.setAttribute("foodList",foodList);
+
+		session.setAttribute("foodList", foodList);
 
 		List<Process> processList = new ArrayList<Process>();
-		session.setAttribute("processList",processList);
-
+		session.setAttribute("processList", processList);
 		return "post";
 	}
 
 	@Transactional
-	@RequestMapping(value="/postInfoCheck",params="register", method=RequestMethod.POST)
-	public String postInfoCheck(@Validated  @ModelAttribute ("postInfo") PostForm form,BindingResult binding, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
+	public String postInfoCheck(@Validated @ModelAttribute("postInfo") PostForm form, BindingResult binding,
+			Model model) {
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
-		if(binding.hasErrors()) {
+		if (binding.hasErrors()) {
 			List<Category> categoryList = categoryService.searchCategory();
-			model.addAttribute("categoryList",categoryList);
-			if(foodList.isEmpty()) {
-				model.addAttribute("foodErrorMsg","材料・分量を入力してください");
+			model.addAttribute("categoryList", categoryList);
+			if (foodList.isEmpty()) {
+				model.addAttribute("foodErrorMsg", "材料・分量を入力してください");
 			}
-			if(processList.isEmpty()) {
-				model.addAttribute("processErrorMsg","作り方を入力してください");
+			if (processList.isEmpty()) {
+				model.addAttribute("processErrorMsg", "作り方を入力してください");
 			}
 			return "post";
 		}
@@ -117,7 +118,8 @@ public class RegisterController {
 
 	//food追加
 	@RequestMapping(value="/postInfoCheck",params="foodAdd", method=RequestMethod.POST)
-	public String foodAdd(@ModelAttribute ("postInfo") PostForm form, Model model) {
+	public String foodAdd(@ModelAttribute ("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		if(form.getAmount().isEmpty() || form.getFoodName().isEmpty()) {
 			if(form.getFoodName().isEmpty()) {
 				model.addAttribute("nameEmpty","材料は必須です");
@@ -146,12 +148,15 @@ public class RegisterController {
 				return "post";
 			}
 		}
+
 	}
 
 	//food削除
-	@RequestMapping(value="/postInfoCheck",params="foodDel", method=RequestMethod.POST)
-	public String foodDel(@ModelAttribute ("postInfo") PostForm form,HttpServletRequest req, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "foodDel", method = RequestMethod.POST)
+	public String foodDel(@ModelAttribute("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
+		>>>>>>> branch 'develop' of git@github.com:21nakamayuuta/D-group.git
 		String selectButtonValue = req.getParameter("foodDel");
 
 		System.out.println(selectButtonValue);
@@ -164,16 +169,14 @@ public class RegisterController {
 		session.setAttribute("foodList", foodList);
 
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
 
-
-
-
 	//process追加
 	@RequestMapping(value="/postInfoCheck",params="processAdd", method=RequestMethod.POST)
-	public String processAdd(@ModelAttribute ("postInfo") PostForm form, Model model) {
+	public String processAdd(@ModelAttribute ("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		if(form.getProcessDescription().isEmpty()) {
 			model.addAttribute("processEmpty","作り方を入力してください");
 			List<Category> categoryList = categoryService.searchCategory();
@@ -193,7 +196,6 @@ public class RegisterController {
 				List<Category> categoryList = categoryService.searchCategory();
 				model.addAttribute("categoryList",categoryList);
 				form.setProcessDescription(null);
-
 				return "post";
 			}
 		}
@@ -201,8 +203,9 @@ public class RegisterController {
 	}
 
 	//process削除
-	@RequestMapping(value="/postInfoCheck",params="processDel", method=RequestMethod.POST)
-	public String processDel(@ModelAttribute ("postInfo") PostForm form,HttpServletRequest req, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "processDel", method = RequestMethod.POST)
+	public String processDel(@ModelAttribute("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
 		String selectButtonValue = req.getParameter("foodDel");
 
@@ -217,7 +220,7 @@ public class RegisterController {
 		session.setAttribute("processList", processList);
 
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
 
