@@ -81,7 +81,7 @@
             <label for="title" class="title">レシピタイトル</label>
             <form:input type="text" id="title" path="recipeTitle" />
           </div>
-          <form:errors path="completeImage" class="error_msg"/>
+
           <div class="image">
             <img src="" class="preview display-none" />
             <label for="file" class="image-wrap">
@@ -94,13 +94,23 @@
                 ><br />
                 <span>クリックして料理の写真を載せる</span>
               </div>
-              <form:input path="completeImage" type="file" name="image" accept="image/jpeg,image/png" id="file" class="display-none" />
+              <form:input path="completeImage" type="file" name="image" accept="image/jpeg,image/png" id="file" class="display-none"/>
             </label>
+            <c:if test="${not empty imageError }">
+              <span class="error_msg">${imageError }</span>
+          </c:if>
           </div>
           <div class="material">
+            <c:if test="${not empty foodErrorMsg }">
+              <span class="error_msg">${foodErrorMsg }</span>
+            </c:if>
             <h3 class="title">材料・分量</h3>
-            <form:errors path="foodName" class="error_msg"/>
-            <form:errors path="amount" class="error_msg"/>
+            <c:if test="${not empty nameEmpty }">
+              <span class="error_msg">${nameEmpty }</span>
+            </c:if>
+            <c:if test="${not empty amountEmpty }">
+              <span class="error_msg">${amountEmpty }</span>
+            </c:if>
             <div class="input">
               <label
                 >材料名<form:input type="text" name="material" id="material" path="foodName"
@@ -109,15 +119,14 @@
               <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
             <ul>
-            <c:if test="${not empty foodErrorMsg }">
-              <span class="error_msg">${foodErrorMsg }</span>
-            </c:if>
+
             <c:forEach var="f" items="${foodList }">
               <li>
-                <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" /><input
+                <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" readonly/><input
                   type="text"
                   class="amount"
                   value="${fn:escapeXml(f.amount)}"
+                  readonly
                 /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
             </c:forEach>
@@ -132,7 +141,7 @@
           </div>
           <div class="how-to">
             <h3 class="title">
-              作り方<span class="error_msg">${processErrorMsg }</span>
+              作り方<span class="error_msg">${processErrorMsg }<c:if test="${not empty processEmpty }">${processEmpty }</c:if></span>
             </h3>
             <div class="input">
               <form:input type="text" path="processDescription"/>
@@ -141,7 +150,7 @@
             <ul>
               <c:forEach var="p" items="${processList }">
                 <li>
-                  <input type="text" value="${fn:escapeXml(p.processDescription)}"/><form:button type="submit" class="form-btn" name="processDel">
+                  <input type="text" value="${fn:escapeXml(p.processDescription)}" readonly/><form:button type="submit" class="form-btn" name="processDel" >
                     削除
                   </form:button>
                 </li>

@@ -17,10 +17,7 @@ public class PostForm {
 
 	private Integer displayOrderFood;
 
-	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String foodName;
-
-	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String amount;
 
 	private String foodDelete;
@@ -30,11 +27,11 @@ public class PostForm {
 
 	private Integer displayOrderProcess;
 
-	@Length(min=0,max=50, message="50文字以内で記入してください")
+
 	private String processDescription;
 
 	@NotBlank(message="コメントを入力してください")
-	@Length(min=0,max=50, message="50文字以内で記入してください")
+	@Length(min=0,max=200, message="200文字以内で記入してください")
 	private String overview;
 
 
