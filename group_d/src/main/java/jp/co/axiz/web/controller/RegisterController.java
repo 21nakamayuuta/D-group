@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.PostForm;
+import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.UserInfo;
@@ -22,6 +23,7 @@ import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
 import jp.co.axiz.web.util.ParamUtil;
+
 @Controller
 public class RegisterController {
 	@Autowired
@@ -33,18 +35,19 @@ public class RegisterController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/post" )
-	public String post(@ModelAttribute ("postInfo") PostForm form,Model model) {
+	@RequestMapping("/post")
+	public String post(@ModelAttribute("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 
 		List<Food> foodList = new ArrayList<Food>();
-		session.setAttribute("foodList",foodList);
+		session.setAttribute("foodList", foodList);
 		return "post";
 	}
 
-	@RequestMapping(value="/postInfoCheck",params="register", method=RequestMethod.POST)
-	public String postInfoCheck(@ModelAttribute ("postInfo") PostForm form, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
+	public String postInfoCheck(@ModelAttribute("postInfo") PostForm form, Model model) {
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
 		//画像保存クラス
@@ -55,31 +58,27 @@ public class RegisterController {
 		Date nowdate = new Date();
 		java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
 
-//		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), createTime);
-//		recipeService.registerRecipe(InsertRecipe);
+		//		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), createTime);
+		//		recipeService.registerRecipe(InsertRecipe);
 		Integer newRecipeId = recipeService.searchNewRecipe();
-//		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
-
-
-
-
+		//		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
 
 		return "redirect:/userTop";
 	}
 
-	@RequestMapping(value="/postInfoCheck",params="foodAdd", method=RequestMethod.POST)
-	public String foodAdd(@ModelAttribute ("postInfo") PostForm form, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "foodAdd", method = RequestMethod.POST)
+	public String foodAdd(@ModelAttribute("postInfo") PostForm form, Model model) {
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
 		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
 		foodList.add(newFoodList);
 		session.setAttribute("foodList", foodList);
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
 
-	@RequestMapping(value="/postInfoCheck",params="foodDel", method=RequestMethod.POST)
-	public String foodDel(@ModelAttribute ("postInfo") PostForm form,HttpServletRequest req, Model model) {
+	@RequestMapping(value = "/postInfoCheck", params = "foodDel", method = RequestMethod.POST)
+	public String foodDel(@ModelAttribute("postInfo") PostForm form, HttpServletRequest req, Model model) {
 		String selectButtonValue = req.getParameter("foodDel");
 
 		System.out.println(selectButtonValue);
@@ -89,7 +88,7 @@ public class RegisterController {
 		session.setAttribute("foodList", foodList);
 
 		List<Category> categoryList = categoryService.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
 

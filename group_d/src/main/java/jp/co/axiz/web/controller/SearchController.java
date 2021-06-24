@@ -33,28 +33,32 @@ public class SearchController {
 	@Autowired
 	CategoryService categoryService;
 
-//	@RequestMapping("/top" )
-//	public String top(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
-//		return "top";
-//	}
+	//	@RequestMapping("/top" )
+	//	public String top(@ModelAttribute("RecipeSearch") SearchForm form, Model model) {
+	//		return "top";
+	//	}
 
 	@RequestMapping("/searchResult")
-	public String searchResult(Model model) {
+	public String searchResult(
+			Model model) {
 		return "searchResult";
 	}
 
-	@RequestMapping(value= "/search", method = RequestMethod.POST)
-	public String search(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, @ModelAttribute("sign") SignUpForm form,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
+			Model model) {
 
 		//カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
 		//検索の処理
-		if(searchService.find(SearchKeywordForm.getSearchKeyword()) == null){
+		if (searchService.find(SearchKeywordForm.getSearchKeyword()) == null) {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
-		}else {
+		} else {
 			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
@@ -65,18 +69,21 @@ public class SearchController {
 		return "searchResult";
 	}
 
-	@RequestMapping(value= "/categorySearch", method = RequestMethod.GET)
-	public String categorySearch(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm, @ModelAttribute("sign") SignUpForm form, Model model) {
+	@RequestMapping(value = "/categorySearch", method = RequestMethod.GET)
+	public String categorySearch(
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
+			@ModelAttribute("sign") SignUpForm form,
+			Model model) {
 
 		//カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
 		//カテゴリ検索の処理
-		if(searchService.categoryFind(categorySearchForm.getCategoryId()) == null){
+		if (searchService.categoryFind(categorySearchForm.getCategoryId()) == null) {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
-		}else {
+		} else {
 			List<Search> searchList = searchService.categoryFind(categorySearchForm.getCategoryId());
 			model.addAttribute("searchList", searchList);
 		}
@@ -88,19 +95,20 @@ public class SearchController {
 	}
 
 	@GetMapping("/recipeSearch")
-	public String recipeSearch(@RequestParam(name = "recipeId", required = false) Integer recipeId ,Model model) {
-
+	public String recipeSearch(
+			@RequestParam(name = "recipeId", required = false) Integer recipeId,
+			Model model) {
 
 		Integer totalGood = recipeService.totalGood(recipeId);
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 
-		model.addAttribute("totalGood",totalGood);
-		model.addAttribute("recipeInfo",recipeInfo.get(0));
-		model.addAttribute("foodInfo",foodInfo);
-		model.addAttribute("categoryInfo",recipeInfo);
-		model.addAttribute("processInfo",processInfo);
+		model.addAttribute("totalGood", totalGood);
+		model.addAttribute("recipeInfo", recipeInfo.get(0));
+		model.addAttribute("foodInfo", foodInfo);
+		model.addAttribute("categoryInfo", recipeInfo);
+		model.addAttribute("processInfo", processInfo);
 
 		return "recipe";
 
