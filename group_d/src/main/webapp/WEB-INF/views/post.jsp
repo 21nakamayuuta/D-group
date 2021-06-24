@@ -75,9 +75,11 @@
       <div class="wrapper">
         <form:form action="postInfoCheck" modelAttribute="postInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
+            <form:errors path="recipeTitle" class="error_msg"/>
             <label for="title" class="title">レシピタイトル</label>
             <form:input type="text" id="title" path="recipeTitle" />
           </div>
+          <form:errors path="completeImage" class="error_msg"/>
           <div class="image">
             <img src="" class="preview display-none" />
             <label for="file" class="image-wrap">
@@ -95,6 +97,8 @@
           </div>
           <div class="material">
             <h3 class="title">材料・分量</h3>
+            <form:errors path="foodName" class="error_msg"/>
+            <form:errors path="amount" class="error_msg"/>
             <div class="input">
               <label
                 >材料名<form:input type="text" name="material" id="material" path="foodName"
@@ -103,6 +107,9 @@
               <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
             <ul>
+            <c:if test="${not empty foodErrorMsg }">
+              <span class="error_msg">${foodErrorMsg }</span>
+            </c:if>
             <c:forEach var="f" items="${foodList }">
               <li>
                 <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" /><input
@@ -112,10 +119,10 @@
                 /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
             </c:forEach>
-<!--               ここら辺わからん -->
             </ul>
           </div>
           <div class="time">
+            <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
               <form:input type="number" name="time" id="time" path="cookingTime"/>分以内
@@ -123,31 +130,31 @@
           </div>
           <div class="how-to">
             <h3 class="title">
-              作り方<span class="error_msg">エラーメッセージ</span>
+              作り方<span class="error_msg">${processErrorMsg }</span>
             </h3>
             <div class="input">
               <form:input type="text" path="processDescription"/>
-              <button type="button" class="form-btn">追加</button>
-<!--               わからん -->
+              <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
             </div>
             <ul>
-              <li>
-                <input type="text" /><button type="button" class="form-btn">
-                  削除
-                </button>
-              </li>
+              <c:forEach var="p" items="${processList }">
+                <li>
+                  <input type="text" value="${fn:escapeXml(p.processDescription)}"/><form:button type="submit" class="form-btn" name="processDel">
+                    削除
+                  </form:button>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">
             <h3 class="title">
-              コメント<span class="error_msg">エラーメッセージ</span>
+              コメント<span class="error_msg"><form:errors path="overview"/></span>
             </h3>
             <form:textarea name="comment" id="" cols="30" rows="10" path="overview"></form:textarea>
           </div>
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-
 	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>

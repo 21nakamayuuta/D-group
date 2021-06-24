@@ -94,10 +94,9 @@ public class SearchController {
 		return "searchResult";
 	}
 
-	@GetMapping("/recipeSearch")
-	public String recipeSearch(
-			@RequestParam(name = "recipeId", required = false) Integer recipeId,
-			Model model) {
+	@GetMapping("/recipe")
+	public String recipeSearch(@RequestParam(name = "recipeID", required = false) Integer recipeId,
+			@ModelAttribute("sign") SignUpForm form, Model model) {
 
 		Integer totalGood = recipeService.totalGood(recipeId);
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
