@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.FoodDao;
-import jp.co.axiz.web.entity.Food;
 
 @Repository
 public class PgFoodDao implements FoodDao {
@@ -19,17 +18,19 @@ public class PgFoodDao implements FoodDao {
     private NamedParameterJdbcTemplate jT;
 
 	@Override
-	public void registerFood(List<Food> foodList, Integer recipeId) {
+	public void registerFood(List<String> foodNameList, List<String> amountList, Integer recipeId) {
 		// TODO 自動生成されたメソッド・スタブ
 		Integer orderFood = 1;
+		Integer count = 0;
 		String sql = REGISTER_RECIPE_AND_FOOD;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		for(Food f : foodList) {
+		for(String f : foodNameList) {
 			param.addValue("recipeId", recipeId);
 			param.addValue("displayOrderFood", orderFood);
-			param.addValue("foodName", f.getFoodName());
-			param.addValue("amount", f.getAmount());
+			param.addValue("foodName", f);
+			param.addValue("amount", amountList.get(count));
 			orderFood += 1;
+			count += 1;
 			jT.update(sql, param);
 		}
 	}
@@ -53,6 +54,8 @@ public class PgFoodDao implements FoodDao {
 		}
 
 	}
+
+
 
 
 }
