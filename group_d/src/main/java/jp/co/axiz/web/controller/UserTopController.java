@@ -78,9 +78,9 @@ public class UserTopController {
         UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
         List<PostRecipe> postRecipeList = postRecipeService.getAllPostRecipe(loginUser.getUserId());
         List<MadeRecipe> madeRecipeList = madeRecipeService.getAllMadeRecipe(loginUser.getUserId());
-        // System.out.println(loginUser.getUserId());
-        // System.out.println(postRecipeList);
-        // System.out.println(madeRecipeList);
+        System.out.println(loginUser.getUserId());
+        // postRecipeList.get(0).getAllData();
+        // madeRecipeList.get(0).getAllData();
         Map<String, Object> map = new HashMap<>();
         map.put("postRecipe", postRecipeList);
         map.put("madeRecipe", madeRecipeList);

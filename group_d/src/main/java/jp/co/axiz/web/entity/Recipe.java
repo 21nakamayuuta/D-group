@@ -16,10 +16,22 @@ public class Recipe {
 	private String categoryName;
     private Integer goodCount;
 
+    private Integer recipeCount;
+
 
 
 	public Recipe() {
 	}
+
+	public Recipe(String recipeTitle, String completeImage, Integer cookingTime, String overview,
+			Timestamp updateDateTime) {
+		this.recipeTitle = recipeTitle;
+		this.completeImage = completeImage;
+		this.cookingTime = cookingTime;
+		this.overview = overview;
+		this.updateDateTime = updateDateTime;
+	}
+
 	public Recipe(Integer userId, String recipeTitle, String completeImage, Integer cookingTime, String overview,
 			Timestamp createDateTime) {
 		this.userId = userId;
@@ -95,6 +107,13 @@ public class Recipe {
 	public void setUpdateDateTime(Timestamp updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
+	public Integer getRecipeCount() {
+		return recipeCount;
+	}
+	public void setRecipeCount(Integer recipeCount) {
+		this.recipeCount = recipeCount;
+	}
+
 
 
 }

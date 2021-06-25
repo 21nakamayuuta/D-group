@@ -136,7 +136,7 @@
             <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
-              <form:input type="number" name="time" id="time" path="cookingTime"/>分以内
+              <form:input type="number" name="time" id="time" min="1" max="150" path="cookingTime"/>分以内
             </div>
           </div>
           <div class="how-to">
@@ -164,7 +164,7 @@
             <form:textarea name="comment" id="" cols="30" rows="10" path="overview"></form:textarea>
           </div>
           <div class="category">
-            <h3 class="title">カテゴリ</h3>
+            <h3 class="title">カテゴリ</h3><span class="error_msg">${categoryErrorMsg}</span>
             <ul class="input">
 	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>

@@ -62,6 +62,7 @@ public class RegisterController {
 		return "post";
 	}
 
+
 	@Transactional
 	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
 	public String postInfoCheck(@Validated @ModelAttribute("postInfo") PostForm form, BindingResult binding,
@@ -73,14 +74,31 @@ public class RegisterController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			if (foodList.isEmpty()) {
-				model.addAttribute("foodErrorMsg", "材料・分量を入力してください");
+				model.addAttribute("foodErrorMsg", "材料・分量を追加してください");
 			}
 			if (processList.isEmpty()) {
-				model.addAttribute("processErrorMsg", "作り方を入力してください");
+				model.addAttribute("processErrorMsg", "作り方を追加してください");
+			}
+			return "post";
+		}
+		if (foodList.isEmpty() || processList.isEmpty()) {
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			if (foodList.isEmpty()) {
+				model.addAttribute("foodErrorMsg", "材料・分量を追加してください");
+			}
+			if (processList.isEmpty()) {
+				model.addAttribute("processErrorMsg", "作り方を追加してください");
 			}
 			return "post";
 		}
 
+		if(form.getFormCategoryId().length == 0) {
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
+			return "post";
+		}
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
 		//画像保存クラス
@@ -91,30 +109,31 @@ public class RegisterController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			return "post";
-		} else {
-			//投稿時刻の取得
-			Date nowdate = new Date();
-			java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
-
-			//recipテーブルに必要な情報を登録
-			Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath,
-					form.getCookingTime(), form.getOverview(), createTime);
-			recipeService.registerRecipe(InsertRecipe);
-
-			//登録したレシピIDを取得
-			Integer newRecipeId = recipeService.searchNewRecipe();
-
-			//カテゴリテーブルに情報を登録
-			categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
-
-			//foodテーブルに情報を登録
-			foodService.registerFood(foodList, newRecipeId);
-
-			//processテーブルに情報を登録
-			processService.registerProcess(processList, newRecipeId);
-
-			return "redirect:/userTop";
 		}
+
+		//投稿時刻の取得
+		Date nowdate = new Date();
+		java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
+
+		//recipテーブルに必要な情報を登録
+		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath,
+				form.getCookingTime(), form.getOverview(), createTime);
+		recipeService.registerRecipe(InsertRecipe);
+
+		//登録したレシピIDを取得
+		Integer newRecipeId = recipeService.searchNewRecipe();
+
+		//カテゴリテーブルに情報を登録
+		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
+
+		//foodテーブルに情報を登録
+		foodService.registerFood(foodList, newRecipeId);
+
+		//processテーブルに情報を登録
+		processService.registerProcess(processList, newRecipeId);
+
+		return "userTop";
+
 
 	}
 
@@ -160,7 +179,7 @@ public class RegisterController {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
 		>>>>>>> branch 'develop' of git@github.com:21nakamayuuta/D-group.git
 		String selectButtonValue = req.getParameter("foodDel");
-		
+
 		System.out.println(selectButtonValue);
 		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
 		*/
@@ -174,6 +193,7 @@ public class RegisterController {
 		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
+
 
 	//process追加
 	@RequestMapping(value = "/postInfoCheck", params = "processAdd", method = RequestMethod.POST)
@@ -210,7 +230,7 @@ public class RegisterController {
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
 		String selectButtonValue = req.getParameter("foodDel");
-		
+
 		System.out.println(selectButtonValue);
 		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
 		*/

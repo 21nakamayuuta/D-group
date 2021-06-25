@@ -43,6 +43,11 @@ public class NewRecipeService implements RecipeService{
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+	@Override
+	public Recipe totalRecipe(Integer userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 
 	@Override
 	public void registerRecipe(Recipe recipe) {
@@ -57,6 +62,22 @@ public class NewRecipeService implements RecipeService{
 	public List<Recipe> ranking() {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
+	}
+
+	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+
+	}
+
+	public List<Recipe> userRecipe(Integer recipe_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public void deleteRecipe(Integer recipe_id) {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 }
