@@ -70,7 +70,11 @@ ALTER SEQUENCE recipe_recipe_id_seq RESTART 1;
 INSERT INTO recipe (user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) 
 VALUES 
 (1, 'オーツミルクで全粒粉入りパンケーキ', 'webapp/image', 10, 'とても簡単に出来ます。', now()),
-(2, 'ごぼうの代わりに！じゃがいもと人参のきんぴら', 'webapp/image/aaa', 15, 'じゃがいもがおいしいです。', now());
+(2, 'ごぼうの代わりに！じゃがいもと人参のきんぴら', 'webapp/image/aaa', 15, 'じゃがいもがおいしいです。', now())
+(3, 'ごぼうの代わりに！じゃがいもと人参のきんぴら', 'webapp/image/aaa', 15, 'じゃがいもがおいしいです。', now())
+(1, 'すぐできる☆サバ缶カレー', 'すぐできる☆サバ缶カレー.jpq', 15, '煮込み時間少ない時短サバ缶カレー☆15分スピード料理', now())
+(2, '簡単妊活ご飯☆鯖缶トマトカレー', '簡単妊活ご飯☆鯖缶トマトカレー.jpg', 15, '妊活にいいと言われる鯖缶、大豆、トマトの栄養をたっぷり採れます！美味しく食べて元気になりましょう☆', now())
+(3, 'おうち飲茶✣豚バラ肉の豆鼓蒸し', 'おうち飲茶✣豚バラ肉の豆鼓蒸し.jpg', 15, '飲茶の定番「豚スペアリブの豆鼓蒸し」をバラ肉で。手が込んでるようで実は簡単です。', now());
 
 select * from recipe;
 

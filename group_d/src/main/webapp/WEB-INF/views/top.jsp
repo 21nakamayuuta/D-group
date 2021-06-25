@@ -14,6 +14,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/recipeList.css" />
+    <link rel="stylesheet" href="css/category.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
@@ -23,8 +24,12 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
         ・ログイン時 -> userTop
         ✔未ログイン時 -> top
       ・ランキング表示
+        ✔レシピ一覧を表示させる
+        ・同じいいね数の場合のランキングの表示
+        ・レシピページへの遷移
       ・新着レシピ表示
-      ・カテゴリのスタイル修正
+        ✔レシピ一覧を表示させる
+        ・レシピページへの遷移
       header
       ・権限でのスタイルの動的変更
      -->
@@ -201,7 +206,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 </div>
                 <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                   <div class="img-wrap">
-                    ${fn:escapeXml(recipe.completeImage)}
+                    <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                   </div>
                   <span class="recipe-title"
                     >${fn:escapeXml(recipe.recipeTitle)}</span
@@ -237,7 +242,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 </div>
                 <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                   <div class="img-wrap">
-                    ${fn:escapeXml(recipe.completeImage)}
+                   <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                   </div>
                   <span class="recipe-title">
                     ${fn:escapeXml(recipe.recipeTitle)}
