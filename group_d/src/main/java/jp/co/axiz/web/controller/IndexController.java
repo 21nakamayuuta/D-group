@@ -31,7 +31,6 @@ public class IndexController {
 	HttpSession session;
 
 	@RequestMapping("/top")
-
 	public String top(@ModelAttribute("loginForm") LoginForm loginForm,
 			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm signForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
@@ -62,6 +61,10 @@ public class IndexController {
 			return "redirect:top";
 		}
 
+		//ログインしてない状態でユーザートップに来たらトップへ遷移
+				if((boolean)session.getAttribute("login")) {
+					return "redirect:top";
+				}
 		// 新着レシピ
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList", recipeList);
@@ -75,5 +78,10 @@ public class IndexController {
 		model.addAttribute("categoryList", categoryList);
 
 		return "userTop";
+	}
+
+	@RequestMapping("/edit")
+	public String edit(@ModelAttribute("RecipeSearch") SearchForm searchForm) {
+		return "edit";
 	}
 }

@@ -15,7 +15,7 @@ header .btn-wrap{
 .recipe-form{
     margin-top: 4rem;
     display: grid;
-    grid-template-columns: 2fr minmax(max-content, 1fr);
+    grid-template-columns: 2fr minmax(565px, 1fr);
     grid-template-rows: repeat(7, auto);
     grid-row-gap: 2rem;
     grid-template-areas: 

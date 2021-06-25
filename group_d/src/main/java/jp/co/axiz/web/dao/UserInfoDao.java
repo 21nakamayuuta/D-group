@@ -14,6 +14,8 @@ public interface UserInfoDao {
 	public UserInfo findLoginName(String loginName);
 
 	public UserInfo findLoginNameAndPassword(String loginName, String password);
+	void update_name(String name,Integer user_id);
+	void update_pass(String pass,Integer user_id);
 
 
 }
