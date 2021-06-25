@@ -71,6 +71,11 @@ public class NewRecipeDao implements RecipeDao{
 	}
 
 	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
 	public List<Recipe> userRecipe(Integer recipeId) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;

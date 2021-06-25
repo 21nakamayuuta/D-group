@@ -74,6 +74,12 @@ public class PgRecipeService implements RecipeService {
 	}
 
 	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		recipeDao.editRecipe(recipe, recipeId);
+	}
+
+
 	public List<Recipe> userRecipe(Integer user_id){
 		return recipeDao.userRecipe(user_id);
 	}
