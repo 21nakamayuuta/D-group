@@ -1,7 +1,6 @@
 package jp.co.axiz.web.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -70,8 +69,7 @@ public class AuthController {
 
 		// パスワード一致チェック
 		if (!(form.getRepass().equals(form.getPassword()))) {
-			String errMsg = messageSource.getMessage("form.lbl.notture", null, Locale.getDefault());
-			model.addAttribute("errMsgPASS", errMsg);
+			model.addAttribute("errMsgPASS", "パスワードが一致しません。");
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
@@ -92,8 +90,7 @@ public class AuthController {
 		// サービスで同じログインネームの有無チェック
 		// なければそのままユーザーを登録する
 		if (!(userService.INSERT_AND_CHECK(user))) {
-			String errMsg = messageSource.getMessage("form.lbl.notUseId", null, Locale.getDefault());
-			model.addAttribute("errMsgID", errMsg);
+			model.addAttribute("errMsgID", "このIDは使用出来ません。");
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
@@ -124,6 +121,8 @@ public class AuthController {
 		session.setAttribute("user", user);
 		// ヘッダーのページ遷移用にセッションにfalse保存
 		session.setAttribute("login", false);
+		session.setAttribute("user", user);
+
 		return "userTop";
 	}
 

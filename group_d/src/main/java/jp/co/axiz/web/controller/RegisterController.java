@@ -62,6 +62,7 @@ public class RegisterController {
 		return "post";
 	}
 
+
 	@Transactional
 	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
 	public String postInfoCheck(@Validated @ModelAttribute("postInfo") PostForm form, BindingResult binding,
@@ -82,7 +83,6 @@ public class RegisterController {
 		}
 
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
-
 		//画像保存クラス
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
@@ -160,7 +160,7 @@ public class RegisterController {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
 		>>>>>>> branch 'develop' of git@github.com:21nakamayuuta/D-group.git
 		String selectButtonValue = req.getParameter("foodDel");
-		
+
 		System.out.println(selectButtonValue);
 		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
 		*/
@@ -174,6 +174,7 @@ public class RegisterController {
 		model.addAttribute("categoryList", categoryList);
 		return "post";
 	}
+
 
 	//process追加
 	@RequestMapping(value = "/postInfoCheck", params = "processAdd", method = RequestMethod.POST)
@@ -210,7 +211,7 @@ public class RegisterController {
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
 		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
 		String selectButtonValue = req.getParameter("foodDel");
-		
+
 		System.out.println(selectButtonValue);
 		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
 		*/

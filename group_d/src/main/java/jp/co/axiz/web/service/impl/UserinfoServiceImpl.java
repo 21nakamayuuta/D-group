@@ -31,5 +31,12 @@ public class UserinfoServiceImpl implements UserInfoService {
 	public UserInfo findLoginName(String loginName) {
 		return userInfoDao.findLoginName(loginName);
 	}
-
+	@Override
+	public void update_name(String name,Integer user_id) {
+		userInfoDao.update_name(name,user_id);
+	}
+	@Override
+	public void update_pass(String pass, Integer user_id) {
+		userInfoDao.update_pass(pass,user_id);
+	}
 }

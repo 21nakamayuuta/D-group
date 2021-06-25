@@ -16,6 +16,8 @@ public class Recipe {
 	private String categoryName;
     private Integer goodCount;
 
+    private Integer recipeCount;
+
 
 
 	public Recipe() {
@@ -105,6 +107,13 @@ public class Recipe {
 	public void setUpdateDateTime(Timestamp updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
+	public Integer getRecipeCount() {
+		return recipeCount;
+	}
+	public void setRecipeCount(Integer recipeCount) {
+		this.recipeCount = recipeCount;
+	}
+
 
 
 }

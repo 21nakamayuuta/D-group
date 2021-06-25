@@ -13,7 +13,10 @@ public interface RecipeDao {
 	public List<Food> searchFoodInfo(Integer recipeId);
 	public List<Process> searchProcessInfo(Integer recipeId);
 	public Integer totalGood(Integer recipeId);
+	public List<Recipe> totalRecipe(Integer userId);
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
 	public void editRecipe(Recipe recipe, Integer recipeId);
+	public List<Recipe> userRecipe(Integer recipeId);
+	public void deleteRecipe(Integer recipe_id);
 }

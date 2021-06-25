@@ -13,8 +13,10 @@ public interface RecipeService {
 	public List<Food> searchFoodInfo(Integer recipeId);
 	public List<Process> searchProcessInfo(Integer recipeId);
 	public Integer totalGood(Integer recipeId);
-
+	public Recipe totalRecipe(Integer integer);
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
 	public void editRecipe(Recipe recipe, Integer recipeId);
+	public List<Recipe> userRecipe(Integer user_id);
+	public void deleteRecipe(Integer recipe_id);
 }
