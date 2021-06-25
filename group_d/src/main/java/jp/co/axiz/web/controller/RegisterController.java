@@ -83,8 +83,6 @@ public class RegisterController {
 		}
 
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
-
-	//	UserInfo loginUser = (UserInfo) session.getAttribute("user");
 		//画像保存クラス
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
