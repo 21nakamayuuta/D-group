@@ -17,7 +17,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <!-- task 完了済み → ✔
+    <!-- task (・ → 未完了, ✔ → 完了済み)
       top
       ・URLを/topに変更したときの処理
         ・ログイン時 -> userTop
