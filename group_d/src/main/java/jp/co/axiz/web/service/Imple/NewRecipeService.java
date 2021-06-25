@@ -59,4 +59,10 @@ public class NewRecipeService implements RecipeService{
 		return null;
 	}
 
+	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
 }

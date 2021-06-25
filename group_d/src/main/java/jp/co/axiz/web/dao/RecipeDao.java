@@ -15,4 +15,5 @@ public interface RecipeDao {
 	public Integer totalGood(Integer recipeId);
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
+	public void editRecipe(Recipe recipe, Integer recipeId);
 }

@@ -61,6 +61,12 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.ranking();
 	}
 
+	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		recipeDao.editRecipe(recipe, recipeId);
+	}
+
 
 
 }

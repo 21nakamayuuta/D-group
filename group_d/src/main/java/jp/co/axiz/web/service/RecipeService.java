@@ -16,4 +16,5 @@ public interface RecipeService {
 
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
+	public void editRecipe(Recipe recipe, Integer recipeId);
 }

@@ -28,6 +28,8 @@ public class PgRecipeDao implements RecipeDao{
 	private static final String REGISTER_RECIPE="INSERT INTO recipe(user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) VALUES (:userId, :recipeTitle, :completeImage, :cookingTime, :overview, :createDateTime)";
 	private static final String SEARCH_NEW_RECIPE= "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
 
+	private static final String EDIT_RECIPE="UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeID";
+
 	@Autowired
 	private NamedParameterJdbcTemplate jT;
 
@@ -119,6 +121,20 @@ public class PgRecipeDao implements RecipeDao{
 		BeanPropertyRowMapper<Recipe>(Recipe.class));
 
 		return resultList.isEmpty() ? null : resultList.get(0).getRecipeId();
+	}
+
+	@Override
+	public void editRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = EDIT_RECIPE;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipeTitle", recipe.getRecipeTitle());
+		param.addValue("completeImage", recipe.getCompleteImage());
+		param.addValue("cookingTime", recipe.getCookingTime());
+		param.addValue("overview", recipe.getOverview());
+		param.addValue("updateDateTime", recipe.getUpdateDateTime());
+		param.addValue("recipeId", recipeId);
+		jT.update(sql, param);
 	}
 
 
