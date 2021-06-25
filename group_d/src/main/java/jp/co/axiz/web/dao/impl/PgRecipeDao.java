@@ -29,7 +29,7 @@ public class PgRecipeDao implements RecipeDao{
 	private static final String SEARCH_NEW_RECIPE= "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
 	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";
 	private static final String USER_RECIPE =
-			"select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id";
+			"select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id order by recipe_id";
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
 	@Autowired
