@@ -111,7 +111,7 @@ public class MyPageController {
 		return "redirect:mypage";
 	}
 
-	//レシピ編集ページへ遷移---未完成
+
 	@RequestMapping(value="/deleteORedit",params="editRecipe",method= RequestMethod.POST)
 	public String edit(@Validated @ModelAttribute("MyPageForm") MypageForm form,
 			BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,
@@ -129,7 +129,7 @@ public class MyPageController {
 		List<Category> categoryList = categoryService.searchCategory();
 
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
-		model.addAttribute("foodInfo", foodInfo);
+		session.setAttribute("foodInfo", foodInfo);
 		model.addAttribute("processInfo", processInfo);
 		model.addAttribute("categoryList", categoryList);
 		editform.setOverview(recipeInfo.get(0).getOverview());

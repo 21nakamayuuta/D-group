@@ -1,6 +1,7 @@
 package jp.co.axiz.web.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.EditForm;
 import jp.co.axiz.web.controller.form.SearchForm;
+import jp.co.axiz.web.entity.Category;
+import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
@@ -57,6 +60,14 @@ public class UpdateController {
 
 		//画像保存クラス
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
+		if (imgPath.equals("noImage")) {
+			model.addAttribute("imageError", "画像を選択してください");
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			return "edit";
+		}
+
+
 
 		//更新時刻の取得
 		Date nowdate = new Date();
@@ -65,8 +76,39 @@ public class UpdateController {
 		Recipe EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
 		recipeService.editRecipe(EditRecipe, form.getRecipeId());
 
+		foodService.updateFood(form.getFoodNameList(),form.getAmountList(), form.getRecipeId());
 
 		return "redirect:/userTop";
 
 	}
+
+	@RequestMapping(value = "/editInfoCheck", params = "foodAdd", method = RequestMethod.POST)
+	public String foodAdd(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			Model model) {
+		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
+		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
+		foodInfo.add(newFoodList);
+		session.setAttribute("foodInfo", foodInfo);
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+		form.setFoodName(null);
+		form.setAmount(null);
+		return "edit";
+	}
+
+
+	@RequestMapping(value = "/editInfoCheck", params = "foodDel", method = RequestMethod.POST)
+	public String foodDel(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			Model model) {
+		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
+		foodInfo.remove(0);
+		session.setAttribute("foodInfo", foodInfo);
+
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+		return "edit";
+	}
+
 }
