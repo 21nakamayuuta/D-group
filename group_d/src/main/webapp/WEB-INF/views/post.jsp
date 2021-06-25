@@ -20,15 +20,14 @@
     <header>
       <div class="header-wrap">
         <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
-        <form action="./searchResult.html" class="search-recipe">
-          <input
-            type="text"
-            name="searchKeyword"
+        <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          <form:input
+            path="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
-          />
-          <button type="submit">レシピ検索</button>
-        </form>
+          /><%-- type="text" name="searchKeyword" --%>
+          <form:button>レシピ検索</form:button>
+        </form:form>
         <!-- 権限ごとに切り替える部分 -->
         <div class="btn-wrap">
           <div class="user-icon">
@@ -58,7 +57,8 @@
                 ></span>
                 マイページ
               </a>
-              <button type="button" class="logout item">
+              <form:form action="logout" method="POST">
+              <button type="submit" class="logout item">
                 <span
                   class="iconify"
                   data-inline="false"
@@ -66,6 +66,7 @@
                 ></span>
                 ログアウト
               </button>
+              </form:form>
             </div>
           </div>
         </div>
@@ -76,9 +77,11 @@
       <div class="wrapper">
         <form:form action="postInfoCheck" modelAttribute="postInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
+            <form:errors path="recipeTitle" class="error_msg"/>
             <label for="title" class="title">レシピタイトル</label>
             <form:input type="text" id="title" path="recipeTitle" />
           </div>
+
           <div class="image">
             <img src="" class="preview display-none" />
             <label for="file" class="image-wrap">
@@ -91,31 +94,46 @@
                 ><br />
                 <span>クリックして料理の写真を載せる</span>
               </div>
-              <form:input path="completeImage" type="file" name="image" accept="image/jpeg,image/png" id="file" class="display-none" />
+              <form:input path="completeImage" type="file" name="image" accept="image/jpeg,image/png" id="file" class="display-none"/>
             </label>
+            <c:if test="${not empty imageError }">
+              <span class="error_msg">${imageError }</span>
+          </c:if>
           </div>
           <div class="material">
+            <c:if test="${not empty foodErrorMsg }">
+              <span class="error_msg">${foodErrorMsg }</span>
+            </c:if>
             <h3 class="title">材料・分量</h3>
+            <c:if test="${not empty nameEmpty }">
+              <span class="error_msg">${nameEmpty }</span>
+            </c:if>
+            <c:if test="${not empty amountEmpty }">
+              <span class="error_msg">${amountEmpty }</span>
+            </c:if>
             <div class="input">
               <label
                 >材料名<form:input type="text" name="material" id="material" path="foodName"
               /></label>
               <label>分量<form:input type="text" name="amount" id="amount" path="amount"/></label>
-              <button type="button" class="form-btn">追加</button>
-<!--               ここで追加したい -->
+              <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
-
             <ul>
+
+            <c:forEach var="f" items="${foodList }">
               <li>
-                <input type="text" class="material" /><input
+                <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" readonly/><input
                   type="text"
                   class="amount"
-                /><button type="button" class="form-btn">削除</button>
+                  value="${fn:escapeXml(f.amount)}"
+                  readonly
+                /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
-<!--               ここら辺わからん -->
+            </c:forEach>
             </ul>
           </div>
           <div class="time">
+            <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
               <form:input type="number" name="time" id="time" path="cookingTime"/>分以内
@@ -123,35 +141,35 @@
           </div>
           <div class="how-to">
             <h3 class="title">
-              作り方<span class="error_msg">エラーメッセージ</span>
+              作り方<span class="error_msg">${processErrorMsg }<c:if test="${not empty processEmpty }">${processEmpty }</c:if></span>
             </h3>
             <div class="input">
               <form:input type="text" path="processDescription"/>
-              <button type="button" class="form-btn">追加</button>
-<!--               わからん -->
+              <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
             </div>
             <ul>
-              <li>
-                <input type="text" /><button type="button" class="form-btn">
-                  削除
-                </button>
-              </li>
+              <c:forEach var="p" items="${processList }">
+                <li>
+                  <input type="text" value="${fn:escapeXml(p.processDescription)}" readonly/><form:button type="submit" class="form-btn" name="processDel" >
+                    削除
+                  </form:button>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">
             <h3 class="title">
-              コメント<span class="error_msg">エラーメッセージ</span>
+              コメント<span class="error_msg"><form:errors path="overview"/></span>
             </h3>
             <form:textarea name="comment" id="" cols="30" rows="10" path="overview"></form:textarea>
           </div>
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-
 	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
-          <form:button type="submit" class="submit post-btn">レシピ投稿</form:button>
+          <form:button type="submit" class="submit post-btn" name="register">レシピ投稿</form:button>
         </form:form>
       </div>
     </main>

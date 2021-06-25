@@ -4,6 +4,14 @@ public class Process {
 	private Integer displayOrderProcess;
 	private String processDescription;
 
+
+	public Process() {
+
+	}
+	public Process(String processDescription) {
+		this.processDescription = processDescription;
+	}
+
 	public Integer getDisplayOrderProcess() {
 		return displayOrderProcess;
 	}

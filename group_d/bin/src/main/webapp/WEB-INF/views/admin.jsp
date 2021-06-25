@@ -16,12 +16,10 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-<!-- aaa --><!-- bbb -->
-=======
+
     <header>
         <div class="header-wrap">
-            <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
+            <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
             <form action="./searchResult.html" class="search-recipe">
                 <input type="text" name="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" />
                 <button type="submit">レシピ検索</button>
@@ -267,7 +265,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/header.js"></script>
     <script src="js/form.js"></script>
->>>>>>> e6af26989d4ced849d37f3cdc369d9c151617bfe
+
 </body>
 
 </html>

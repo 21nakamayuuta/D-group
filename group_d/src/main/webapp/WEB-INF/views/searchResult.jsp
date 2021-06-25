@@ -14,51 +14,52 @@
     <link rel="stylesheet" href="css/recipeList.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+
   <body>
+	<!-- ログイン機能 -->
     <div class="cover display-none">
-      <form action="userTop.html" class="login-form display-none">
-        <div class="btn" id="cancel">
-          <span
+  	<form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
+    <div class="btn" id="cancel">
+         <span
             class="iconify"
             data-inline="false"
             data-icon="topcoat:cancel"
           ></span>
-        </div>
-        <div class="form-wrap">
+    </div>
+
+    <div class="form-wrap">
+         <label style="color:red;">${errMsg }</label>
           <div class="userId">
-            <label
-              >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
-              <!-- エラー時
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
+            <label>ID<br />
+              <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
+              <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
             </label>
           </div>
+
+
           <div class="password">
-            <label
-              >パスワード<br />
-              <input
-                type="text"
-                name="password"
-                id="password"
-                placeholder="パスワード"
-              />
+            <label>パスワード<br />
+              <form:input type="password" name="password" id="password" placeholder="パスワード" path="password"/>
+              <form:errors path="password" class="error_msg" cssStyle="color:red"/>
             </label>
           </div>
           <button>ログイン</button>
-        </div>
-      </form>
- <!-- 新規登録 -->
-      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
+     </div>
+     </form:form>
 
-        <div class="btn" id="cancel">
+
+
+
+ 	<!-- 新規登録 -->
+    <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
+    	<div class="btn" id="cancel">
           <span
             class="iconify"
             data-inline="false"
             data-icon="topcoat:cancel"
           ></span>
         </div>
+
         <div class="form-wrap">
           <div class="userId">
             <label
@@ -105,27 +106,92 @@
           <form:button type="submit">新規登録</form:button>
         </div>
       </form:form>
+
       </div>
     <header>
+    <c:if test="${roleId >=1 }" var="flg" />
+	<c:if test="${flg}" >
       <div class="header-wrap">
-        <h1><a href=${ login ? 'userTop' : 'top' } class="page-title">おさるのレシピ</a></h1>
+        	<h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+			<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          		<form:input
+            		path="searchKeyword"
+            		id="searchKeyword"
+            		placeholder="料理名・食材名"
+          		/><%-- type="text" name="searchKeyword" --%>
+          		<form:button>レシピ検索</form:button>
+        	</form:form>
 
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-          <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
-          <form:button>レシピ検索</form:button>
-        </form:form>
-
-
-        <!-- 権限ごとに切り替える部分 -->
-        <div class="btn-wrap">
-          <button type="button" id="singUp">新規登録</button>
-          <button type="button" id="login">ログイン</button>
+ 	<div class="btn-wrap">
+          <a href="post" class="to-post btn">レシピを投稿する</a>
+          <div class="user-icon">
+            <div class="btn">
+              <span
+                class="iconify"
+                data-inline="false"
+                data-icon="carbon:user-avatar-filled"
+              ></span>
+            </div>
+            <div class="tooltip display-none">
+              <!-- 管理者ログイン時追加 -->
+              <a href="" class="to-admin item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="dashicons:admin-network"
+                ></span>
+                管理ページ
+              </a>
+              <!--  -->
+              <a href="./mypage.html" class="to-mypage item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="carbon:user-avatar-filled"
+                ></span>
+                マイページ
+              </a>
+              <form:form action="top" method="POST">
+              <button type="submit" class="logout item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="carbon:logout"
+                ></span>
+                ログアウト
+              </button>
+              </form:form>
+            </div>
+          </div>
         </div>
-      </div>
+        </div>
+	</c:if>
+
+
+		<c:if test="${!flg}" >
+		<div class="header-wrap">
+        	<h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+        		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          		<form:input
+            		path="searchKeyword"
+            		id="searchKeyword"
+            		placeholder="料理名・食材名"
+          		/><%-- type="text" name="searchKeyword" --%>
+
+          		<form:button>レシピ検索</form:button>
+        		</form:form>
+
+        <%-- <!-- 権限ごとに切り替える部分 --> --%>
+        	<div class="btn-wrap">
+          		<button type="button" id="singUp">新規登録</button>
+          		<button type="button" id="login">ログイン</button>
+        	</div>
+       </div>
+	   </c:if>
+
+
+
+
     </header>
     <main>
       <div class="wrapper">
@@ -138,7 +204,7 @@
             ></span>
             <span class="search-keyword">${fn:escapeXml(searchKeyword)}</span>
             のレシピ
-            <span class="result-num">${searchList.size()}</span>件
+            <span class="result-num"><c:if test="${empty searchList.size()}"> 0 </c:if>${searchList.size()}</span>件
           </h3>
           <%--検索結果がないときのエラーメッセージ 表示の仕方を直す必要がある--%>
           <span class="result-num"> ${fn:escapeXml(message)}</span>
@@ -159,7 +225,8 @@
               <%-- <a href="recipeSearch">  --%>
                 <div class="img-wrap">
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+                    <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
+                    src = "${fn:escapeXml(search.completeImage)}"
                     alt=""
                   />
 				<%--  ここにレシピIDを渡せる方法を考える
@@ -416,6 +483,7 @@
  --%>
           </ul>
         </div>
+        <c:if test="${searchList.size()>=1}"> <%-- searchList.size()--%>
         <ul class="pagenation">
           <li class="page-num"><a href="">1</a></li>
           <li class="page-num"><a href="">2</a></li>
@@ -432,17 +500,24 @@
             </a>
           </li>
         </ul>
+        </c:if>
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
           <c:forEach var="category" items="${categoryList}">
-            <li class="category btn"><span>${fn:escapeXml(category.categoryName)}</span></li>
+      		<form:form action="categorySearch" modelAttribute="categorySearch" method="get">
+      		  <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
+       		  <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
+       		  <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
+       		  <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
+       		</form:form>
+		  </c:forEach>
            <%-- <li class="category btn"><span>洋食</span></li>和食
             <li class="category btn"><span>中華</span></li>
             <li class="category btn"><span>デザート</span></li>
             <li class="category btn"><span>つけあわせ</span></li>
            --%>
-          </c:forEach>
+
           </ul>
         </div>
       </div>

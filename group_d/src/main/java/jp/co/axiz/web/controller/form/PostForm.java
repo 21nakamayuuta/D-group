@@ -1,21 +1,41 @@
 package jp.co.axiz.web.controller.form;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostForm {
+
+	@NotBlank(message="タイトルを入力してください")
+	@Length(min=0,max=50, message="50文字以内で記入してください")
 	private String recipeTitle;
+
 	private MultipartFile completeImage;
+
+
 	private Integer displayOrderFood;
+
 	private String foodName;
 	private String amount;
+
+	private String foodDelete;
+
+	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
+
 	private Integer displayOrderProcess;
+
+
 	private String processDescription;
+
+	@NotBlank(message="コメントを入力してください")
+	@Length(min=0,max=200, message="200文字以内で記入してください")
 	private String overview;
 
-	private List<Integer> formCategoryId;
+
+	private Integer[] formCategoryId;
 
 	public String getRecipeTitle() {
 		return recipeTitle;
@@ -73,16 +93,18 @@ public class PostForm {
 	public void setOverview(String overview) {
 		this.overview = overview;
 	}
-
-	public List<Integer> getFormCategoryId() {
+	public Integer[] getFormCategoryId() {
 		return formCategoryId;
 	}
-	public void setFormCategoryId(List<Integer> formCategoryId) {
+	public void setFormCategoryId(Integer[] formCategoryId) {
 		this.formCategoryId = formCategoryId;
 	}
-
-
-
+	public String getFoodDelete() {
+		return foodDelete;
+	}
+	public void setFoodDelete(String foodDelete) {
+		this.foodDelete = foodDelete;
+	}
 
 
 

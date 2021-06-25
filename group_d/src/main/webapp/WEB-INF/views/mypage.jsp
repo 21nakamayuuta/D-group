@@ -1,4 +1,13 @@
 <%@ page pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -15,15 +24,14 @@
     <header>
       <div class="header-wrap">
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-        <form action="./searchResult.html" class="search-recipe">
-          <input
-            type="text"
-            name="searchKeyword"
+		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+            <form:input
+            path="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
-          />
-          <button type="submit">レシピ検索</button>
-        </form>
+          /><%-- type="text" name="searchKeyword" --%>
+          <form:button>レシピ検索</form:button>
+        </form:form>
         <!-- 権限ごとに切り替える部分 -->
         <div class="btn-wrap">
           <a href="" class="to-post btn">レシピを投稿する</a>
@@ -54,7 +62,8 @@
                 ></span>
                 マイページ
               </div>
-              <button type="button" class="logout item">
+              <form:form action="logout" method="POST">
+              <button type="submit" class="logout item">
                 <span
                   class="iconify"
                   data-inline="false"
@@ -62,6 +71,7 @@
                 ></span>
                 ログアウト
               </button>
+              </form:form>
             </div>
           </div>
         </div>
@@ -71,28 +81,30 @@
     <main>
       <div class="wrapper">
         <div class="my-info">
-          <form action="" class="edit-name">
+
+          <form:form action="editName" class="edit-name"  method="POST" modelAttribute="MyPageForm" >
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="text" id="name" value="田中" disabled></input>
+              <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
               </div>
-              <button type="button" class="edit" >編集</button>
-              <button type="button" class="save display-none" >保存</button>
+              <button type="button"  class="edit display-none" >編集</button>
+              <form:button type="submit" class="save " >保存</form:button>
               </div>
-            </form>
-          <form action="" class="edit-pass">
+            </form:form>
+
+          <form:form action="editPass" class="edit-pass"  method="POST" modelAttribute="MyPageForm" >
               <label for="pass">パスワード</label>
               <div class="input-btn-wrap">
                 <div class="input">
                   <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <input type="password" id="pass" value="tanakaPass" disabled></input>
+              <form:password path="myPass" value="${password}" /><!-- disabledは一旦無し -->
               </div>
-              <button type="button" class="edit">編集</button>
-              <button type="button" class="save display-none">保存</button>
+              <button type="button" class="edit display-none">編集</button>
+              <form:button type="submit" class="save ">保存</form:button>
               </div>
-            </form>
+            </form:form>
         </div>
         <div class="my-recipe recipes">
           <h3 class="title">
@@ -102,9 +114,21 @@
               data-icon="fluent:food-24-filled"
             ></span>
             レシピの総数：
-            <span class="recipe-num">9</span>
+            <c:choose>
+			<c:when test="${ empty sumResult }">
+			<p>0</p>
+			</c:when>
+			<c:otherwise>
+			<p>${ sumResult.recipeCount }</p>
+			</c:otherwise>
+			</c:choose>
+            <span class="recipe-num"></span>
           </h3>
+
+
           <ul class="recipe-list">
+          <c:forEach items="${RecipeResult}" var="recipe" varStatus="loop">
+          <form:form action="deleteORedit" method="POST" modelAttribute="MyPageForm">
             <li class="card">
               <div class="good">
                 <span
@@ -112,224 +136,27 @@
                   data-inline="false"
                   data-icon="bx:bxs-like"
                 ></span
-                ><span class="good-num">1000</span>
+                ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
               </div>
               <a href="./recipe.html">
                 <div class="img-wrap">
+                ${fn:escapeXml(recipe.completeImage)}
                   <img
                     src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
                     alt=""
                   />
                 </div>
                 <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
+                  >${fn:escapeXml(recipe.recipeTitle)}</span
                 ></a
               >
               <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="editRecipe" class="to-edit">編集</form:button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</form:button>
               </div>
             </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="good">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="bx:bxs-like"
-                ></span
-                ><span class="good-num">1000</span>
-              </div>
-              <a href="./recipe.html">
-                <div class="img-wrap">
-                  <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
-                  />
-                </div>
-                <span class="recipe-title"
-                  >オーツミルクで全粒粉入りパンケーキ</span
-                ></a
-              >
-              <div class="btn-wrap">
-                <button type="button" class="to-edit">編集</button>
-                <button type="button" class="delete-recipe">削除</button>
-              </div>
-            </li>
+            </form:form>
+            </c:forEach>
           </ul>
         </div>
       </div>
