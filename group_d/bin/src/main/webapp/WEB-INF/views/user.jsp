@@ -28,7 +28,7 @@
               <input type="text" name="userId" id="userId" placeholder="ID" />
               <!-- エラー時
                 <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span> 
+                <span class="error_msg">エラーメッセージ</span>
               -->
             </label>
           </div>
@@ -100,7 +100,7 @@
     </div>
     <header>
       <div class="header-wrap">
-        <h1><a href="./top.html" class="page-title">おさるのレシピ</a></h1>
+        <h1><a href=${ login ? 'userTop' : 'top' } class="page-title">おさるのレシピ</a></h1>
         <form action="" class="search-recipe">
           <input
             type="text"
