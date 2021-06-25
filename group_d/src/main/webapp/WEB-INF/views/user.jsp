@@ -137,7 +137,7 @@
               data-icon="fluent:food-24-filled"
             ></span>
 <%--             ${fn:escapeXml(recipeList[0].userName)} --%>
-            <span class="recipe-num">${fn:escapeXml(recipeList.size())}</span>
+            <span class="recipe-num">レシピの総数：${fn:escapeXml(recipeList.size())}</span>
           </h3>
 
           <ul class="recipe-list">
