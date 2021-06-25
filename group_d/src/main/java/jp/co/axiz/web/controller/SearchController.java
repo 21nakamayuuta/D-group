@@ -119,6 +119,7 @@ public class SearchController {
 			@RequestParam(name = "recipeID", required = false) Integer recipeId,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform,
 			Model model) {
 
 		Integer totalGood = recipeService.totalGood(recipeId);

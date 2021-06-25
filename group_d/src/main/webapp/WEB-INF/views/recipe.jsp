@@ -16,40 +16,36 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
+    <!-- ログイン機能 -->
     <div class="cover display-none">
-      <form action="userTop.html" class="login-form display-none">
-        <div class="btn" id="cancel">
-          <span
+  	<form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
+    <div class="btn" id="cancel">
+         <span
             class="iconify"
             data-inline="false"
             data-icon="topcoat:cancel"
           ></span>
-        </div>
-        <div class="form-wrap">
+    </div>
+
+    <div class="form-wrap">
+         <label style="color:red;">${errMsg }</label>
           <div class="userId">
-            <label
-              >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
-              <!-- エラー時
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
+            <label>ID<br />
+              <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
+              <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
             </label>
           </div>
+
+
           <div class="password">
-            <label
-              >パスワード<br />
-              <input
-                type="text"
-                name="password"
-                id="password"
-                placeholder="パスワード"
-              />
+            <label>パスワード<br />
+              <form:input type="password" name="password" id="password" placeholder="パスワード" path="password"/>
+              <form:errors path="password" class="error_msg" cssStyle="color:red"/>
             </label>
           </div>
           <button>ログイン</button>
-        </div>
-      </form>
+     </div>
+     </form:form>
        <!-- 新規登録 -->
       <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
 
