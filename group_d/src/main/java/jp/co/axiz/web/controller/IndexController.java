@@ -1,7 +1,5 @@
 package jp.co.axiz.web.controller;
 
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,41 +30,54 @@ public class IndexController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/top" )
+	@RequestMapping("/top")
 
 	public String top(@ModelAttribute("loginForm") LoginForm loginForm,
-			@ModelAttribute("RecipeSearch") SearchForm searchForm,@ModelAttribute("sign") SignUpForm signForm,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm signForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
-		//新着レシピ
-		List<Recipe> recipeList = recipeService.newRecipe();
-		model.addAttribute("recipeList",recipeList);
-
-		//ランキング
+		// ランキング
 		List<Recipe> rankingList = recipeService.ranking();
-		model.addAttribute("rankingList",rankingList);
+		model.addAttribute("rankingList", rankingList);
 
-		//カテゴリの表示
+		// 新着レシピ
+		List<Recipe> recipeList = recipeService.newRecipe();
+		model.addAttribute("recipeList", recipeList);
+
+		// カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
-		session.setAttribute("login",true);
+		session.setAttribute("login", true);
 		return "top";
 	}
 
+	@RequestMapping("/userTop")
+	public String userTop(@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm,
+			@ModelAttribute("categorySearch") SearchForm categoryForm, Model model) {
 
+		// ログインしてない状態でユーザートップに来たらトップへ遷移
+		if (session.getAttribute("user") == null || (boolean) session.getAttribute("login")) {
+			return "redirect:top";
+		}
 
-	@RequestMapping("/userTop" )
-	public String userTop(@ModelAttribute("sign") SignUpForm form ,@ModelAttribute("RecipeSearch") SearchForm searchForm,Model model) {
 		//ログインしてない状態でユーザートップに来たらトップへ遷移
 				if((boolean)session.getAttribute("login")) {
 					return "redirect:top";
 				}
+		// 新着レシピ
+		List<Recipe> recipeList = recipeService.newRecipe();
+		model.addAttribute("recipeList", recipeList);
+
+		// ランキング
+		List<Recipe> rankingList = recipeService.ranking();
+		model.addAttribute("rankingList", rankingList);
+
+		// カテゴリの表示
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
 
 		return "userTop";
 	}
 }
-
-
-
-

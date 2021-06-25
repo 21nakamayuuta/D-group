@@ -1,9 +1,8 @@
-
-<%@ page pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page pageEncoding="UTF-8"%> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -22,7 +21,12 @@
     <header>
       <div class="header-wrap">
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-        <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:form
+          action="search"
+          modelAttribute="RecipeSearch"
+          method="post"
+          class="search-recipe"
+        >
           <form:input
             path="searchKeyword"
             id="searchKeyword"
@@ -60,15 +64,15 @@
                 ></span>
                 マイページ
               </a>
-              <form:form action="top" method="POST">
-              <button type="submit" class="logout item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:logout"
-                ></span>
-                ログアウト
-              </button>
+              <form:form action="logout" method="POST">
+                <button type="submit" class="logout item">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="carbon:logout"
+                  ></span>
+                  ログアウト
+                </button>
               </form:form>
             </div>
           </div>
@@ -79,8 +83,55 @@
     <main>
       <div class="wrapper">
         <div class="calendar-wrap">
-          <div class="calendar"></div>
-          <div class="info"></div>
+          <div class="calendar">
+            <div class="header">
+              <div class="year-month-wrap">
+                <span class="year"></span>
+                <span class="month"></span>
+              </div>
+              <div class="month-change">
+                <button type="button" class="prev">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="akar-icons:chevron-left"
+                  ></span>
+                </button>
+                <button type="button" class="next">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="akar-icons:chevron-right"
+                  ></span>
+                </button>
+              </div>
+            </div>
+            <ul class="day-of-week">
+              <li class="cell">日</li>
+              <li class="cell">月</li>
+              <li class="cell">火</li>
+              <li class="cell">水</li>
+              <li class="cell">木</li>
+              <li class="cell">金</li>
+              <li class="cell">土</li>
+            </ul>
+            <div class="days"></div>
+          </div>
+          <div class="info">
+            <h3 class="title date">2021年6月23日</h3>
+            <div class="made-recipe">
+              <div class="title-wrap">
+                <h3 class="title">作ったレシピ</h3>
+              </div>
+              <ul class="made-recipe-list"></ul>
+            </div>
+            <div class="post-recipe">
+              <div class="title-wrap">
+                <h3 class="title">投稿したレシピ</h3>
+              </div>
+              <ul class="post-recipe-list"></ul>
+            </div>
+          </div>
         </div>
         <div class="popular-ranking recipes">
           <h3 class="title">
@@ -90,73 +141,110 @@
               data-icon="fluent:food-24-filled"
             ></span>
 
-             人気ランキング
+            人気ランキング
           </h3>
           <ul class="ranking recipe-list">
-          	<c:forEach items="${rankingList}" var="recipe" varStatus="loop">
-            	<li class="card">
-              	<div class="rank-good-wrap">
-
-                	<div class="rank"><span>${fn:escapeXml(loop.index+1)}位</span></div>
-                	<div class="good">
-                  <span
-
-                    class="iconify"
-                    data-inline="false"
-                    data-icon="bx:bxs-like"
-                  ></span
-                  ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
+            <c:forEach items="${rankingList}" var="recipe" varStatus="loop">
+              <li class="card">
+                <div class="rank-good-wrap">
+                  <div class="rank">
+                    <span>${fn:escapeXml(loop.index+1)}位</span>
+                  </div>
+                  <div class="good">
+                    <span
+                      class="iconify"
+                      data-inline="false"
+                      data-icon="bx:bxs-like"
+                    ></span
+                    ><span class="good-num"
+                      >${fn:escapeXml(recipe.goodCount)}</span
+                    >
+                  </div>
                 </div>
-              </div>
-              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
-                <div class="img-wrap">
-                  ${fn:escapeXml(recipe.completeImage)}
-                </div>
-                <span class="recipe-title">${fn:escapeXml(recipe.recipeTitle)}</span>
-              </a>
-            </li>
+                <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
+                  <div class="img-wrap">
+                    ${fn:escapeXml(recipe.completeImage)}
+                  </div>
+                  <span class="recipe-title"
+                    >${fn:escapeXml(recipe.recipeTitle)}</span
+                  >
+                </a>
+              </li>
             </c:forEach>
           </ul>
         </div>
 
-
-      <div class="new-recipe recipes">
-				<h3 class="title">
-					<span class="iconify" data-inline="false"
-						data-icon="fluent:food-24-filled"></span>新着レシピ
-				</h3>
-				<ul class="recipe-list">
-					<c:forEach items="${recipeList}" var="recipe">
-						<li class="card">
-							<div class="good">
-								<span class="iconify" data-inline="false"
-									data-icon="bx:bxs-like"> </span> <span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
-							</div> <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
-								<div class="img-wrap">
-									${fn:escapeXml(recipe.completeImage)}</div> <span
-								class="recipe-title"> ${fn:escapeXml(recipe.recipeTitle)}
-							</span>
-						</a>
-						</li>
-					</c:forEach>
+        <div class="new-recipe recipes">
+          <h3 class="title">
+            <span
+              class="iconify"
+              data-inline="false"
+              data-icon="fluent:food-24-filled"
+            ></span
+            >新着レシピ
+          </h3>
+          <ul class="recipe-list">
+            <c:forEach items="${recipeList}" var="recipe">
+              <li class="card">
+                <div class="good">
+                  <span
+                    class="iconify"
+                    data-inline="false"
+                    data-icon="bx:bxs-like"
+                  >
+                  </span>
+                  <span class="good-num"
+                    >${fn:escapeXml(recipe.goodCount)}</span
+                  >
+                </div>
+                <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
+                  <div class="img-wrap">
+                    ${fn:escapeXml(recipe.completeImage)}
+                  </div>
+                  <span class="recipe-title">
+                    ${fn:escapeXml(recipe.recipeTitle)}
+                  </span>
+                </a>
+              </li>
+            </c:forEach>
           </ul>
         </div>
         <div class="recipe-category">
           <div class="title">レシピカテゴリ</div>
           <ul class="categories">
             <c:forEach var="category" items="${categoryList}">
-      		  <form:form action="categorySearch" modelAttribute="categorySearch" method="get">
-      		    <%-- formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している --%>
-       		    <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}"  />
-       		    <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}"  />
-       		    <li class="category btn"><form:button > ${fn:escapeXml(category.categoryName)}</form:button> </li>
-       		  </form:form>
-		    </c:forEach>
+              <form:form
+                action="categorySearch"
+                modelAttribute="categorySearch"
+                method="get"
+              >
+                <%--
+                formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している
+                --%>
+                <form:input
+                  path="categoryId"
+                  type="hidden"
+                  value="${fn:escapeXml(category.categoryId)}"
+                />
+                <form:input
+                  path="categoryName"
+                  type="hidden"
+                  value="${fn:escapeXml(category.categoryName)}"
+                />
+                <li class="category btn">
+                  <form:button>
+                    ${fn:escapeXml(category.categoryName)}</form:button
+                  >
+                </li>
+              </form:form>
+            </c:forEach>
           </ul>
         </div>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/header.js"></script>
+    <script src="js/calendar.js"></script>
   </body>
 </html>
