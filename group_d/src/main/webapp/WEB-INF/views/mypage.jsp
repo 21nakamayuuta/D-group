@@ -142,7 +142,7 @@
                 <div class="img-wrap">
                 ${fn:escapeXml(recipe.completeImage)}
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+                    src="${fn:escapeXml(recipe.completeImage)}"
                     alt=""
                   />
                 </div>
