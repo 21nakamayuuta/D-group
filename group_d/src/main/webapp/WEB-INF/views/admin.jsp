@@ -52,7 +52,7 @@
                             <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                             マイページ
                         </a>
-              <form:form action=logout" method="POST">
+              <form:form action="logout" method="POST">
               <button type="submit" class="logout item">
                 <span
                   class="iconify"
@@ -73,11 +73,20 @@
             <section class="user-info border">
                 <h3 class="title text-bold">ユーザー情報</h3>
                 <ul class="info-table">
-                    <li class="th text-bold">
+                	<li class="th text-bold">
                         <span class="name">名前</span>
                         <span class="pass">パスワード</span>
                         <span class="role">権限</span>
                     </li>
+                <c:forEach var="admin" items="${userAdminList}">
+                    <li class="td">
+                        <span class="name">${admin.getUserName()}</span>
+                        <span class="pass">${admin.getPassword()}</span>
+                        <span class="role">${admin.getRoleId() eq 1 ? "admin" : "user"}  </span>
+                        <button class="form-btn" value= "${admin.getUserId()}">削除</button>
+                    </li>
+                </c:forEach>
+<%--
                     <li class="td">
                         <span class="name">田中</span>
                         <span class="pass">tanakapass</span>
@@ -90,29 +99,32 @@
                         <span class="role">user</span>
                         <button class="form-btn">削除</button>
                     </li>
-                    <li class="td">
-                        <span class="name">田中</span>
-                        <span class="pass">tanakapass</span>
-                        <span class="role">user</span>
-                        <button class="form-btn">削除</button>
-                    </li>
-                </ul>
+--%>
+               </ul>
             </section>
             <section class="categories border">
                 <h3 class="title text-bold">カテゴリ</h3>
+                <form:form action="admin" modelAttribute="category" method="post" >
                 <div class="input">
-                    <input type="text">
-                    <button type="button" class="form-btn">追加</button>
+                    <form:input path="categoryName"/>
+                    <form:button name="categoryNameInsert" class="form-btn">追加</form:button>
                 </div>
+                </form:form>
                 <ul>
+                <%--forEachで回して表示 --%>
+				<c:forEach var="category" items="${categoryList}">
+				  <form:form action="search" modelAttribute="category" method="post" >
                     <li>
                         <div class="content-edit-wrap">
-                        <input type="text" class="content" value="和食" disabled>
+                        <input type="text" class="content" value= "${fn:escapeXml(category.categoryName)}" disabled/>
                         <button type="button" class="edit form-btn">編集</button>
-                        <button type="button" class="save form-btn display-none" >保存</button>
+                        <form:button name="categoryNameSave" type="submit" class="save form-btn display-none" >保存</form:button>
                         </div>
-                        <button type="button" class="form-btn delete">削除</button>
+                        <form:button name="categoryNameDelete" type="submit" class="form-btn delete">削除</form:button>
                     </li>
+                    </form:form>
+				</c:forEach>
+<%--
                     <li>
                         <div class="content-edit-wrap">
                         <input type="text" class="content" value="洋食" disabled>
@@ -148,14 +160,36 @@
                         </div>
                         <button type="button" class="form-btn delete">削除</button>
                     </li>
+     --%>
                 </ul>
             </section>
             <section class="total-recipe recipes border">
                 <h3 class="title">
                     レシピ：
-                    <span class="recipe-num">20</span>
+                    <span class="recipe-num">${recipeAllList.size() > 0 ? recipeAllList.size() : 0 }</span>
                 </h3>
                 <ul class="recipe-list">
+               <%--forEachで回して表示 --%>
+				<c:forEach var="recipe" items="${recipeAllList}">
+                    <li class="card">
+                        <div class="user">
+                            <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled">
+                            </span>
+                            <span>${recipe.getUserName()} </span>
+                        </div>
+                        <div class="good">
+                            <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
+                                class="good-num">${recipe.getGoodCount()}</span>
+                        </div>
+                        <a href="./recipe.html">
+                            <div class="img-wrap">
+                                <img src="${recipe.getCompleteImage()}" alt="" />
+                            </div>
+                            <span class="recipe-title">${recipe.getRecipeTitle()}</span>
+                        </a>
+                    </li>
+				</c:forEach>
+<%--
                     <li class="card">
                         <div class="user">
                             <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled">
@@ -241,23 +275,7 @@
                             <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
                         </a>
                     </li>
-                    <li class="card">
-                        <div class="user">
-                            <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled">
-                            </span>
-                            <span>田中</span>
-                        </div>
-                        <div class="good">
-                            <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                                class="good-num">1000</span>
-                        </div>
-                        <a href="./recipe.html">
-                            <div class="img-wrap">
-                                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-                            </div>
-                            <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-                        </a>
-                    </li>
+  --%>
                 </ul>
                 <!-- <ul class="pagenation">
                     <li class="page-num"><a href="">1</a></li>

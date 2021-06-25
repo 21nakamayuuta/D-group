@@ -27,5 +27,23 @@ public class PgCategoryService implements CategoryService{
 
 	}
 
+	@Override
+	public void insertCategory(String categoryName) {
+		// TODO 自動生成されたメソッド・スタブ
+		categoryDao.insertCategory(categoryName);
+	}
+
+	@Override
+	public void deleteCategory(Integer categoryId) {
+		// TODO 自動生成されたメソッド・スタブ
+		categoryDao.deleteCategory(categoryId);
+	}
+
+	@Override
+	public void updateCategory(Integer categoryId, String categoryName) {
+		// TODO 自動生成されたメソッド・スタブ
+		categoryDao.updateCategory(categoryId, categoryName);
+	}
+
 
 }
