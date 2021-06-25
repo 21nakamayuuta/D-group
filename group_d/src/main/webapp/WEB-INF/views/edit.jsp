@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -18,7 +18,7 @@
   <body>
     <header>
       <div class="header-wrap">
-        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+        <h1><a href="./userTop" class="page-title">おさるのレシピaa</a></h1>
 		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
             path="searchKeyword"
@@ -74,18 +74,19 @@
     </header>
     <main>
       <div class="wrapper">
-        <form class="recipe-form" enctype="multipart/form-data">
+        <form:form action="editInfoCheck" modelAttribute="editInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
             <label for="title" class="title">レシピタイトル</label>
-            <input
+            <form:input
               type="text"
               id="title"
               name="title"
-              value="さるでも作れるカレーライス"
+              path="recipeTitle"
+              value="${fn:escapeXml(recipeInfo.recipeTitle)}"
             />
           </div>
           <div class="image">
-            <img src="" class="preview display-none" />
+            <img src="${fn:escapeXml(recipeInfo.completeImage)}" class="preview display-none" />
             <label for="file" class="image-wrap">
               <div class="text">
                 <span
@@ -96,7 +97,7 @@
                 ><br />
                 <span>クリックして料理の写真を載せる</span>
               </div>
-              <input type="file" name="image" id="file" class="display-none" />
+              <form:input path="completeImage" accept="image/jpeg,image/png" type="file" name="image" id="file" class="display-none" />
             </label>
           </div>
           <div class="material">
@@ -143,13 +144,14 @@
           <div class="time">
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
-              <input
+              <form:input
                 type="number"
                 name="time"
                 id="time"
                 min="1"
                 max="150"
-                value="5"
+                path="cookingTime"
+                value="${fn:escapeXml(recipeInfo.cookingTime)}"
               />分以内
             </div>
           </div>
@@ -185,22 +187,17 @@
             <h3 class="title">
               コメント<span class="error_msg">エラーメッセージ</span>
             </h3>
-            <textarea name="comment" id="" cols="30" rows="20">
-                サルでも作れるくらい簡単なカレーライスですね。
-            </textarea>
+            <form:textarea name="comment" id="" cols="30" rows="20" path="overview" ></form:textarea>
           </div>
           <div class="category">
             <h3 class="title">カテゴリ</h3>
             <ul class="input">
-              <li><input type="checkbox" value="和食" />和食</li>
-              <li><input type="checkbox" value="洋食" />洋食</li>
-              <li><input type="checkbox" value="中華" />中華</li>
-              <li><input type="checkbox" value="デザート" />デザート</li>
-              <li><input type="checkbox" value="つけあわせ" />つけあわせ</li>
+              <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
-          <button type="submit" class="submit post-btn">レシピ投稿</button>
-        </form>
+          <form:hidden value="${fn:escapeXml(recipeId)}" path="recipeId"/>
+          <form:button type="submit" class="submit post-btn" name="register">レシピ投稿</form:button>
+        </form:form>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

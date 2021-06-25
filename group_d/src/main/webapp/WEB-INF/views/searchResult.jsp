@@ -226,7 +226,7 @@
                 <div class="img-wrap">
                   <img
                     <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
-                    src = "/imgs/20210623124113test.jpg"
+                    src = "${fn:escapeXml(search.completeImage)}"
                     alt=""
                   />
 				<%--  ここにレシピIDを渡せる方法を考える

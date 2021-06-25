@@ -61,6 +61,10 @@ public class IndexController {
 			return "redirect:top";
 		}
 
+		//ログインしてない状態でユーザートップに来たらトップへ遷移
+				if((boolean)session.getAttribute("login")) {
+					return "redirect:top";
+				}
 		// 新着レシピ
 		List<Recipe> recipeList = recipeService.newRecipe();
 		model.addAttribute("recipeList", recipeList);

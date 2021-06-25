@@ -117,6 +117,7 @@ public class SearchController {
 	@GetMapping("/recipe")
 	public String recipeSearch(
 			@RequestParam(name = "recipeID", required = false) Integer recipeId,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			@ModelAttribute("sign") SignUpForm form,
 			Model model) {
 

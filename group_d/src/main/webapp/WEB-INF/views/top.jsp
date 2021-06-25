@@ -29,6 +29,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       ・権限でのスタイルの動的変更
      -->
     <div class="cover ${ display ? '' : 'display-none' }">
+
       <form:form
         action="login"
         class="login-form ${ LoginDisplay ? '' : 'display-none' }"
