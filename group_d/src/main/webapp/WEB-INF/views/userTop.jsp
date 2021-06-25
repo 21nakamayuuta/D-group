@@ -64,7 +64,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 ></span>
                 マイページ
               </a>
-              <form:form action="top" method="POST">
+              <form:form action="logout" method="POST">
                 <button type="submit" class="logout item">
                   <span
                     class="iconify"
@@ -123,69 +123,13 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               <div class="title-wrap">
                 <h3 class="title">作ったレシピ</h3>
               </div>
-              <ul class="made-recipe-list">
-                <!-- <li>
-                  <a href="">
-                    <span class="icon">
-                      <span
-                        class="iconify"
-                        data-inline="false"
-                        data-icon="fluent:food-24-filled"
-                      ></span>
-                    </span>
-                    <span class="recipe-title"
-                      >オーツミルクで全粒粉入りパンケーキ
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <span class="icon">
-                      <span
-                        class="iconify"
-                        data-inline="false"
-                        data-icon="fluent:food-24-filled"
-                      ></span>
-                    </span>
-                    <span class="recipe-title"
-                      >オーツミルクで全粒粉入りパンケーキ
-                    </span>
-                  </a>
-                </li> -->
-              </ul>
+              <ul class="made-recipe-list"></ul>
             </div>
             <div class="post-recipe">
               <div class="title-wrap">
                 <h3 class="title">投稿したレシピ</h3>
               </div>
-              <ul class="post-recipe-list">
-                <!-- <li>
-                  <a href="">
-                    <span class="icon">
-                      <span
-                        class="iconify"
-                        data-inline="false"
-                        data-icon="fluent:food-24-filled"
-                      ></span>
-                    </span>
-                    <span class="recipe-title">レシピリンク</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <span class="icon">
-                      <span
-                        class="iconify"
-                        data-inline="false"
-                        data-icon="fluent:food-24-filled"
-                      ></span>
-                    </span>
-                    <span class="recipe-title"
-                      >オーツミルクで全粒粉入りパンケーキ
-                    </span>
-                  </a>
-                </li> -->
-              </ul>
+              <ul class="post-recipe-list"></ul>
             </div>
           </div>
         </div>
