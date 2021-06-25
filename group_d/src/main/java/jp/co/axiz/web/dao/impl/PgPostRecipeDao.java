@@ -13,22 +13,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PgPostRecipeDao implements PostRecipeDao {
-    private static final String SELECT_POST_RECIPE = "SELECT pr.user_id, r.recipe_title, pr.year, pr.month, pr.day, pr.recipe_id "
-            + "FROM post_recipe pr " + "JOIN recipe r ON pr.recipe_id = r.recipe_id "
-            + "WHERE pr.user_id = :userId AND pr.year = :year AND pr.month = :month AND pr.day = :day";
-    private static final String SELECT_ALL_POST_RECIPE = "SELECT pr.user_id, r.recipe_title, pr.year, pr.month, pr.day, pr.recipe_id "
+    private static final String SELECT_POST_RECIPE = "SELECT pr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, pr.recipe_id "
+            + "FROM post_recipe pr JOIN recipe r ON pr.recipe_id = r.recipe_id "
+            + "WHERE pr.user_id = :userId AND date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
+    private static final String SELECT_ALL_POST_RECIPE = "SELECT pr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, pr.recipe_id "
             + "FROM post_recipe pr " + "JOIN recipe r ON pr.recipe_id = r.recipe_id " + "WHERE pr.user_id = :userId "
-            + "ORDER BY pr.day, pr.month, pr.year";
+            + "ORDER BY dt";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
 
     @Override
     public List<PostRecipe> postRecipeList(PostRecipe postRecipe) {
-        // System.out.println(postRecipe.getUserId());
-        // System.out.println(postRecipe.getYear());
-        // System.out.println(postRecipe.getMonth());
-        // System.out.println(postRecipe.getDay());
+        // postRecipe.getAllData();
         String sql = SELECT_POST_RECIPE;
 
         MapSqlParameterSource param = new MapSqlParameterSource();
@@ -49,6 +46,7 @@ public class PgPostRecipeDao implements PostRecipeDao {
         param.addValue("userId", userId);
 
         List<PostRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<PostRecipe>(PostRecipe.class));
+        list.get(0).getAllData();
         return list.isEmpty() ? Collections.emptyList() : list;
     }
 }
