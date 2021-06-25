@@ -16,4 +16,6 @@ public interface RecipeService {
 	public Recipe totalRecipe(Integer integer);
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
+	public List<Recipe> userRecipe(Integer user_id);
+	public void deleteRecipe(Integer recipe_id);
 }

@@ -73,6 +73,16 @@ public class PgRecipeService implements RecipeService {
 		return recipeDao.ranking();
 	}
 
+	@Override
+	public List<Recipe> userRecipe(Integer user_id){
+		return recipeDao.userRecipe(user_id);
+	}
+
+	@Override
+	public void deleteRecipe(Integer recipe_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		recipeDao.deleteRecipe(recipe_id);
+	}
 
 
 }

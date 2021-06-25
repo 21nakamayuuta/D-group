@@ -28,6 +28,9 @@ public class PgRecipeDao implements RecipeDao{
 	private static final String REGISTER_RECIPE="INSERT INTO recipe(user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) VALUES (:userId, :recipeTitle, :completeImage, :cookingTime, :overview, :createDateTime)";
 	private static final String SEARCH_NEW_RECIPE= "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
 	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";
+	private static final String USER_RECIPE =
+			"select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id";
+	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jT;
@@ -134,6 +137,25 @@ public class PgRecipeDao implements RecipeDao{
 		return resultList;
 	}
 
+	@Override
+	public List<Recipe> userRecipe(Integer user_id){
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("user_id", user_id);
+
+		List<Recipe> resultList = jT.query(USER_RECIPE,param,new BeanPropertyRowMapper<Recipe>(Recipe.class));
+
+		return resultList;
+	}
+
+	@Override
+	public void deleteRecipe(Integer recipe_id) {
+	// TODO 自動生成されたメソッド・スタブ
+
+		String sql = DELETE_RECIPE;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipe_id", recipe_id);
+		jT.update(sql, param);
+	}
 
 
 

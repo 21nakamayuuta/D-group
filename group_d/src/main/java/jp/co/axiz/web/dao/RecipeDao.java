@@ -16,4 +16,6 @@ public interface RecipeDao {
 	public List<Recipe> totalRecipe(Integer userId);
 	public void registerRecipe(Recipe recipe);
 	public Integer searchNewRecipe();
+	public List<Recipe> userRecipe(Integer recipeId);
+	public void deleteRecipe(Integer recipe_id);
 }
