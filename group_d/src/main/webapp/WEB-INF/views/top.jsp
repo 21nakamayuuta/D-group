@@ -46,7 +46,7 @@
           <div class="userId">
             <label
               >ID<br />
-              <form:input path="userId" id="userId" placeholder="ID" />
+              <form:input path="userId" id="userId" placeholder="ID"  />
               <form:errors path="userId" class="error_msg" />
               <span class="error_msg">${errMsgID}</span>
             </label>
@@ -54,7 +54,7 @@
           <div class="userName">
             <label
               >名前<br />
-              <form:input path="userName" id="userName" placeholder="名前" />
+              <form:input path="userName" id="userName" placeholder="名前"   />
               <form:errors path="userName" class="error_msg" />
             </label>
           </div>
@@ -65,6 +65,7 @@
                 path="password"
                 id="password"
                 placeholder="パスワード"
+                
               />
               <form:errors path="password" class="error_msg" />
             </label>
@@ -76,6 +77,7 @@
                 path="repass"
                 id="repass"
                 placeholder="パスワード"
+                 
               />
               <form:errors path="repass" class="error_msg" />
               <span class="error_msg">${errMsgPASS}</span>

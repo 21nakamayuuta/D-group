@@ -15,7 +15,19 @@
   <link rel="stylesheet" href="css/recipeList.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-
+<!-- task 
+  ・新規登録orログイン時にtopに遷移してしまう
+  ・↑バリデーションでエラーメッセージの表示の際に、ページがtopになってしまう
+  ・レシピ一覧表示 -> レシピ画像が表示されない
+  ・検索機能
+    ・カテゴリ検索
+    ・レシピ名検索
+    ・材料検索
+  ・レシピカテゴリのスタイル
+  ・ページネーション機能
+  ・検索結果が0件の際の処理
+  ・検索フォームの値がNull or 空文字の場合の処理 -> top/userTopに遷移させる
+ -->
 <body>
   <!-- ログイン機能 -->
   <!-- <div class="cover display-none">

@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="css/recipeForm.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+  <!-- task
+    ・レシピの情報の取得
+    ・バリデーション処理
+    ・スタイル変更
+    ・更新ボタンの文言
+   -->
   <body>
     <header>
       <div class="header-wrap">

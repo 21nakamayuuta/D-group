@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="css/recipeForm.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+  <!-- task
+    ・材料の追加、削除時or作り方の追加、削除時に画像ファイルがリセットさせる
+    ・フォーム内のスタイル(フォントサイズなど)
+    ・カテゴリのスタイル変更
+  -->
   <body>
     <header>
       <div class="header-wrap">

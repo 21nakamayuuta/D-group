@@ -17,7 +17,17 @@
     <link rel="stylesheet" href="css/admin.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-
+    <!-- task
+     ・情報の取得
+      ・ユーザー情報
+      ・カテゴリ情報
+      ・レシピの情報
+     ・ユーザー情報の削除
+     ・カテゴリの追加と削除
+     ・ユーザーページへの遷移
+     ・レシピページへの遷移
+     ・スタイルの修正 
+    -->
 <body>
     <header>
         <!-- <div class="header-wrap">

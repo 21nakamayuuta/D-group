@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="css/recipeList.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+  <!-- task
+    ・ユーザー情報のバリデーション処理
+    ・ユーザー情報の変更のボタンの切り分け
+    ・レシピ一覧表示のスタイル
+    ・レシピページへの遷移
+    ・レシピの削除
+    ・レシピの編集ページへの遷移
+  -->
   <body>
     <header>
       <div class="header-wrap">

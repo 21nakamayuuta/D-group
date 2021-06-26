@@ -23,6 +23,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   ・レシピ一覧表示
     ・画像が入っていない
   ・レシピカテゴリのスタイル
+  ・カレンダー小丸の並びを逆にする
  -->
 <body>
   <header>

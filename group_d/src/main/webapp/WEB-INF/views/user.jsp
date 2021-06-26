@@ -15,7 +15,12 @@
   <link rel="stylesheet" href="css/recipeList.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-
+<!-- task 
+  ・新規登録、ログイン時のページ遷移(バリデーション処理)
+  ・レシピ情報の取得
+  ・レシピページへの遷移
+  ・ページネーション機能(なくてもいい)
+ -->
 <body>
   <!-- <div class="cover display-none">
     <form action="userTop.html" class="login-form display-none">

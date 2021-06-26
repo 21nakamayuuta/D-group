@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="css/recipe.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+  <!-- task
+    ・いいねボタン機能 -> ゲストのみ総数表示
+    ・作ったよボタン機能 -> 会員ユーザー、管理者限定
+    ・レシピ削除ボタン機能 -> 管理者限定
+    ・iconクリック時のuserページへの遷移
+    ・新規登録、ログイン時のページ処理(バリデーションも)
+    ・カテゴリをクリックするとカテゴリ検索をするかorクリック出来なくする
+    ・画像サイズを調整
+  -->
   <body>
     <!-- <div class="cover display-none">
       <form action="userTop.html" class="login-form display-none">
@@ -102,7 +111,7 @@
         </div>
       </form:form>
         </div> -->
-
+    
     <div class="cover ${ display ? '' : 'display-none' }">
       <!-- 新規登録フォーム -->
       <form:form
