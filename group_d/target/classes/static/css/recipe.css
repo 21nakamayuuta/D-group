@@ -65,8 +65,9 @@
     font-size: 4rem;
 }
 
-.cuisine-image{
+.cuisine-img{
     grid-area: image;
+    aspect-ratio: 7/5;
 }
 
 .category-material-wrap{

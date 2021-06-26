@@ -41,6 +41,7 @@ public class AuthController {
 	@Autowired
 	HttpSession session;
 
+	// 新規登録
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm Recipeform, @ModelAttribute("loginForm") LoginForm loginForm,
@@ -106,7 +107,6 @@ public class AuthController {
 
 			return "top";
 		} else {
-
 			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
@@ -118,23 +118,19 @@ public class AuthController {
 			model.addAttribute("categoryList", categoryList);
 		}
 
-		session.setAttribute("user", user);
 		// ヘッダーのページ遷移用にセッションにfalse保存
+		UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
 		session.setAttribute("login", false);
-		session.setAttribute("user", user);
+		session.setAttribute("user", loginUser);
 
-		return "userTop";
+		return "redirect:userTop";
 	}
 
 	// ログイン処理 (ログイン画面のログインボタン押下)
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm, @ModelAttribute("sign") SignUpForm signUpForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
-
-		// String errMsg = messageSource.getMessage("login.error", null,
-		// Locale.getDefault());
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("display", true);
@@ -171,14 +167,7 @@ public class AuthController {
 		} else {
 			// ログイン成功
 
-			// role一覧を取得
-			// List<Role> roleList = roleService.findAll();
-
-			// ログインユーザ情報、role一覧をセッションにセット
-			// SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
-
-			// sessionInfo.setLoginUser(user);
-			// sessionInfo.setRoleList(roleList);
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
 
@@ -192,7 +181,7 @@ public class AuthController {
 
 			session.setAttribute("user", user);
 			session.setAttribute("login", false);
-			return "userTop";
+			return "redirect:userTop";
 		}
 	}
 
@@ -216,7 +205,7 @@ public class AuthController {
 		model.addAttribute("categoryList", categoryList);
 
 		session.invalidate();
-		return "top";
+		return "redirect:top";
 	}
 
 }

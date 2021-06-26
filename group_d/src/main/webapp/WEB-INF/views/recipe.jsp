@@ -16,7 +16,7 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <div class="cover display-none">
+    <!-- <div class="cover display-none">
       <form action="userTop.html" class="login-form display-none">
         <div class="btn" id="cancel">
           <span
@@ -30,10 +30,6 @@
             <label
               >ID<br />
               <input type="text" name="userId" id="userId" placeholder="ID" />
-              <!-- エラー時
-                <input type="text" class="error" name="userId" id="userId" placeholder="ID" />
-                <span class="error_msg">エラーメッセージ</span>
-              -->
             </label>
           </div>
           <div class="password">
@@ -50,7 +46,6 @@
           <button>ログイン</button>
         </div>
       </form>
-       <!-- 新規登録 -->
       <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
 
         <div class="btn" id="cancel">
@@ -106,27 +101,170 @@
           <form:button type="submit">新規登録</form:button>
         </div>
       </form:form>
+        </div> -->
+
+    <div class="cover ${ display ? '' : 'display-none' }">
+      <!-- 新規登録フォーム -->
+      <form:form
+        action="signUp"
+        modelAttribute="sign"
+        method="post"
+        class="singUp-form ${ SignUpDisplay ? '' : 'display-none' }"
+      >
+        <div class="btn" id="cancel">
+          <span
+            class="iconify"
+            data-inline="false"
+            data-icon="topcoat:cancel"
+          ></span>
         </div>
+        <div class="form-wrap">
+          <div class="userId">
+            <label
+              >ID<br />
+              <form:input path="userId" id="userId" placeholder="ID" />
+              <form:errors path="userId" class="error_msg" />
+              <span class="error_msg">${errMsgID}</span>
+            </label>
+          </div>
+          <div class="userName">
+            <label
+              >名前<br />
+              <form:input path="userName" id="userName" placeholder="名前" />
+              <form:errors path="userName" class="error_msg" />
+            </label>
+          </div>
+          <div class="password">
+            <label
+              >パスワード<br />
+              <form:password
+                path="password"
+                id="password"
+                placeholder="パスワード"
+              />
+              <form:errors path="password" class="error_msg" />
+            </label>
+          </div>
+          <div class="repass">
+            <label
+              >パスワード-確認<br />
+              <form:password
+                path="repass"
+                id="repass"
+                placeholder="パスワード"
+              />
+              <form:errors path="repass" class="error_msg" />
+              <span class="error_msg">${errMsgPASS}</span>
+            </label>
+          </div>
+          <form:button type="submit">新規登録</form:button>
+        </div>
+      </form:form>
+      <!-- ログインフォーム -->
+      <form:form
+        action="login"
+        class="login-form ${ LoginDisplay ? '' : 'display-none' }"
+        method="POST"
+        modelAttribute="loginForm"
+      >
+        <div class="btn" id="cancel">
+          <span
+            class="iconify"
+            data-inline="false"
+            data-icon="topcoat:cancel"
+          ></span>
+        </div>
+        <div class="form-wrap">
+          <label class="error_msg">${errMsg}</label>
+          <div class="userId">
+            <label
+              >ID<br />
+              <form:input
+                type="text"
+                name="userId"
+                id="userId"
+                placeholder="ID"
+                path="loginName"
+              />
+              <form:errors
+                path="loginName"
+                class="error_msg"
+                cssStyle="color:red"
+              />
+            </label>
+          </div>
+          <div class="password">
+            <label
+              >パスワード<br />
+              <form:input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="パスワード"
+                path="password"
+              />
+              <form:errors
+                path="password"
+                class="error_msg"
+                cssStyle="color:red"
+              />
+            </label>
+          </div>
+          <button>ログイン</button>
+        </div>
+      </form:form>
+    </div>
 
     <header>
       <div class="header-wrap">
-        <h1><a href=${ login ? 'userTop' : 'top' } class="page-title">おさるのレシピ</a></h1>
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-          <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
-          <form:button>レシピ検索</form:button>
-        </form:form>
-        <!-- 権限ごとに切り替える部分 -->
-        <div class="btn-wrap">
-          <button type="button" id="singUp">新規登録</button>
-          <button type="button" id="login">ログイン</button>
-        </div>
-        <!--  -->
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" />
+        <%-- type="text" name="searchKeyword" --%>
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <!-- 権限ごとに切り替える部分 -->
+      <div class="btn-wrap">
+        <c:choose>
+          <%-- 未ログイン時 --%>
+          <c:when test="${empty user}">
+            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
+
+          <%-- ログイン時 --%>
+          <c:otherwise>
+            <a href="post" class="to-post btn">レシピを投稿する</a>
+            <div class="user-icon">
+
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+              </div>
+
+              <div class="tooltip display-none">
+                <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if>
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
+                <form:form action="logout" method="POST">
+                  <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+                </form:form>
+              </div>
+          </c:otherwise>
+        </c:choose>
       </div>
+    </div>
     </header>
+
     <main>
       <div class="wrapper">
         <section class="cuisine">
@@ -183,7 +321,7 @@
 
 <!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
-			  src= "${fn:escapeXml(recipeInfo.completeImage)}"
+			  src= "../../imgs/${fn:escapeXml(recipeInfo.completeImage)}"
               alt=""
             />
           </div>

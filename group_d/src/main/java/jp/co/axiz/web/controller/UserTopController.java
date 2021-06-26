@@ -50,8 +50,6 @@ public class UserTopController {
 
         UserInfo user = (UserInfo) session.getAttribute("user");
         UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
-        // System.out.println(loginUser.getUserId() + ", " + year + ", " + month + ", "
-        // + day);
         // 投稿したレシピを表示
         PostRecipe postRecipe = new PostRecipe(loginUser.getUserId(), year, month, day);
         List<PostRecipe> postRecipeList = postRecipeService.getPostRecipe(postRecipe);
@@ -79,8 +77,6 @@ public class UserTopController {
         List<PostRecipe> postRecipeList = postRecipeService.getAllPostRecipe(loginUser.getUserId());
         List<MadeRecipe> madeRecipeList = madeRecipeService.getAllMadeRecipe(loginUser.getUserId());
         System.out.println(loginUser.getUserId());
-        // postRecipeList.get(0).getAllData();
-        // madeRecipeList.get(0).getAllData();
         Map<String, Object> map = new HashMap<>();
         map.put("postRecipe", postRecipeList);
         map.put("madeRecipe", madeRecipeList);

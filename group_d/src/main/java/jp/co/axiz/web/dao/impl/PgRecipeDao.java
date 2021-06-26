@@ -53,8 +53,10 @@ public class PgRecipeDao implements RecipeDao {
 		String sql = SEARCH_RECIPE_INFO;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("recipeId", recipeId);
+
 		List<Recipe> resultList = jT.query(sql, param, new BeanPropertyRowMapper<Recipe>(Recipe.class));
 
+		System.out.println(resultList.size() + ", " + recipeId);
 		return resultList.isEmpty() ? null : resultList;
 
 	}

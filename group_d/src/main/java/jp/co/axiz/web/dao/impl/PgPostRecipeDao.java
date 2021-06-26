@@ -1,6 +1,8 @@
 package jp.co.axiz.web.dao.impl;
 
 import java.util.List;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Collections;
 import jp.co.axiz.web.dao.PostRecipeDao;
 import jp.co.axiz.web.entity.PostRecipe;
@@ -19,6 +21,8 @@ public class PgPostRecipeDao implements PostRecipeDao {
     private static final String SELECT_ALL_POST_RECIPE = "SELECT pr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, pr.recipe_id "
             + "FROM post_recipe pr " + "JOIN recipe r ON pr.recipe_id = r.recipe_id " + "WHERE pr.user_id = :userId "
             + "ORDER BY dt";
+
+    private static final String INSERT_POST_RECIPE = "INSERT INTO post_recipe VALUES (:userId, :recipeId, now())";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
@@ -46,7 +50,15 @@ public class PgPostRecipeDao implements PostRecipeDao {
         param.addValue("userId", userId);
 
         List<PostRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<PostRecipe>(PostRecipe.class));
-        list.get(0).getAllData();
         return list.isEmpty() ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public void insertPostRecipe(Integer userId, Integer recipeId) {
+        String sql = INSERT_POST_RECIPE;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
     }
 }
