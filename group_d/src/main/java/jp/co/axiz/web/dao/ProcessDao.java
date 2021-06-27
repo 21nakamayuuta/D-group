@@ -2,8 +2,8 @@ package jp.co.axiz.web.dao;
 
 import java.util.List;
 
-import jp.co.axiz.web.entity.Process;
-
 public interface ProcessDao {
-	public void registerProcess(List<Process> processList, Integer recipeId);
+	public void registerProcess(List<String> processInfoList, Integer recipeId);
+	public void updateProcess(List<String> processInfoList, Integer recipeId);
+	public void deleteProcess(Integer recipeId);
 }

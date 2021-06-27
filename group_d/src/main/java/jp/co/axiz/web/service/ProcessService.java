@@ -1,8 +1,8 @@
 package jp.co.axiz.web.service;
 
 import java.util.List;
-
-import jp.co.axiz.web.entity.Process;
 public interface ProcessService {
-	public void registerProcess(List<Process> processList, Integer recipeId);
+	public void registerProcess(List<String> processInfoList, Integer recipeId);
+	public void updateProcess(List<String> processInfoList, Integer recipeId);
+	public void delAndRegProcess(List<String> processInfoList, Integer recipeId);
 }

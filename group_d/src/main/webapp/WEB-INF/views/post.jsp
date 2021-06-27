@@ -150,7 +150,7 @@
             <ul>
               <c:forEach var="p" items="${processList }">
                 <li>
-                  <input type="text" value="${fn:escapeXml(p.processDescription)}" path="foodNameList"/><form:button type="submit" class="form-btn" name="processDel" >
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" >
                     削除
                   </form:button>
                 </li>

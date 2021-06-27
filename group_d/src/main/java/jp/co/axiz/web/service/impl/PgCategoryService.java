@@ -27,5 +27,12 @@ public class PgCategoryService implements CategoryService{
 
 	}
 
+	@Override
+	public void delAndRegCategory(Integer recipeId, Integer[] categoryId) {
+		// TODO 自動生成されたメソッド・スタブ
+		categoryDao.deleteCategory(recipeId);
+		categoryDao.registerRecipeAndCategory(recipeId, categoryId);
+	}
+
 
 }

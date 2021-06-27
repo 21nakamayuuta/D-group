@@ -18,6 +18,7 @@ import jp.co.axiz.web.controller.form.EditForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Food;
+import jp.co.axiz.web.entity.Process;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
@@ -53,6 +54,43 @@ public class UpdateController {
 	public String editInfoCheck(@Validated @ModelAttribute("editInfo") EditForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			Model model) {
+		List<Food> foodList = (List<Food>) session.getAttribute("foodInfo");
+		List<Process> processList = (List<Process>) session.getAttribute("processInfo");
+		if (binding.hasErrors()) {
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			if (foodList.isEmpty()) {
+				model.addAttribute("foodErrorMsg", "材料・分量を追加してください");
+			}
+			if (processList.isEmpty()) {
+				model.addAttribute("processErrorMsg", "作り方を追加してください");
+			}
+			if(form.getFormCategoryId().length == 0) {
+				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
+			}
+			return "edit";
+		}
+		if (foodList.isEmpty() || processList.isEmpty()) {
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			if (foodList.isEmpty()) {
+				model.addAttribute("foodErrorMsg", "材料・分量を追加してください");
+			}
+			if (processList.isEmpty()) {
+				model.addAttribute("processErrorMsg", "作り方を追加してください");
+			}
+			return "edit";
+		}
+
+		if(form.getFormCategoryId().length == 0) {
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
+			return "edit";
+		}
+
+
+
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
 		//画像クラス
@@ -78,14 +116,36 @@ public class UpdateController {
 
 		foodService.updateFood(form.getFoodNameList(),form.getAmountList(), form.getRecipeId());
 
+		processService.updateProcess(form.getProcessInfoList(),form.getRecipeId());
+
+		//updateかdeleteしてRegisterか相談   food,process,category
+
 		return "redirect:/userTop";
 
 	}
 
+	//foodAdd
 	@RequestMapping(value = "/editInfoCheck", params = "foodAdd", method = RequestMethod.POST)
-	public String foodAdd(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
+	public String foodAdd(@ModelAttribute("editInfo") EditForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			Model model) {
+		if (form.getAmount().isEmpty() || form.getFoodName().isEmpty()) {
+			if (form.getFoodName().isEmpty()) {
+				model.addAttribute("nameEmpty", "材料は必須です");
+			}
+			if (form.getAmount().isEmpty()) {
+				model.addAttribute("amountEmpty", "分量は必須です");
+			}
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			return "edit";
+		}
+		if (form.getAmount().length() >= 50 || form.getFoodName().length() >= 50) {
+			model.addAttribute("nameEmpty", "50文字以内で入力してください");
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			return "edit";
+		}
 		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
 		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
 		foodInfo.add(newFoodList);
@@ -111,4 +171,46 @@ public class UpdateController {
 		return "edit";
 	}
 
+
+
+	//processAdd
+	@RequestMapping(value = "/editInfoCheck", params = "processAdd", method = RequestMethod.POST)
+	public String processAdd(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			Model model) {
+		if (form.getProcessDescription().isEmpty()) {
+			model.addAttribute("processEmpty", "作り方を入力してください");
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			return "edit";
+		}
+		if (form.getProcessDescription().length() >= 50) {
+			model.addAttribute("processEmpty", "50文字以内で入力してください");
+			List<Category> categoryList = categoryService.searchCategory();
+			model.addAttribute("categoryList", categoryList);
+			return "edit";
+		}
+		List<Process> processInfo = (List<Process>) session.getAttribute("processInfo");
+		Process newProcessInfo = new Process(form.getProcessDescription());
+		processInfo.add(newProcessInfo);
+		session.setAttribute("processInfo", processInfo);
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+		form.setProcessDescription(null);
+		return "edit";
+	}
+
+
+	@RequestMapping(value = "/editInfoCheck", params = "processDel", method = RequestMethod.POST)
+	public String processDel(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			Model model) {
+		List<Food> processInfo = (List<Food>) session.getAttribute("foodInfo");
+		processInfo.remove(0);
+		session.setAttribute("processInfo", processInfo);
+
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+		return "edit";
+	}
 }

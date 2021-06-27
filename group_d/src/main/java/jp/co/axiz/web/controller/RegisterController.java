@@ -59,6 +59,8 @@ public class RegisterController {
 
 		List<Process> processList = new ArrayList<Process>();
 		session.setAttribute("processList", processList);
+
+		form.setProcessInfoList(new ArrayList<String>());
 		return "post";
 	}
 
@@ -78,6 +80,10 @@ public class RegisterController {
 			}
 			if (processList.isEmpty()) {
 				model.addAttribute("processErrorMsg", "作り方を追加してください");
+			}
+			if(form.getFormCategoryId().length == 0) {
+				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
+				return "post";
 			}
 			return "post";
 		}
@@ -130,7 +136,7 @@ public class RegisterController {
 		foodService.registerFood(form.getFoodNameList(),form.getAmountList(), newRecipeId);
 
 		//processテーブルに情報を登録
-		processService.registerProcess(processList, newRecipeId);
+		processService.registerProcess(form.getProcessInfoList(), newRecipeId);
 
 		return "userTop";
 

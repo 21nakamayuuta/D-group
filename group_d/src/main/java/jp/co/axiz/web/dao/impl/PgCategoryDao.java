@@ -15,6 +15,7 @@ import jp.co.axiz.web.entity.Category;
 public class PgCategoryDao implements CategoryDao{
 	private static final String SEARCH_CATEGORY = "SELECT category_id, category_name FROM category";
 	private static final String REGISTER_RECIPE_AND_CATEGORY = "INSERT INTO recipe_and_category(recipe_id, category_id) VALUES (:recipeId, :categoryId)";
+	private static final String DELETE_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
 
 	@Autowired
     private NamedParameterJdbcTemplate jT;
@@ -35,6 +36,15 @@ public class PgCategoryDao implements CategoryDao{
 			param.addValue("categoryId", i);
 			jT.update(sql, param);
 		}
+	}
+
+	@Override
+	public void deleteCategory(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = DELETE_CATEGORY;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipeId", recipeId);
+		jT.update(sql,param);
 	}
 
 }
