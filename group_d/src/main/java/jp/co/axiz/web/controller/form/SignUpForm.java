@@ -18,6 +18,8 @@ public class SignUpForm {
 	@NotBlank(message = "パスワードを入力してください")
 	private String repass;
 
+	private String pageName;
+
 	/*
 	 * 数値を入力してください 半角英数字のみ入力してください このIDは、使用できません パスワードが一致しません
 	 */
@@ -52,6 +54,14 @@ public class SignUpForm {
 
 	public void setRepass(String repass) {
 		this.repass = repass;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 
 }

@@ -20,13 +20,15 @@
     ・作ったよボタン機能 -> 会員ユーザー、管理者限定
     ・レシピ削除ボタン機能 -> 管理者限定
     ・iconクリック時のuserページへの遷移
-    ・新規登録、ログイン時のページ処理(バリデーションも)
     ・カテゴリをクリックするとカテゴリ検索をするかorクリック出来なくする
     ・画像サイズを調整
   -->
   <body>
-    <!-- <div class="cover display-none">
-      <form action="userTop.html" class="login-form display-none">
+  
+     <div class="cover display-none">
+      <form
+        class="signUp-form display-none"
+      >
         <div class="btn" id="cancel">
           <span
             class="iconify"
@@ -38,87 +40,48 @@
           <div class="userId">
             <label
               >ID<br />
-              <input type="text" name="userId" id="userId" placeholder="ID" />
+              <input name="userId" id="userId" placeholder="ID"  />
+              <span class="error_msg userId"></span>
+            </label>
+          </div>
+          <div class="userName">
+            <label
+              >名前<br />
+              <input name="userName" id="userName" placeholder="名前"   />
+              <span class="error_msg userName"></span>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
               <input
-                type="text"
+              type="password"
                 name="password"
                 id="password"
                 placeholder="パスワード"
+                
               />
+              <span class="error_msg password"></span>
             </label>
           </div>
-          <button>ログイン</button>
+          <div class="repass">
+            <label
+              >パスワード-確認<br />
+              <input
+              type="password"
+                name="repass"
+                id="repass"
+                placeholder="パスワード"
+              />
+              <span class="error_msg repass"></span>
+              <span class="error_msg errNotPassMatch"></span>
+            </label>
+          </div>
+          <button type="button">新規登録</button>
         </div>
       </form>
-      <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
-
-        <div class="btn" id="cancel">
-          <span
-            class="iconify"
-            data-inline="false"
-            data-icon="topcoat:cancel"
-          ></span>
-        </div>
-        <div class="form-wrap">
-          <div class="userId">
-            <label
-              >ID<br />
-              <form:input
-              path="userId"
-              id="userId"
-              placeholder="ID" />
-              <form:errors path="userId" class="error_msg"/>
-              <span class="error_msg">${errMsgID}</span>
-            </label>
-          </div>
-          <div class="userName">
-            <label
-              >名前<br />
-              <form:input
-                path="userName"
-                id="userName"
-                placeholder="名前" />
-                <form:errors path="userName" class="error_msg"/>
-            </label>
-          </div>
-          <div class="password">
-            <label
-              >パスワード<br />
-              <form:password
-                path="password"
-                id="password"
-                placeholder="パスワード"/>
-                <form:errors path="password" class="error_msg"/>
-            </label>
-          </div>
-          <div class="repass">
-            <label
-              >パスワード-確認<br />
-              <form:password
-                path="repass"
-                id="repass"
-                placeholder="パスワード"/>
-                <form:errors path="repass" class="error_msg"/>
-                <span class="error_msg">${errMsgPASS}</span>
-            </label>
-          </div>
-          <form:button type="submit">新規登録</form:button>
-        </div>
-      </form:form>
-        </div> -->
-    
-    <div class="cover ${ display ? '' : 'display-none' }">
-      <!-- 新規登録フォーム -->
-      <form:form
-        action="signUp"
-        modelAttribute="sign"
-        method="post"
-        class="singUp-form ${ SignUpDisplay ? '' : 'display-none' }"
+      <form
+        class="login-form display-none"
       >
         <div class="btn" id="cancel">
           <span
@@ -128,107 +91,41 @@
           ></span>
         </div>
         <div class="form-wrap">
+          <label class="error_msg errNotUserIdOrPass"></label>
           <div class="userId">
             <label
               >ID<br />
-              <form:input path="userId" id="userId" placeholder="ID" />
-              <form:errors path="userId" class="error_msg" />
-              <span class="error_msg">${errMsgID}</span>
-            </label>
-          </div>
-          <div class="userName">
-            <label
-              >名前<br />
-              <form:input path="userName" id="userName" placeholder="名前" />
-              <form:errors path="userName" class="error_msg" />
-            </label>
-          </div>
-          <div class="password">
-            <label
-              >パスワード<br />
-              <form:password
-                path="password"
-                id="password"
-                placeholder="パスワード"
-              />
-              <form:errors path="password" class="error_msg" />
-            </label>
-          </div>
-          <div class="repass">
-            <label
-              >パスワード-確認<br />
-              <form:password
-                path="repass"
-                id="repass"
-                placeholder="パスワード"
-              />
-              <form:errors path="repass" class="error_msg" />
-              <span class="error_msg">${errMsgPASS}</span>
-            </label>
-          </div>
-          <form:button type="submit">新規登録</form:button>
-        </div>
-      </form:form>
-      <!-- ログインフォーム -->
-      <form:form
-        action="login"
-        class="login-form ${ LoginDisplay ? '' : 'display-none' }"
-        method="POST"
-        modelAttribute="loginForm"
-      >
-        <div class="btn" id="cancel">
-          <span
-            class="iconify"
-            data-inline="false"
-            data-icon="topcoat:cancel"
-          ></span>
-        </div>
-        <div class="form-wrap">
-          <label class="error_msg">${errMsg}</label>
-          <div class="userId">
-            <label
-              >ID<br />
-              <form:input
-                type="text"
-                name="userId"
+              <input
                 id="userId"
                 placeholder="ID"
-                path="loginName"
+                name="loginName"
               />
-              <form:errors
-                path="loginName"
-                class="error_msg"
-                cssStyle="color:red"
-              />
+              <span class="error_msg loginName"></span>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
-              <form:input
+              <input
                 type="password"
                 name="password"
                 id="password"
                 placeholder="パスワード"
-                path="password"
               />
-              <form:errors
-                path="password"
-                class="error_msg"
-                cssStyle="color:red"
-              />
+              <span class="error_msg password"></span>
             </label>
           </div>
-          <button>ログイン</button>
+          <button type="button">ログイン</button>
         </div>
-      </form:form>
+      </form>
     </div>
 
-    <header>
+   <header>
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" />
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+           autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
@@ -237,7 +134,7 @@
         <c:choose>
           <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
-            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="signUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
@@ -279,7 +176,8 @@
         <section class="cuisine">
           <div class="good-make-wrap">
             <!-- ゲストのみ css → opacity:1 -->
-            <div class="good">
+           
+            <div class="good ${empty user ? 'not-click' : ''}">
               <span
                 class="iconify"
                 data-inline="false"
@@ -287,8 +185,10 @@
               ></span>
               <span class="good-num"> ${fn:escapeXml(totalGood)}</span>
             </div>
+             <!-- <c:if test="${empty user}"></c:if> -->
             <!--  -->
             <!-- 会員ユーザー、管理者のみ表示 -->
+             <c:if test="${not empty user}">
             <div class="make">
               <span
                 class="iconify"
@@ -297,7 +197,7 @@
                 style="font-size: 40px"
               ></span>
             </div>
-            <!--  -->
+             <c:if test="${user.roleId == 1}">
             <!-- 管理者のみ表示 -->
             <div class="delete">
               <span
@@ -307,7 +207,11 @@
                 style="color: #ff6d6d; font-size: 40px"
               ></span>
             </div>
+            </c:if>
             <!--  -->
+            </c:if>
+            <!--  -->
+            
           </div>
           <div class="empty"></div>
           <h3 class="title">
@@ -383,7 +287,8 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/recipe.js"></script>
   </body>
 </html>

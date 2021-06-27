@@ -5,4 +5,6 @@ import jp.co.axiz.web.entity.UserInfo;
 public interface SignUpService {
 
 	public boolean INSERT_AND_CHECK(UserInfo user);
+
+	public void signUp(UserInfo user);
 }

@@ -2,6 +2,7 @@ package jp.co.axiz.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
 
-@Controller
+// @Controller
 public class AuthController {
 
 	@Autowired
@@ -45,9 +46,10 @@ public class AuthController {
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm Recipeform, @ModelAttribute("loginForm") LoginForm loginForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model, HttpServletRequest request) {
 		// バリデーション
 		if (binding.hasErrors()) {
+			// System.out.println(binding.getFieldError("userId").getDefaultMessage());
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
@@ -62,7 +64,8 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			return loginForm.getPageName();
+			// return "top";
 		}
 
 		// 入力情報でユーザー作成
@@ -85,7 +88,8 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			return loginForm.getPageName();
+			// return "top";
 		}
 
 		// サービスで同じログインネームの有無チェック
@@ -105,7 +109,8 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			// return "top";
+			return loginForm.getPageName();
 		} else {
 			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
@@ -144,7 +149,9 @@ public class AuthController {
 			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
-			return "top";
+			// return "top";
+			System.out.println(signUpForm.getPageName());
+			return signUpForm.getPageName();
 		}
 
 		UserInfo user = userInfoService.authentication(form.getLoginName(), form.getPassword());
@@ -163,7 +170,8 @@ public class AuthController {
 			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
-			return "top";
+			// return "top";
+			return signUpForm.getPageName();
 		} else {
 			// ログイン成功
 

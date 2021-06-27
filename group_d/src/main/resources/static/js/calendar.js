@@ -22,9 +22,6 @@ let selectDate = [
     new Date().getDate(),
 ];
 
-/** Todo
- * ヘッダーの動的変更
- * */
 let postDate = [];
 let madeDate = [];
 

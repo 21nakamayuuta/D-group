@@ -30,7 +30,8 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" />
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+           autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
@@ -195,7 +196,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   </main>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="js/header.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/calendar.js"></script>
 </body>
 

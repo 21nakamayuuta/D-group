@@ -32,8 +32,7 @@ public class IndexController {
 	HttpSession session;
 
 	@RequestMapping("/top")
-	public String top(@ModelAttribute("loginForm") LoginForm loginForm,
-			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm signForm,
+	public String top(@ModelAttribute("RecipeSearch") SearchForm searchForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
 		// ランキング
@@ -92,5 +91,13 @@ public class IndexController {
 	@RequestMapping("/admin")
 	public String admin(@ModelAttribute("RecipeSearch") SearchForm searchForm) {
 		return "admin";
+	}
+
+	@RequestMapping("/search")
+	public String searchResult(@ModelAttribute("categorySearch") SearchForm categoryForm, Model model) {
+		// カテゴリの表示
+		List<Category> categoryList = categoryService.searchCategory();
+		model.addAttribute("categoryList", categoryList);
+		return "searchResult";
 	}
 }
