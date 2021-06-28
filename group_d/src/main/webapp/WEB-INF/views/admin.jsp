@@ -171,10 +171,10 @@
                     <li>
                       <div class="content-edit-wrap">
                        <form:form action="categoryEdit" modelAttribute="categoryEdit" method="post" >
+                        <form:input path="categoryIdList" type="hidden" value= "${category.categoryId}" />
                         <form:input path="categoryNameList" class="content" value= "${category.categoryName}" /> <%--disabled --%>
-                       <%-- <form:input path="categoryIdList" type="hidden" value= "${category.categoryId}" />  --%>
-                        <button type="button" value="${category.categoryName}" class="edit form-btn">編集</button> <%-- --%>
-                        <form:button name="categoryNameEdit" value="${category.categoryName}" class="save form-btn display-none" >保存</form:button> <%--class="save form-btn display-none"  --%>
+                        <button type="button" value="${category.categoryName}" class="edit form-btn">編集</button>
+                        <form:button name="categoryNameEdit" value="${category.categoryId}" class="edit form-btn" >保存</form:button> <%--class="save form-btn display-none"  --%>
                       </form:form>
 
                       <form:form action="categoryEditDelete"  modelAttribute="category" method="post" >
