@@ -30,7 +30,7 @@ public class PostRecipeServiceImpl implements PostRecipeService {
     }
 
     @Override
-    public void deletePostRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
-        postRecipeDao.deletePostRecipe(userId, recipeId, year, month, day);
+    public void deletePostRecipe(Integer recipeId) {
+        postRecipeDao.deletePostRecipe(recipeId);
     }
 }

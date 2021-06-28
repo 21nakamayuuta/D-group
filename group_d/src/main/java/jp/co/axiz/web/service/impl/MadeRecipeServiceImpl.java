@@ -20,6 +20,11 @@ public class MadeRecipeServiceImpl implements MadeRecipeService {
     }
 
     @Override
+    public MadeRecipe checkMadeRecipe(MadeRecipe MadeRecipe) {
+        return madeRecipeDao.checkMadeRecipe(MadeRecipe);
+    }
+
+    @Override
     public List<MadeRecipe> getAllMadeRecipe(Integer userId) {
         return madeRecipeDao.allMadeRecipeList(userId);
     }

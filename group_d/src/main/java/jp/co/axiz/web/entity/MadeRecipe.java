@@ -27,6 +27,14 @@ public class MadeRecipe {
 		this.day = day;
 	}
 
+	public MadeRecipe(Integer userId, Integer year, Integer month, Integer day, Integer recipeId) {
+		this.userId = userId;
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.recipeId = recipeId;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}

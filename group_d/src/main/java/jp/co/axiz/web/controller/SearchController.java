@@ -1,7 +1,9 @@
 
 package jp.co.axiz.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -133,6 +135,8 @@ public class SearchController {
 		model.addAttribute("foodInfo", foodInfo);
 		model.addAttribute("categoryInfo", recipeInfo);
 		model.addAttribute("processInfo", processInfo);
+
+		session.setAttribute("recipeId", recipeId);
 
 		return "recipe";
 
