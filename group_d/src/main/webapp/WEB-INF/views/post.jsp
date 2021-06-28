@@ -24,7 +24,6 @@
   <body>
     <header>
       <div class="header-wrap">
-<<<<<<< HEAD
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
         <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
@@ -77,10 +76,9 @@
           </div>
         </div>
         <!--  -->
-=======
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>

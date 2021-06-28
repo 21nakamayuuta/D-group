@@ -248,6 +248,7 @@
         <div class="not-result-message">一致するレシピは見つかりませんでした。</div>
         </c:if>
 
+
         <ul class="recipe-list">
           <%--検索結果をforEachで回して表示 --%>
           <c:forEach var="search" items="${searchList}">

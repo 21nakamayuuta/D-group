@@ -26,9 +26,9 @@
   <body>
     <!-- ログイン機能 -->
     <div class="cover display-none">
-  <%--	<form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
+   <%--	<form:form action="login" class="login-form ${ LoginDisplay ? '' : 'display-none' }" method="POST" modelAttribute="loginForm">
     <div class="btn" id="cancel">
-          <span
+         <span
 
      <div class="cover display-none">
       <form
@@ -45,9 +45,11 @@
     <div class="form-wrap">
          <label style="color:red;">${errMsg }</label>
           <div class="userId">
+<<<<<<< HEAD
             <label>ID<br />
               <form:input type="text" name="userId" id="userId" placeholder="ID" path="loginName" />
               <form:errors path="loginName" class="error_msg" cssStyle="color:red"/>
+=======
             <label
               >ID<br />
               <input name="userId" id="userId" placeholder="ID"  />
@@ -59,11 +61,13 @@
               >名前<br />
               <input name="userName" id="userName" placeholder="名前"   />
               <span class="error_msg userName"></span>
+>>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
             </label>
           </div>
 
 
           <div class="password">
+<<<<<<< HEAD
             <label>パスワード<br />
               <form:input type="password" name="password" id="password" placeholder="パスワード" path="password"/>
               <form:errors path="password" class="error_msg" cssStyle="color:red"/>
@@ -74,7 +78,8 @@
      </form:form>
        <!-- 新規登録 -->
       <form:form action="signUp" modelAttribute="sign" method="post" class="singUp-form  ${ display ? '' : 'display-none' }">
- --%>
+
+======= --%>
             <label
               >パスワード<br />
               <input
@@ -106,7 +111,6 @@
       <form
         class="login-form display-none"
       >
->>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
         <div class="btn" id="cancel">
           <span
             class="iconify"

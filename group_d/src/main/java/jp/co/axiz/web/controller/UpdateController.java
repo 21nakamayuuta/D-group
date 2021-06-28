@@ -109,7 +109,7 @@ public class UpdateController {
 		recipeService.editRecipe(EditRecipe, form.getRecipeId());
 		foodService.delAndRegFood(form.getFoodNameList(), form.getAmountList(), form.getRecipeId());
 		processService.delAndRegProcess(form.getProcessInfoList(), form.getRecipeId());
-		categoryService.delAndRegCategory(form.getRecipeId(), form.getFormCategoryId());
+		categoryService.deleteRecipeAndCategory(form.getRecipeId(), form.getFormCategoryId());
 
 		return "redirect:/userTop";
 

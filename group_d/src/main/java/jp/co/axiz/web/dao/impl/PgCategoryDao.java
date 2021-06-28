@@ -15,7 +15,11 @@ import jp.co.axiz.web.entity.Category;
 public class PgCategoryDao implements CategoryDao{
 	private static final String SEARCH_CATEGORY = "SELECT category_id, category_name FROM category";
 	private static final String REGISTER_RECIPE_AND_CATEGORY = "INSERT INTO recipe_and_category(recipe_id, category_id) VALUES (:recipeId, :categoryId)";
-	private static final String DELETE_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
+	private static final String INSERT_CATEGORY = "INSERT INTO category(category_name) VALUES (:categoryName)";
+	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id = :categoryId";
+	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
+	private static final String DELETE_RECIPE_AND_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
+
 
 	@Autowired
     private NamedParameterJdbcTemplate jT;
@@ -39,12 +43,36 @@ public class PgCategoryDao implements CategoryDao{
 	}
 
 	@Override
-	public void deleteCategory(Integer recipeId) {
-		// TODO 自動生成されたメソッド・スタブ
+	public void insertCategory(String categoryName) {
+		String sql = INSERT_CATEGORY;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("categoryName", categoryName);
+		jT.update(sql, param);
+	}
+
+	@Override
+	public void deleteCategory(Integer categoryId) {
 		String sql = DELETE_CATEGORY;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("categoryId", categoryId);
+		jT.update(sql, param);
+	}
+
+	@Override
+	public void updateCategory(Integer categoryId, String categoryName) {
+		String sql = UPDATE_CATEGORY;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("categoryId", categoryId);
+		param.addValue("categoryName", categoryName);
+		jT.update(sql, param);
+	}
+
+
+	public void deleteRecipeAndCategory(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = DELETE_RECIPE_AND_CATEGORY;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("recipeId", recipeId);
 		jT.update(sql,param);
 	}
-
 }

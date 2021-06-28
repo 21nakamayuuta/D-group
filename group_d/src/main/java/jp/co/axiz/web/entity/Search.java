@@ -1,6 +1,7 @@
 package jp.co.axiz.web.entity;
 
 public class Search {
+
 	private String userId;
 	private String userName;
 	private Integer recipeId;
@@ -65,4 +66,5 @@ public class Search {
 	public void setGoodCount(Integer goodCount) {
 		this.goodCount = goodCount;
 	}
+
 }

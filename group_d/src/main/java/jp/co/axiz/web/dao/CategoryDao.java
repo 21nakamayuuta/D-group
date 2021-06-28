@@ -7,5 +7,8 @@ import jp.co.axiz.web.entity.Category;
 public interface CategoryDao {
 	public List<Category> searchCategory();
 	public void registerRecipeAndCategory(Integer recipeId, Integer[] categoryId);
-	public void deleteCategory(Integer recipeId);
+	public void insertCategory(String categoryName);
+	public void deleteCategory(Integer categoryId);
+	public void updateCategory(Integer categoryId, String categoryName);
+	public void deleteRecipeAndCategory(Integer recipeId);
 }

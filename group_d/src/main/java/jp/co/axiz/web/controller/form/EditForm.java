@@ -36,7 +36,6 @@ public class EditForm {
 	private Integer[] formCategoryId;
 
 
-
 	public List<String> getProcessInfoList() {
 		return processInfoList;
 	}
