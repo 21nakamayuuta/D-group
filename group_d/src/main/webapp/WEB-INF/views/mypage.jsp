@@ -63,10 +63,6 @@
                     管理ページ
                   </a>
                 </c:if>
-                 <a href="./mypage" class="to-mypage item">
-                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
-                    マイページ
-                  </a>
                 <form:form action="logout" method="POST">
                   <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
@@ -163,6 +159,7 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/form.js"></script>
   </body>

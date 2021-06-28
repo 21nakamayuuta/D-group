@@ -187,6 +187,7 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/post.js"></script>
   </body>
