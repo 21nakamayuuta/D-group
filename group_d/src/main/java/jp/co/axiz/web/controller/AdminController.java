@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.axiz.web.controller.form.AdminForm;
+import jp.co.axiz.web.controller.form.MypageForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
 import jp.co.axiz.web.entity.Category;
@@ -19,6 +21,7 @@ import jp.co.axiz.web.entity.Search;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.AdminService;
 import jp.co.axiz.web.service.CategoryService;
+import jp.co.axiz.web.service.RecipeService;
 
 @Controller
 public class AdminController {
@@ -26,6 +29,9 @@ public class AdminController {
 	private CategoryService categoryService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private RecipeService recipeService;
+
 
 	@RequestMapping("/admin")
 	public String admin(@ModelAttribute("sign") SignUpForm form,
@@ -92,7 +98,7 @@ public class AdminController {
 
 		//formで値が取得できない現象が起こっている。これが出来れば何とかなりそう。
 		//updateCategoryが使用出来ることを確認した。
-		//categoryService.updateCategory(Integer.parseInt(ButtonValue), "弁当");
+		categoryService.updateCategory(Integer.parseInt(ButtonValue), adminForm.getCategoryNameList().get(0));
 
 		return "redirect:admin";
 	}
@@ -108,6 +114,18 @@ public class AdminController {
 		String ButtonValue = req.getParameter("categoryNameDelete");
 		System.out.println(ButtonValue);
 		categoryService.deleteCategory(Integer.parseInt(ButtonValue));
+
+		return "redirect:admin";
+	}
+
+	//レシピの削除
+	@RequestMapping(value="/deleteRecipeAdmin", params="deleteRecipe",method= RequestMethod.POST)
+	public String delete(@Validated @ModelAttribute("MyPageForm") MypageForm form,
+			//BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,
+			HttpServletRequest req,Model model) {
+
+		String ButtonValue = req.getParameter("deleteRecipe");
+		recipeService.deleteRecipe(Integer.parseInt(ButtonValue));
 
 		return "redirect:admin";
 	}
