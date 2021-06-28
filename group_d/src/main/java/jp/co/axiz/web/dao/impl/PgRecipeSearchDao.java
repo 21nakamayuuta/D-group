@@ -20,7 +20,9 @@ public class PgRecipeSearchDao implements RecipeDao {
 	private static final String SEARCH_FOOD_INFO = "SELECT f.food_name, amount FROM recipe r JOIN food f ON r.recipe_id = f.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_food asc";
 	private static final String SEARCH_PROCESS_INFO = "SELECT process_description FROM recipe r JOIN process p ON r.recipe_id = p.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_process asc";
 	private static final String TOTAL_GOOD = "SELECT COUNT(g.good_id) AS goodCount FROM recipe r JOIN good_table g ON r.recipe_id = g.recipe_id WHERE r.recipe_id = :recipeId GROUP BY r.recipe_id";
-	private static final String USER_RECIPE = "select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id";
+	private static final String USER_RECIPE =
+			"select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id order by recipe_id";
+
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
 	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";

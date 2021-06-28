@@ -22,12 +22,15 @@ public class PgRecipeDao implements RecipeDao {
 	private static final String SEARCH_FOOD_INFO = "SELECT f.food_name, amount FROM recipe r JOIN food f ON r.recipe_id = f.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_food asc";
 	private static final String SEARCH_PROCESS_INFO = "SELECT process_description FROM recipe r JOIN process p ON r.recipe_id = p.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_process asc";
 	private static final String TOTAL_GOOD = "SELECT COUNT(g.good_id) AS goodCount FROM recipe r JOIN good_table g ON r.recipe_id = g.recipe_id WHERE r.recipe_id = :recipeId GROUP BY r.recipe_id";
-	private static final String SELECT_NEW_RECIPE = "select r.recipe_id,r.recipe_title,r.complete_image,count(g.good_id) as goodCount,r.create_datetime from recipe r join good_table g on r.recipe_id = g.recipe_id GROUP BY r.recipe_id order by r.create_datetime desc OFFSET 0 LIMIT 6";
+	private static final String SELECT_NEW_RECIPE = "select r.recipe_id,r.recipe_title,r.complete_image,coalesce(count(g.good_id),0) as goodCount,r.create_datetime from recipe r left join good_table g on r.recipe_id = g.recipe_id GROUP BY r.recipe_id order by r.create_datetime desc OFFSET 0 LIMIT 6";
 	private static final String SELECT_RANKING = "select r.recipe_id,r.recipe_title,r.complete_image,count(g.good_id) as goodCount,r.create_datetime from recipe r join good_table g on r.recipe_id = g.recipe_id GROUP BY r.recipe_id order by goodCount desc OFFSET 0 LIMIT 3";
 	private static final String REGISTER_RECIPE = "INSERT INTO recipe(user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) VALUES (:userId, :recipeTitle, :completeImage, :cookingTime, :overview, :createDateTime)";
 	private static final String SEARCH_NEW_RECIPE = "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
 	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";
-	private static final String USER_RECIPE = "select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id";
+	private static final String USER_RECIPE =
+			"select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id order by recipe_id";
+
+
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
 	private static final String EDIT_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";

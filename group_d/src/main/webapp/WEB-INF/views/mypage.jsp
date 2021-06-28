@@ -5,9 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<!-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> -->
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -83,7 +80,8 @@
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
+                <span class="error_msg myName"></span>
+                  <!-- <span class="error_msg">エラーメッセージ</span> --><br>
               <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
               </div>
               <button type="button"  class="edit display-none" >編集</button>
@@ -135,11 +133,11 @@
                 ></span
                 ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
               </div>
-              <a href="./recipe.html">
+              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
                 ${fn:escapeXml(recipe.completeImage)}
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+                    src="${fn:escapeXml(recipe.completeImage)}"
                     alt=""
                   />
                 </div>

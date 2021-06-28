@@ -26,7 +26,7 @@
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -87,7 +87,7 @@
             />
           </div>
           <div class="image">
-            <img src="" class="preview display-none" />
+            <img src="../../imgs/${fn:escapeXml(recipeInfo.completeImage)}" />
             <label for="file" class="image-wrap">
               <div class="text">
                 <span
@@ -124,14 +124,14 @@
             </div>
 
             <ul>
-              <c:forEach var="f" items="${foodInfo }">
+              <c:forEach var="f" items="${foodInfo }" varStatus="loop">
               <li>
                 <form:input type="text" class="material" value="${fn:escapeXml(f.foodName)}" path="foodNameList" /><form:input
                   type="text"
                   class="amount"
                   path="amountList"
                   value="${fn:escapeXml(f.amount)}"
-                /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
+                /><form:button name="foodDel" type="submit" class="form-btn" value="${fn:escapeXml(loop.index) }" >削除</form:button>
               </li>
               </c:forEach>
             </ul>
@@ -160,9 +160,9 @@
               <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
            </div>
             <ul>
-              <c:forEach var="p" items="${processInfo }">
+              <c:forEach var="p" items="${processInfo }" varStatus="loop">
                 <li>
-                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" >
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" value="${fn:escapeXml(loop.index) }">
                     削除
                   </form:button>
                 </li>
@@ -182,7 +182,7 @@
             </ul>
           </div>
           <form:hidden value="${fn:escapeXml(recipeId)}" path="recipeId"/>
-          <form:button type="submit" class="submit post-btn" name="register">レシピ投稿</form:button>
+          <form:button type="submit" class="submit post-btn" name="register">レシピ編集</form:button>
         </form:form>
       </div>
     </main>

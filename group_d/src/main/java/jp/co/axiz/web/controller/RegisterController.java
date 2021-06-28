@@ -30,6 +30,7 @@ import jp.co.axiz.web.service.PostRecipeService;
 import jp.co.axiz.web.service.ProcessService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
+import jp.co.axiz.web.util.ParamUtil;
 
 @Controller
 public class RegisterController {
@@ -178,21 +179,16 @@ public class RegisterController {
 	}
 
 	// food削除
+	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping(value = "/postInfoCheck", params = "foodDel", method = RequestMethod.POST)
 	public String foodDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
-		/*
-		 * 押下されたボタンに応じたところを削除する機能を挑戦した残骸 >>>>>>> branch 'develop' of
-		 * git@github.com:21nakamayuuta/D-group.git String selectButtonValue =
-		 * req.getParameter("foodDel");
-		 *
-		 * System.out.println(selectButtonValue); Integer value =
-		 * ParamUtil.checkAndParseInt(selectButtonValue);
-		 */
+		// 押下されたボタンに応じたところを削除する機能
+		String selectButtonValue = req.getParameter("foodDel");
+		int value = ParamUtil.checkAndParseInt(selectButtonValue);
 
-		// 現在はどのボタンを押しても一番上が消える仕様となっている
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
-		foodList.remove(0);
+		foodList.remove(value);
 		session.setAttribute("foodList", foodList);
 
 		List<Category> categoryList = categoryService.searchCategory();
@@ -230,18 +226,13 @@ public class RegisterController {
 	@RequestMapping(value = "/postInfoCheck", params = "processDel", method = RequestMethod.POST)
 	public String processDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
-		/*
-		 * 押下されたボタンに応じたところを削除する機能を挑戦した残骸 String selectButtonValue =
-		 * req.getParameter("foodDel");
-		 *
-		 * System.out.println(selectButtonValue); Integer value =
-		 * ParamUtil.checkAndParseInt(selectButtonValue);
-		 */
 
-		// 現在はどのボタンを押しても一番上が消える仕様となっている
+		// 押下されたボタンに応じたところを削除する機能
+		String selectButtonValue = req.getParameter("processDel");
+		int value = ParamUtil.checkAndParseInt(selectButtonValue);
 
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
-		processList.remove(0);
+		processList.remove(value);
 		session.setAttribute("processList", processList);
 
 		List<Category> categoryList = categoryService.searchCategory();
