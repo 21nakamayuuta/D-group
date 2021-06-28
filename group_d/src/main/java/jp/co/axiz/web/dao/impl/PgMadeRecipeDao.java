@@ -20,6 +20,10 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
             + "FROM made_recipe mr " + "JOIN recipe r ON mr.recipe_id = r.recipe_id " + "WHERE mr.user_id = :userId "
             + "ORDER BY dt";
 
+    private static final String INSERT_MADE_RECIPE = "INSERT INTO made_recipe VALUES (:userId, :recipeId, now())";
+
+    private static final String DELETE_MADE_RECIPE = "DELETE FROM made_recipe WHERE user_id = :userId AND recipe_id = :recipeId AND date_part('year', dt) = :year AND date_part('month', dt) = :month date_part('day', dt) = :day";
+
     @Autowired
     private NamedParameterJdbcTemplate jT;
 
@@ -46,5 +50,26 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
 
         List<MadeRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<MadeRecipe>(MadeRecipe.class));
         return list.isEmpty() ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public void insertMadeRecipe(Integer userId, Integer recipeId) {
+        String sql = INSERT_MADE_RECIPE;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
+        String sql = DELETE_MADE_RECIPE;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+        param.addValue("recipeId", recipeId);
+        param.addValue("year", year);
+        param.addValue("month", month);
+        param.addValue("day", day);
+        jT.update(sql, param);
     }
 }

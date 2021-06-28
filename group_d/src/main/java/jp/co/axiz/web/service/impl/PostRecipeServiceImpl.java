@@ -23,4 +23,14 @@ public class PostRecipeServiceImpl implements PostRecipeService {
     public List<PostRecipe> getAllPostRecipe(Integer userId) {
         return postRecipeDao.allPostRecipeList(userId);
     }
+
+    @Override
+    public void insertPostRecipe(Integer userId, Integer recipeId) {
+        postRecipeDao.insertPostRecipe(userId, recipeId);
+    }
+
+    @Override
+    public void deletePostRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
+        postRecipeDao.deletePostRecipe(userId, recipeId, year, month, day);
+    }
 }

@@ -34,6 +34,9 @@
     opacity: .35;
     transition: opacity 0.35s;
 }
+.good-make-wrap .good.not-click{
+    opacity: 1;
+}
 .good-make-wrap .good-num {
     font-size: 3.2rem;
 }
@@ -65,8 +68,9 @@
     font-size: 4rem;
 }
 
-.cuisine-image{
+.cuisine-img{
     grid-area: image;
+    aspect-ratio: 7/5;
 }
 
 .category-material-wrap{

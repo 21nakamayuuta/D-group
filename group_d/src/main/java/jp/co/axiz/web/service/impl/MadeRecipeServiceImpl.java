@@ -23,4 +23,14 @@ public class MadeRecipeServiceImpl implements MadeRecipeService {
     public List<MadeRecipe> getAllMadeRecipe(Integer userId) {
         return madeRecipeDao.allMadeRecipeList(userId);
     }
+
+    @Override
+    public void insertMadeRecipe(Integer userId, Integer recipeId) {
+        madeRecipeDao.insertMadeRecipe(userId, recipeId);
+    }
+
+    @Override
+    public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
+        madeRecipeDao.deleteMadeRecipe(userId, recipeId, year, month, day);
+    }
 }

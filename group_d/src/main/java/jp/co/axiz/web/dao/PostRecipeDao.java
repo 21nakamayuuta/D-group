@@ -8,4 +8,8 @@ public interface PostRecipeDao {
     public List<PostRecipe> postRecipeList(PostRecipe postRecipe);
 
     public List<PostRecipe> allPostRecipeList(Integer userId);
+
+    public void insertPostRecipe(Integer userId, Integer recipeId);
+
+    public void deletePostRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day);
 }

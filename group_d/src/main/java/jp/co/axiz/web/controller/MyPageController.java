@@ -130,7 +130,7 @@ public class MyPageController {
 
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
 		session.setAttribute("foodInfo", foodInfo);
-		model.addAttribute("processInfo", processInfo);
+		session.setAttribute("processInfo", processInfo);
 		model.addAttribute("categoryList", categoryList);
 		editform.setOverview(recipeInfo.get(0).getOverview());
 
