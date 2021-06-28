@@ -62,7 +62,7 @@ public class UpdateController {
 		//画像クラス
 		Images imgSave = new Images();
 
-		//画像保存クラス
+		//画像保存メソッド
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
 
 		List<Food> foodList = (List<Food>) session.getAttribute("foodInfo");
@@ -140,6 +140,9 @@ public class UpdateController {
 			model.addAttribute("categoryList", categoryList);
 			return "edit";
 		}
+		
+		session.setAttribute("imgFile", form.getCompleteImage());
+		
 		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
 		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
 		foodInfo.add(newFoodList);
@@ -188,7 +191,7 @@ public class UpdateController {
 			model.addAttribute("categoryList", categoryList);
 			return "edit";
 		}
-		
+
 		List<Process> processInfo = (List<Process>) session.getAttribute("processInfo");
 		Process newProcessInfo = new Process(form.getProcessDescription());
 		processInfo.add(newProcessInfo);

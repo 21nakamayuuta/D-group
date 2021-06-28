@@ -127,9 +127,9 @@ public class MyPageController {
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 		List<Category> categoryList = categoryService.searchCategory();
-//		List<Integer> selectCategory = categoryService.selectCategory(recipeId);
+		List<Integer> selectCategory = categoryService.selectCategory(recipeId);
 
-//		editform.setFormCategoryId(selectCategory.toArray(new Integer[selectCategory.size()]));
+		editform.setFormCategoryId(selectCategory.toArray(new Integer[selectCategory.size()]));
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
 		session.setAttribute("foodInfo", foodInfo);
 		session.setAttribute("processInfo", processInfo);

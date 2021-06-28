@@ -1,5 +1,6 @@
 package jp.co.axiz.web.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,11 @@ public class PgCategoryDao implements CategoryDao{
 		String sql = SELECT_CATEGORY;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("recipeId", recipeId);
-		List<Integer> result = jT.query(sql,param,new BeanPropertyRowMapper<Integer>(Integer.class));
-		return result.isEmpty() ? null : result;
+		List<Category> result = jT.query(sql,param,new BeanPropertyRowMapper<Category>(Category.class));
+		List<Integer> intResult = new ArrayList<Integer>();
+		for(Category c : result) {
+			intResult.add(c.getCategoryId());
+		}
+		return intResult.isEmpty() ? null : intResult;
 	}
 }

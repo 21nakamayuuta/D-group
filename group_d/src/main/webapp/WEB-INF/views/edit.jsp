@@ -87,7 +87,7 @@
             />
           </div>
           <div class="image">
-            <img src="" class="preview display-none" />
+            <img src="../../imgs/${fn:escapeXml(recipeInfo.completeImage)}" />
             <label for="file" class="image-wrap">
               <div class="text">
                 <span
