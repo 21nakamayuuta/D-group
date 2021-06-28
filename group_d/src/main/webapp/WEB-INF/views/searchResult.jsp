@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="css/category.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-<!-- task 
+<!-- task
   ・検索機能
     ・カテゴリ検索
     ・レシピ名検索
@@ -24,7 +24,7 @@
  -->
 
 <body>
- 
+
   <div class="cover display-none">
       <form
         class="signUp-form display-none"
@@ -59,7 +59,7 @@
                 name="password"
                 id="password"
                 placeholder="パスワード"
-                
+
               />
               <span class="error_msg password"></span>
             </label>
@@ -124,7 +124,7 @@
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -187,6 +187,7 @@
          <c:if test="${searchList.size() == 0}">
         <div class="not-result-message">一致するレシピは見つかりませんでした。</div>
         </c:if>
+
 
         <ul class="recipe-list">
           <%--検索結果をforEachで回して表示 --%>

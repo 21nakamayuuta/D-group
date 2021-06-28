@@ -29,8 +29,8 @@
     ・レシピの編集ページへの遷移
   -->
   <body>
-    <header>
-      <div class="header-wrap">
+     <header>
+    <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
@@ -63,10 +63,10 @@
                     管理ページ
                   </a>
                 </c:if>
-                <!-- <a href="./mypage" class="to-mypage item">
+                 <a href="./mypage" class="to-mypage item">
                     <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                     マイページ
-                  </a> -->
+                  </a>
                 <form:form action="logout" method="POST">
                   <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
@@ -78,7 +78,7 @@
         </c:choose>
       </div>
     </div>
-    </header>
+  </header>
     <main>
       <div class="wrapper">
         <div class="my-info">
@@ -163,7 +163,7 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/form.js"></script>
   </body>
 </html>

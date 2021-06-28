@@ -24,7 +24,7 @@
     ・画像サイズを調整
   -->
   <body>
-  
+
      <div class="cover display-none">
       <form
         class="signUp-form display-none"
@@ -59,7 +59,7 @@
                 name="password"
                 id="password"
                 placeholder="パスワード"
-                
+
               />
               <span class="error_msg password"></span>
             </label>
@@ -124,7 +124,7 @@
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -176,7 +176,7 @@
         <section class="cuisine">
           <div class="good-make-wrap">
             <!-- ゲストのみ css → opacity:1 -->
-           
+
             <div class="good ${empty user ? 'not-click' : ''}">
               <span
                 class="iconify"
@@ -200,18 +200,17 @@
              <c:if test="${user.roleId == 1}">
             <!-- 管理者のみ表示 -->
             <div class="delete">
-              <span
-                class="iconify"
-                data-inline="false"
-                data-icon="bi:trash"
-                style="color: #ff6d6d; font-size: 40px"
-              ></span>
+              <span class="iconify" data-inline="false" data-icon="bi:trash" style="color: #ff6d6d; font-size: 40px">
+	              <form:form action="deleteRecipeAdmin" method="POST" modelAttribute="MyPageForm">
+	              	<button type="submit" value="${fn:escapeXml(recipeInfo.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</button>
+	              </form:form>
+              </span>
             </div>
             </c:if>
             <!--  -->
             </c:if>
             <!--  -->
-            
+
           </div>
           <div class="empty"></div>
           <h3 class="title">

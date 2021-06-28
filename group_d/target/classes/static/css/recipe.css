@@ -2,7 +2,7 @@
     width: 100%;
     margin: 3rem 0 5rem;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(60%, 2fr) 1fr;
     grid-template-rows: repeat(2, auto) 2fr repeat(2, auto);
     grid-template-areas: 
     "good-make empty"
@@ -69,6 +69,7 @@
 }
 
 .cuisine-img{
+    width: 100%;
     grid-area: image;
     aspect-ratio: 7/5;
 }

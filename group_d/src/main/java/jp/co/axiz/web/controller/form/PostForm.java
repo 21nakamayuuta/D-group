@@ -25,6 +25,8 @@ public class PostForm {
 	private List<String> foodNameList;
 	private List<String> amountList;
 
+	private List<String> processInfoList;
+
 	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
 
@@ -42,6 +44,12 @@ public class PostForm {
 
 
 
+	public List<String> getProcessInfoList() {
+		return processInfoList;
+	}
+	public void setProcessInfoList(List<String> processInfoList) {
+		this.processInfoList = processInfoList;
+	}
 	public String getRecipeTitle() {
 		return recipeTitle;
 	}

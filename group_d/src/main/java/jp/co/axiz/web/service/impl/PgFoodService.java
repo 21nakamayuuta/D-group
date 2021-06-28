@@ -25,4 +25,11 @@ public class PgFoodService implements FoodService {
 		foodDao.updateFood(foodNameList,amountList,recipeId);
 	}
 
+	@Override
+	public void delAndRegFood(List<String> foodNameList, List<String> amountList, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		foodDao.deleteFood(recipeId);
+		foodDao.registerFood(foodNameList, amountList, recipeId);
+	}
+
 }

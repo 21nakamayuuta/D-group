@@ -76,6 +76,7 @@
       <div class="wrapper">
         <form:form action="editInfoCheck" modelAttribute="editInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
+            <form:errors path="recipeTitle" class="error_msg"/>
             <label for="title" class="title">レシピタイトル</label>
             <form:input
               type="text"
@@ -99,9 +100,21 @@
               </div>
               <form:input path="completeImage" accept="image/jpeg,image/png" type="file" name="image" id="file" class="display-none" />
             </label>
+            <c:if test="${not empty imageError }">
+              <span class="error_msg">${imageError }</span>
+            </c:if>
           </div>
           <div class="material">
+            <c:if test="${not empty foodErrorMsg }">
+              <span class="error_msg">${foodErrorMsg }</span>
+            </c:if>
             <h3 class="title">材料・分量</h3>
+            <c:if test="${not empty nameEmpty }">
+              <span class="error_msg">${nameEmpty }</span>
+            </c:if>
+            <c:if test="${not empty amountEmpty }">
+              <span class="error_msg">${amountEmpty }</span>
+            </c:if>
             <div class="input">
               <label
                 >材料名<form:input type="text" name="material" id="material" path="foodName"
@@ -118,13 +131,13 @@
                   class="amount"
                   path="amountList"
                   value="${fn:escapeXml(f.amount)}"
-
                 /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
               </c:forEach>
             </ul>
           </div>
           <div class="time">
+            <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
               <form:input
@@ -140,16 +153,16 @@
           </div>
           <div class="how-to">
             <h3 class="title">
-              作り方<span class="error_msg">エラーメッセージ</span>
+              作り方<span class="error_msg">${processErrorMsg }<c:if test="${not empty processEmpty }">${processEmpty }</c:if></span>
             </h3>
             <div class="input">
-              <input type="text" />
-              <button type="button" class="form-btn">追加</button>
-            </div>
+              <form:input type="text" path="processDescription"/>
+              <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
+           </div>
             <ul>
               <c:forEach var="p" items="${processInfo }">
                 <li>
-                  <input type="text" value="${fn:escapeXml(p.processDescription)}" /><form:button type="submit" class="form-btn" name="processDel" >
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" >
                     削除
                   </form:button>
                 </li>
@@ -158,12 +171,12 @@
           </div>
           <div class="comment">
             <h3 class="title">
-              コメント<span class="error_msg">エラーメッセージ</span>
+              コメント<span class="error_msg"><form:errors path="overview"/></span>
             </h3>
             <form:textarea name="comment" id="" cols="30" rows="20" path="overview" ></form:textarea>
           </div>
           <div class="category">
-            <h3 class="title">カテゴリ</h3>
+            <h3 class="title">カテゴリ</h3><span class="error_msg">${categoryErrorMsg}</span>
             <ul class="input">
               <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
@@ -174,7 +187,7 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/post.js"></script>
   </body>
 </html>

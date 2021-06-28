@@ -41,6 +41,7 @@
               >ID<br />
               <input name="userId" id="userId" placeholder="ID"  />
               <span class="error_msg userId"></span>
+              <span class="error_msg errNotUseId"></span>
             </label>
           </div>
           <div class="userName">

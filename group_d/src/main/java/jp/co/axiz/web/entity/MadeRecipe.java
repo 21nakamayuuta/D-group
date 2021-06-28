@@ -39,6 +39,7 @@ public class MadeRecipe {
 		return userId;
 	}
 
+	
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}

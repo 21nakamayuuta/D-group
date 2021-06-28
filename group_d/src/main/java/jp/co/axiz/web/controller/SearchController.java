@@ -73,10 +73,6 @@ public class SearchController {
 			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
-
-			// List<Search> sbList = searchList.subList(0,3);
-			// model.addAttribute("searchList", sbList);
-
 		}
 
 		model.addAttribute("searchKeyword", SearchKeywordForm.getSearchKeyword());
