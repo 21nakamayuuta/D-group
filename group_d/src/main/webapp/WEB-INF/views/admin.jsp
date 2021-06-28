@@ -243,7 +243,7 @@
                         </div>
                         <a href="/recipe?recipeID=${recipe.getRecipeId()}">
                             <div class="img-wrap">
-                                <img src="${recipe.getCompleteImage()}" alt="" />
+                                <img src="../../imgs/${recipe.getCompleteImage()}" alt="" />
                             </div>
                             <span class="recipe-title">${recipe.getRecipeTitle()}</span>
                         </a>

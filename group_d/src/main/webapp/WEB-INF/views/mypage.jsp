@@ -127,7 +127,8 @@
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
+                <span class="error_msg myName"></span>
+                  <!-- <span class="error_msg">エラーメッセージ</span> --><br>
               <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
               </div>
               <button type="button"  class="edit display-none" >編集</button>

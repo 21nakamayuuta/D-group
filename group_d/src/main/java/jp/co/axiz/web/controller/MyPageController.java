@@ -67,6 +67,9 @@ public class MyPageController {
 	public String nameChange(@Validated @ModelAttribute("MyPageForm") MypageForm form,
 			BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,Model model) {
 		//一旦バリデーションを無しでやっています
+		/*if (binding.hasErrors()) {
+			return "mypage";
+		}*/
 		UserInfo user= (UserInfo)session.getAttribute("user");
 
 
