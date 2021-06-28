@@ -86,7 +86,7 @@
             />
           </div>
           <div class="image">
-            <img src="${fn:escapeXml(recipeInfo.completeImage)}" class="preview display-none" />
+            <img src="" class="preview display-none" />
             <label for="file" class="image-wrap">
               <div class="text">
                 <span
@@ -104,41 +104,24 @@
             <h3 class="title">材料・分量</h3>
             <div class="input">
               <label
-                >材料名<input type="text" name="material" id="material"
+                >材料名<form:input type="text" name="material" id="material" path="foodName"
               /></label>
-              <label>分量<input type="text" name="amount" id="amount" /></label>
-              <button type="button" class="form-btn">追加</button>
+              <label>分量<form:input type="text" name="amount" id="amount" path="amount"/></label>
+              <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
 
             <ul>
+              <c:forEach var="f" items="${foodInfo }">
               <li>
-                <input type="text" class="material" value="ニンジン" /><input
+                <form:input type="text" class="material" value="${fn:escapeXml(f.foodName)}" path="foodNameList" /><form:input
                   type="text"
                   class="amount"
-                  value="1本"
-                /><button type="button" class="form-btn">削除</button>
+                  path="amountList"
+                  value="${fn:escapeXml(f.amount)}"
+
+                /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
-              <li>
-                <input type="text" class="material" value="ジャガイモ" /><input
-                  type="text"
-                  class="amount"
-                  value="1個"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
-              <li>
-                <input type="text" class="material" value="玉ねぎ" /><input
-                  type="text"
-                  class="amount"
-                  value="1個"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
-              <li>
-                <input type="text" class="material" value="鶏肉" /><input
-                  type="text"
-                  class="amount"
-                  value="200"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="time">
@@ -164,23 +147,13 @@
               <button type="button" class="form-btn">追加</button>
             </div>
             <ul>
-              <li>
-                <input type="text" value="手順1 野菜を洗う" /><button
-                  type="button"
-                  class="form-btn"
-
-                >
-                  削除
-                </button>
-              </li>
-              <li>
-                <input type="text" value="手順2 野菜を切る"/><button
-                  type="button"
-                  class="form-btn"
-                >
-                  削除
-                </button>
-              </li>
+              <c:forEach var="p" items="${processInfo }">
+                <li>
+                  <input type="text" value="${fn:escapeXml(p.processDescription)}" /><form:button type="submit" class="form-btn" name="processDel" >
+                    削除
+                  </form:button>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">

@@ -167,7 +167,9 @@
             ></span
             > ${fn:escapeXml(recipeInfo.recipeTitle)}
           </h3>
-          <a href="./user.html" class="post-user">
+
+
+          <a href="/user?userID=${fn:escapeXml(recipeInfo.userId)}" class="post-user">
             <span
               class="iconify"
               data-inline="false"
@@ -175,8 +177,9 @@
             ></span>
             ${fn:escapeXml(recipeInfo.userName)}
           </a>
-          <div class="cuisine-img">
 
+
+          <div class="cuisine-img">
 <!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
 			  src= "${fn:escapeXml(recipeInfo.completeImage)}"

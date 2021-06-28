@@ -1,5 +1,7 @@
 package jp.co.axiz.web.controller.form;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +19,9 @@ public class EditForm {
 	private String foodName;
 	private String amount;
 
+	private List<String> foodNameList;
+	private List<String> amountList;
+
 	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
 
@@ -29,6 +34,22 @@ public class EditForm {
 	private Integer[] formCategoryId;
 
 
+
+	public List<String> getAmountList() {
+		return amountList;
+	}
+
+	public void setAmountList(List<String> amountList) {
+		this.amountList = amountList;
+	}
+
+	public List<String> getFoodNameList() {
+		return foodNameList;
+	}
+
+	public void setFoodNameList(List<String> foodNameList) {
+		this.foodNameList = foodNameList;
+	}
 
 	public Integer getRecipeId() {
 		return recipeId;

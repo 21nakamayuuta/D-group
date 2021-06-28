@@ -17,10 +17,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.axiz.web.controller.form.EditForm;
 import jp.co.axiz.web.controller.form.MypageForm;
 import jp.co.axiz.web.controller.form.SearchForm;
+import jp.co.axiz.web.entity.Category;
+import jp.co.axiz.web.entity.Food;
+import jp.co.axiz.web.entity.Process;
 import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
+import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.UserInfoService;
 import jp.co.axiz.web.service.impl.PgRecipeService;
 
@@ -35,6 +40,9 @@ public class MyPageController {
 	private PgRecipeService recipeService;
 	@Autowired
 	MessageSource messageSource;
+	@Autowired
+	CategoryService categoryService;
+
 	@Autowired
 	HttpSession session;
 
@@ -103,15 +111,28 @@ public class MyPageController {
 		return "redirect:mypage";
 	}
 
-	//レシピ編集ページへ遷移---未完成
+
 	@RequestMapping(value="/deleteORedit",params="editRecipe",method= RequestMethod.POST)
 	public String edit(@Validated @ModelAttribute("MyPageForm") MypageForm form,
 			BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,
+			@ModelAttribute("editInfo") EditForm editform,
 			HttpServletRequest req,Model model) {
 
 		String ButtonValue = req.getParameter("editRecipe");
-		Integer.parseInt(ButtonValue);
-		System.out.println(Integer.parseInt(ButtonValue));
+
+		editform.setRecipeId(Integer.parseInt(ButtonValue));
+		Integer recipeId = editform.getRecipeId();
+
+		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
+		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
+		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
+		List<Category> categoryList = categoryService.searchCategory();
+
+		model.addAttribute("recipeInfo", recipeInfo.get(0));
+		session.setAttribute("foodInfo", foodInfo);
+		model.addAttribute("processInfo", processInfo);
+		model.addAttribute("categoryList", categoryList);
+		editform.setOverview(recipeInfo.get(0).getOverview());
 
 		return "edit";
 	}

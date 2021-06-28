@@ -128,7 +128,7 @@
               data-inline="false"
               data-icon="carbon:user-avatar-filled"
             ></span>
-            田中
+            ${fn:escapeXml(recipeList[0].userName)}
           </div>
           <h3 class="title">
             <span
@@ -136,10 +136,50 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
-            レシピの総数：
-            <span class="recipe-num">20</span>
+<%--             ${fn:escapeXml(recipeList[0].userName)} --%>
+            <span class="recipe-num">レシピの総数：${fn:escapeXml(recipeList.size())}</span>
           </h3>
+
           <ul class="recipe-list">
+          <%--検索結果をforEachで回して表示 --%>
+			<c:forEach var="search" items="${recipeList}">
+            <li class="card">
+              <div class="good">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="bx:bxs-like"
+                ></span
+                ><span class="good-num">${fn:escapeXml(search.goodCount)}</span>
+              </div>
+              <a href="/recipe?recipeID=${fn:escapeXml(search.recipeId)}">
+              <%-- <a href="recipeSearch">  --%>
+                <div class="img-wrap">
+                  <img
+                    <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
+                    src = "/imgs/20210623124113test.jpg"
+                    alt=""
+                  />
+				<%--  ここにレシピIDを渡せる方法を考える
+                  <form:form action="recipeSearch" class="search-recipe">
+ 		            <form:input
+ 		              path = "recipeId"
+ 		              type="hidden"
+ 		              value= "{fn:escapeXml(search.pecipeId)}"
+ 		            />
+ 		          </form:form>
+ 		          --%>
+
+                </div>
+                <span class="recipe-title"
+                  >${fn:escapeXml(search.recipeTitle)}</span
+                ></a
+              >
+
+            </li>
+            </c:forEach>
+
+          <%--
             <li class="card">
               <div class="good">
                 <span
@@ -392,6 +432,9 @@
                 >
               </a>
             </li>
+
+             --%>
+
           </ul>
           <ul class="pagenation">
             <li class="page-num"><a href="">1</a></li>

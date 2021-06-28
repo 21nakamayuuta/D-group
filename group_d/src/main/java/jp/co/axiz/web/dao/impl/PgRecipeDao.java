@@ -33,7 +33,7 @@ public class PgRecipeDao implements RecipeDao{
 
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
-	private static final String EDIT_RECIPE="UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeID";
+	private static final String EDIT_RECIPE="UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jT;
