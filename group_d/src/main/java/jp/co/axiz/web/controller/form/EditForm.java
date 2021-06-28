@@ -22,6 +22,8 @@ public class EditForm {
 	private List<String> foodNameList;
 	private List<String> amountList;
 
+	private List<String> processInfoList;
+
 	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
 
@@ -34,8 +36,13 @@ public class EditForm {
 	private Integer[] formCategoryId;
 
 
+	public List<String> getProcessInfoList() {
+		return processInfoList;
+	}
 
-
+	public void setProcessInfoList(List<String> processInfoList) {
+		this.processInfoList = processInfoList;
+	}
 
 	public List<String> getAmountList() {
 		return amountList;
