@@ -31,9 +31,49 @@
   <body>
     <header>
       <div class="header-wrap">
+<%-- <<<<<<< HEAD
+        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+            <form:input
+            path="searchKeyword"
+            id="searchKeyword"
+            placeholder="料理名・食材名"
+          />type="text" name="searchKeyword"
+          <form:button>レシピ検索</form:button>
+        </form:form>
+        <!-- 権限ごとに切り替える部分 -->
+        <div class="btn-wrap">
+          <a href="post" class="to-post btn">レシピを投稿する</a>
+          <div class="user-icon">
+            <div class="btn">
+              <span
+                class="iconify"
+                data-inline="false"
+                data-icon="carbon:user-avatar-filled"
+              ></span>
+            </div>
+            <div class="tooltip display-none">
+              <!-- 管理者ログイン時追加 -->
+              <a href="" class="to-admin item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="dashicons:admin-network"
+                ></span>
+                管理ページ
+              </a>
+              <!--  -->
+              <div class="to-mypage item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="carbon:user-avatar-filled"
+                ></span>
+                マイページ
+======= --%>
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -87,7 +127,8 @@
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
+                <span class="error_msg myName"></span>
+                  <!-- <span class="error_msg">エラーメッセージ</span> --><br>
               <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
               </div>
               <button type="button"  class="edit display-none" >編集</button>
@@ -139,11 +180,11 @@
                 ></span
                 ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
               </div>
-              <a href="./recipe.html">
+              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
                 ${fn:escapeXml(recipe.completeImage)}
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
+                    src="${fn:escapeXml(recipe.completeImage)}"
                     alt=""
                   />
                 </div>

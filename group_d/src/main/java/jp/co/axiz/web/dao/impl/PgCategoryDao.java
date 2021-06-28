@@ -14,11 +14,11 @@ import jp.co.axiz.web.entity.Category;
 
 @Repository
 public class PgCategoryDao implements CategoryDao{
-	private static final String SEARCH_CATEGORY = "SELECT category_id, category_name FROM category";
+	private static final String SEARCH_CATEGORY = "SELECT category_id, category_name FROM category ORDER BY category_id";
 	private static final String REGISTER_RECIPE_AND_CATEGORY = "INSERT INTO recipe_and_category(recipe_id, category_id) VALUES (:recipeId, :categoryId)";
 	private static final String INSERT_CATEGORY = "INSERT INTO category(category_name) VALUES (:categoryName)";
 	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id = :categoryId";
-	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
+	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId ";
 	private static final String DELETE_RECIPE_AND_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
 	private static final String SELECT_CATEGORY = "SELECT category_id FROM recipe_and_category WHERE recipe_id = :recipeId";
 
