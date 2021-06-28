@@ -29,14 +29,15 @@
       <form
         class="signUp-form display-none"
       >
-        <div class="btn" id="cancel">
+      <div class="btn" id="cancel">
           <span
             class="iconify"
             data-inline="false"
-            data-icon="topcoat:cancel"
+            dataXb-icon="topcoat:cancel"
           ></span>
-        </div>
-        <div class="form-wrap">
+    </div>
+
+    <div class="form-wrap">
           <div class="userId">
             <label
               >ID<br />

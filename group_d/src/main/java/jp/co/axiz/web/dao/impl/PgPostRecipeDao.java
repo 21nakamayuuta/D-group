@@ -22,7 +22,7 @@ public class PgPostRecipeDao implements PostRecipeDao {
 
     private static final String INSERT_POST_RECIPE = "INSERT INTO post_recipe VALUES (:userId, :recipeId, now())";
 
-    private static final String DELETE_POST_RECIPE = "DELETE FROM post_recipe WHERE user_id = :userId AND recipe_id = :recipeId AND date_part('year', dt) = :year AND date_part('month', dt) = :month date_part('day', dt) = :day";
+    private static final String DELETE_POST_RECIPE = "DELETE FROM post_recipe WHERE recipe_id = :recipeId";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
@@ -63,14 +63,10 @@ public class PgPostRecipeDao implements PostRecipeDao {
     }
 
     @Override
-    public void deletePostRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
+    public void deletePostRecipe(Integer recipeId) {
         String sql = DELETE_POST_RECIPE;
         MapSqlParameterSource param = new MapSqlParameterSource();
-        param.addValue("userId", userId);
         param.addValue("recipeId", recipeId);
-        param.addValue("year", year);
-        param.addValue("month", month);
-        param.addValue("day", day);
         jT.update(sql, param);
     }
 }

@@ -243,7 +243,7 @@
                         </div>
                         <a href="/recipe?recipeID=${recipe.getRecipeId()}">
                             <div class="img-wrap">
-                                <img src="${recipe.getCompleteImage()}" alt="" />
+                                <img src="../../imgs/${recipe.getCompleteImage()}" alt="" />
                             </div>
                             <span class="recipe-title">${recipe.getRecipeTitle()}</span>
                         </a>
@@ -337,29 +337,13 @@
                     </li>
   --%>
                 </ul>
-                <!-- <ul class="pagenation">
-                    <li class="page-num"><a href="">1</a></li>
-                    <li class="page-num"><a href="">2</a></li>
-                    <li class="page-num"><a href="">3</a></li>
-                    <li class="page-num"><a href="">4</a></li>
-                    <li class="page-num"><a href="">5</a></li>
-                    <li class="next-page icon">
-                        <a href="">
-                            <span class="iconify" data-inline="false" data-icon="entypo:chevron-right"></span>
-                        </a>
-                    </li>
-                </ul> -->
             </section>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/form.js"></script>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'develop' of https://github.com/21nakamayuuta/D-group.git
->>>>>>> refs/heads/maekawa
 </body>
 
 </html>

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PgMadeRecipeDao implements MadeRecipeDao {
+    private static final String CHECK_MADE_RECIPE = "SELECT user_id, date_part('year', dt) AS year,date_part('month', dt) AS month,date_part('day', dt) AS day, recipe_id FROM made_recipe "
+            + "WHERE " + "recipe_id = :recipeId AND user_id = :userId AND "
+            + "date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
     private static final String SELECT_MADE_RECIPE = "SELECT mr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, mr.recipe_id "
             + "FROM made_recipe mr JOIN recipe r ON mr.recipe_id = r.recipe_id "
             + "WHERE mr.user_id = :userId AND date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
@@ -22,7 +25,7 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
 
     private static final String INSERT_MADE_RECIPE = "INSERT INTO made_recipe VALUES (:userId, :recipeId, now())";
 
-    private static final String DELETE_MADE_RECIPE = "DELETE FROM made_recipe WHERE user_id = :userId AND recipe_id = :recipeId AND date_part('year', dt) = :year AND date_part('month', dt) = :month date_part('day', dt) = :day";
+    private static final String DELETE_MADE_RECIPE = "DELETE FROM made_recipe WHERE user_id = :userId AND recipe_id = :recipeId AND date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
@@ -39,6 +42,21 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
 
         List<MadeRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<MadeRecipe>(MadeRecipe.class));
         return list.isEmpty() ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public MadeRecipe checkMadeRecipe(MadeRecipe MadeRecipe) {
+        String sql = CHECK_MADE_RECIPE;
+
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", MadeRecipe.getUserId());
+        param.addValue("year", MadeRecipe.getYear());
+        param.addValue("month", MadeRecipe.getMonth());
+        param.addValue("day", MadeRecipe.getDay());
+        param.addValue("recipeId", MadeRecipe.getRecipeId());
+
+        List<MadeRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<MadeRecipe>(MadeRecipe.class));
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override

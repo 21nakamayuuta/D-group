@@ -17,13 +17,9 @@
 </head>
 <body>
 
-  <div class="cover ${ display ? '' : 'display-none' }">
-      <!-- 新規登録フォーム -->
-      <form:form
-        action="signUp"
-        modelAttribute="sign"
-        method="post"
-        class="singUp-form ${ SignUpDisplay ? '' : 'display-none' }"
+   <div class="cover display-none">
+      <form
+        class="signUp-form display-none"
       >
         <div class="btn" id="cancel">
           <span
@@ -36,50 +32,49 @@
           <div class="userId">
             <label
               >ID<br />
-              <form:input path="userId" id="userId" placeholder="ID" />
-              <form:errors path="userId" class="error_msg" />
-              <span class="error_msg">${errMsgID}</span>
+              <input name="userId" id="userId" placeholder="ID"  />
+              <span class="error_msg userId"></span>
             </label>
           </div>
           <div class="userName">
             <label
               >名前<br />
-              <form:input path="userName" id="userName" placeholder="名前" />
-              <form:errors path="userName" class="error_msg" />
+              <input name="userName" id="userName" placeholder="名前"   />
+              <span class="error_msg userName"></span>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
-              <form:password
-                path="password"
+              <input
+              type="password"
+                name="password"
                 id="password"
                 placeholder="パスワード"
+                
               />
-              <form:errors path="password" class="error_msg" />
+              <span class="error_msg password"></span>
             </label>
           </div>
           <div class="repass">
             <label
               >パスワード-確認<br />
-              <form:password
-                path="repass"
+              <input
+              type="password"
+                name="repass"
                 id="repass"
                 placeholder="パスワード"
               />
-              <form:errors path="repass" class="error_msg" />
-              <span class="error_msg">${errMsgPASS}</span>
+              <span class="error_msg repass"></span>
+              <span class="error_msg errNotPassMatch"></span>
             </label>
           </div>
-          <form:button type="submit">新規登録</form:button>
+          <button type="button">新規登録</button>
         </div>
-      </form:form>
-      <!-- ログインフォーム -->
-      <form:form
-        action="login"
-        class="login-form ${ LoginDisplay ? '' : 'display-none' }"
-        method="POST"
-        modelAttribute="loginForm"
+      </form>
+
+      <form
+        class="login-form display-none"
       >
         <div class="btn" id="cancel">
           <span
@@ -89,51 +84,40 @@
           ></span>
         </div>
         <div class="form-wrap">
-          <label class="error_msg">${errMsg}</label>
+          <label class="error_msg errNotUserIdOrPass"></label>
           <div class="userId">
             <label
               >ID<br />
-              <form:input
-                type="text"
-                name="userId"
+              <input
                 id="userId"
                 placeholder="ID"
-                path="loginName"
+                name="loginName"
               />
-              <form:errors
-                path="loginName"
-                class="error_msg"
-                cssStyle="color:red"
-              />
+              <span class="error_msg loginName"></span>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
-              <form:input
+              <input
                 type="password"
                 name="password"
                 id="password"
                 placeholder="パスワード"
-                path="password"
               />
-              <form:errors
-                path="password"
-                class="error_msg"
-                cssStyle="color:red"
-              />
+              <span class="error_msg password"></span>
             </label>
           </div>
-          <button>ログイン</button>
+          <button type="button">ログイン</button>
         </div>
-      </form:form>
+      </form>
     </div>
 
-  <header>
-    <div class="header-wrap">
+    <header>
+      <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -143,7 +127,7 @@
         <c:choose>
           <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
-            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="signUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
@@ -163,10 +147,10 @@
                     管理ページ
                   </a>
                 </c:if>
-                <a href="./mypage" class="to-mypage item">
-                  <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
-                  マイページ
-                </a>
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
                 <form:form action="logout" method="POST">
                   <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
@@ -178,7 +162,8 @@
         </c:choose>
       </div>
     </div>
-  </header>
+    </header>
+    
   <main>
  <div class="wrapper">
         <div class="user-recipe recipes">
@@ -392,7 +377,8 @@
     </div>
   </main>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 
 </html>

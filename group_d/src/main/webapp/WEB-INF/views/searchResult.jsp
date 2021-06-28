@@ -80,6 +80,65 @@
           <button type="button">新規登録</button>
         </div>
       </form>
+
+      </div>
+    <header>
+    <%-- <c:if test="${roleId >=1 }" var="flg" />
+	<c:if test="${flg}" > --%>
+      <div class="header-wrap">
+        	<h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
+			<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+          		<form:input
+            		path="searchKeyword"
+            		id="searchKeyword"
+            		placeholder="料理名・食材名"
+          		/><%-- type="text" name="searchKeyword" --%>
+          		<form:button>レシピ検索</form:button>
+        	</form:form>
+
+ 	<div class="btn-wrap">
+          <a href="post" class="to-post btn">レシピを投稿する</a>
+          <div class="user-icon">
+            <div class="btn">
+              <span
+                class="iconify"
+                data-inline="false"
+                data-icon="carbon:user-avatar-filled"
+              ></span>
+            </div>
+            <div class="tooltip display-none">
+              <!-- 管理者ログイン時追加 -->
+              <a href="" class="to-admin item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="dashicons:admin-network"
+                ></span>
+                管理ページ
+              </a>
+              <!--  -->
+              <a href="./mypage" class="to-mypage item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="carbon:user-avatar-filled"
+                ></span>
+                マイページ
+              </a>
+              <form:form action="top" method="POST">
+              <button type="submit" class="logout item">
+                <span
+                  class="iconify"
+                  data-inline="false"
+                  data-icon="carbon:logout"
+                ></span>
+                ログアウト
+              </button>
+              </form:form>
+            </div>
+          </div>
+=======
+      </form>
       <form
         class="login-form display-none"
       >
@@ -89,6 +148,7 @@
             data-inline="false"
             data-icon="topcoat:cancel"
           ></span>
+>>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
         </div>
         <div class="form-wrap">
           <label class="error_msg errNotUserIdOrPass"></label>

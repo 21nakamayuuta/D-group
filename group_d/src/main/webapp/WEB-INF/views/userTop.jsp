@@ -16,6 +16,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="css/calendar.css" />
   <link rel="stylesheet" href="css/recipeList.css" />
+  <link rel="stylesheet" href="css/category.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
 
@@ -30,7 +31,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -141,7 +142,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               </div>
               <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                  ${fn:escapeXml(recipe.completeImage)}
+                  <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                 </div>
                 <span class="recipe-title">${fn:escapeXml(recipe.recipeTitle)}</span>
               </a>
@@ -164,7 +165,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               </div>
               <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                  ${fn:escapeXml(recipe.completeImage)}
+                  <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                 </div>
                 <span class="recipe-title">
                   ${fn:escapeXml(recipe.recipeTitle)}

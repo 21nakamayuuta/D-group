@@ -67,6 +67,9 @@ public class MyPageController {
 	public String nameChange(@Validated @ModelAttribute("MyPageForm") MypageForm form,
 			BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,Model model) {
 		//一旦バリデーションを無しでやっています
+		/*if (binding.hasErrors()) {
+			return "mypage";
+		}*/
 		UserInfo user= (UserInfo)session.getAttribute("user");
 
 
@@ -127,12 +130,15 @@ public class MyPageController {
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 		List<Category> categoryList = categoryService.searchCategory();
+		List<Integer> selectCategory = categoryService.selectCategory(recipeId);
 
+		editform.setFormCategoryId(selectCategory.toArray(new Integer[selectCategory.size()]));
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
 		session.setAttribute("foodInfo", foodInfo);
 		session.setAttribute("processInfo", processInfo);
 		model.addAttribute("categoryList", categoryList);
 		editform.setOverview(recipeInfo.get(0).getOverview());
+		session.setAttribute("oldImage", recipeInfo.get(0).getCompleteImage());
 
 		return "edit";
 	}

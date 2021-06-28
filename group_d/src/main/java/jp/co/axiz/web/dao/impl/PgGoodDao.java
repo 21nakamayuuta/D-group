@@ -1,35 +1,60 @@
 package jp.co.axiz.web.dao.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.GoodDao;
+import jp.co.axiz.web.entity.Good;
 
 @Repository
 public class PgGoodDao implements GoodDao {
-
-    private static final String INSERT_GOOD = "INSERT INTO good_table (recipe_id, user_id) VALUES (:recipeId, :userId)";
-    private static final String DELETE_GOOD = "DELETE FROM good_table WHERE good_id = :goodId";
+    private static final String SELECT_GOOD = "SELECT recipe_id, user_id, date_part('year', dt) AS year,date_part('month', dt) AS month,date_part('day', dt) AS day FROM good_table "
+            + "WHERE " + "recipe_id = :recipeId AND user_id = :userId AND "
+            + "date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
+    private static final String INSERT_GOOD = "INSERT INTO good_table (recipe_id, user_id, dt) VALUES (:recipeId, :userId, now())";
+    private static final String DELETE_GOOD = "DELETE FROM good_table " + "WHERE "
+            + "recipe_id = :recipeId AND user_id = :userId AND "
+            + "date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
 
     @Override
-    public void insertGood(Integer recipeId, Integer userId) {
+    public Good todaysChecked(Good good) {
+        String sql = SELECT_GOOD;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("recipeId", good.getRecipeId());
+        param.addValue("userId", good.getUserId());
+        param.addValue("year", good.getYear());
+        param.addValue("month", good.getMonth());
+        param.addValue("day", good.getDay());
+        List<Good> list = jT.query(sql, param, new BeanPropertyRowMapper<Good>(Good.class));
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    @Override
+    public void insertGood(Good good) {
         String sql = INSERT_GOOD;
         MapSqlParameterSource param = new MapSqlParameterSource();
-        param.addValue("recipeId", recipeId);
-        param.addValue("userId", userId);
+        param.addValue("recipeId", good.getRecipeId());
+        param.addValue("userId", good.getUserId());
         jT.update(sql, param);
     }
 
     @Override
-    public void deleteGood(Integer goodId) {
+    public void deleteGood(Good good) {
         String sql = DELETE_GOOD;
         MapSqlParameterSource param = new MapSqlParameterSource();
-        param.addValue("goodId", goodId);
+        param.addValue("recipeId", good.getRecipeId());
+        param.addValue("userId", good.getUserId());
+        param.addValue("year", good.getYear());
+        param.addValue("month", good.getMonth());
+        param.addValue("day", good.getDay());
         jT.update(sql, param);
     }
 

@@ -23,6 +23,15 @@ public class Recipe {
 	public Recipe() {
 	}
 
+
+	public Recipe(String recipeTitle, Integer cookingTime, String overview, Timestamp updateDateTime) {
+		this.recipeTitle = recipeTitle;
+		this.cookingTime = cookingTime;
+		this.overview = overview;
+		this.updateDateTime = updateDateTime;
+	}
+
+
 	public Recipe(String recipeTitle, String completeImage, Integer cookingTime, String overview,
 			Timestamp updateDateTime) {
 		this.recipeTitle = recipeTitle;
@@ -41,6 +50,8 @@ public class Recipe {
 		this.overview = overview;
 		this.createDateTime = createDateTime;
 	}
+
+
 	public Integer getGoodCount() {
 		return goodCount;
 	}

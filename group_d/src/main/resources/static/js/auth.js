@@ -37,7 +37,7 @@ let displayErrMsg = (errMsg) => {
     if (!signUpForm.userId.val()) {
         $(".error_msg.userId").text("IDを入力してください");
     }
-    if (signUpForm.userId.val().match(/^[a-zA-Z0-9]+$/)) {
+    if (!signUpForm.userId.val().match(/^[a-zA-Z0-9]+$/)) {
         $(".error_msg.userId").text("半角英数字のみ入力してください");
     }
 }

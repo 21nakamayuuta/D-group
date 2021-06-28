@@ -11,5 +11,5 @@ public interface PostRecipeDao {
 
     public void insertPostRecipe(Integer userId, Integer recipeId);
 
-    public void deletePostRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day);
+    public void deletePostRecipe(Integer recipeId);
 }

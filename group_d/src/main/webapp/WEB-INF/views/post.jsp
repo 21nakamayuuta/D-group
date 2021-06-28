@@ -26,7 +26,7 @@
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -119,14 +119,14 @@
             </div>
             <ul>
 
-            <c:forEach var="f" items="${foodList }">
+            <c:forEach var="f" items="${foodList }" varStatus="loop">
               <li>
                 <form:input type="text" class="material" value="${fn:escapeXml(f.foodName)}" path="foodNameList" /><form:input
                   type="text"
                   class="amount"
                   path="amountList"
                   value="${fn:escapeXml(f.amount)}"
-                /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
+                /><form:button name="foodDel" type="submit" class="form-btn" value="${fn:escapeXml(loop.index) }" >削除</form:button>
               </li>
             </c:forEach>
             </ul>
@@ -147,9 +147,9 @@
               <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
             </div>
             <ul>
-              <c:forEach var="p" items="${processList }">
+              <c:forEach var="p" items="${processList }" varStatus="loop">
                 <li>
-                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" >
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" value="${fn:escapeXml(loop.index) }" >
                     削除
                   </form:button>
                 </li>
@@ -173,7 +173,8 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/post.js"></script>
   </body>
 </html>
