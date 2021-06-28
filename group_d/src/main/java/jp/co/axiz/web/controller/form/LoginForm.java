@@ -13,19 +13,29 @@ public class LoginForm {
 	@NotBlank(message = "パスワードを入力してください")
 	private String password;
 
+	private String pageName;
+
 	public String getLoginName() {
 		return loginName;
 	}
 
-	public void setLoginName(String _loginName) {
-		this.loginName = _loginName;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String _password) {
-		this.password = _password;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 }

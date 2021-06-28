@@ -13,6 +13,7 @@ import jp.co.axiz.web.dao.FoodDao;
 public class PgFoodDao implements FoodDao {
 	private static final String REGISTER_RECIPE_AND_FOOD = "INSERT INTO food(recipe_id, display_order_food, food_name, amount) VALUES (:recipeId, :displayOrderFood, :foodName, :amount)";
 	private static final String UPDATE_FOOD = "UPDATE food SET display_order_food = :displayOrderFood,food_name = :foodName, amount = :amount WHERE recipe_id = :recipeId AND display_order_food = :whereDisplayOrderFood";
+	private static final String DELETE_FOOD = "DELETE FROM food WHERE recipe_id = :recipeId";
 
 	@Autowired
     private NamedParameterJdbcTemplate jT;
@@ -53,6 +54,15 @@ public class PgFoodDao implements FoodDao {
 			jT.update(sql, param);
 		}
 
+	}
+
+	@Override
+	public void deleteFood(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = DELETE_FOOD;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipeId", recipeId);
+		jT.update(sql,param);
 	}
 
 

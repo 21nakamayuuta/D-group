@@ -16,9 +16,15 @@
     <link rel="stylesheet" href="css/recipeForm.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
+  <!-- task
+    ・材料の追加、削除時or作り方の追加、削除時に画像ファイルがリセットさせる
+    ・フォーム内のスタイル(フォントサイズなど)
+    ・カテゴリのスタイル変更
+  -->
   <body>
     <header>
       <div class="header-wrap">
+<<<<<<< HEAD
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
         <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
@@ -71,7 +77,55 @@
           </div>
         </div>
         <!--  -->
+=======
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+           autocomplete="off" />
+        <%-- type="text" name="searchKeyword" --%>
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <!-- 権限ごとに切り替える部分 -->
+      <div class="btn-wrap">
+        <c:choose>
+          <%-- 未ログイン時 --%>
+          <c:when test="${empty user}">
+            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
+
+          <%-- ログイン時 --%>
+          <c:otherwise>
+            <!-- <a href="post" class="to-post btn">レシピを投稿する</a> -->
+            <div class="user-icon">
+
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+              </div>
+
+              <div class="tooltip display-none">
+                <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if>
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
+                <form:form action="logout" method="POST">
+                  <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+                </form:form>
+              </div>
+          </c:otherwise>
+        </c:choose>
+>>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
       </div>
+    </div>
     </header>
     <main>
       <div class="wrapper">
@@ -150,7 +204,7 @@
             <ul>
               <c:forEach var="p" items="${processList }">
                 <li>
-                  <input type="text" value="${fn:escapeXml(p.processDescription)}" path="foodNameList"/><form:button type="submit" class="form-btn" name="processDel" >
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" >
                     削除
                   </form:button>
                 </li>
