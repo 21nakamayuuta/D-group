@@ -5,6 +5,12 @@ public class Category {
 	private String categoryName;
 
 
+	public Category() {
+
+	}
+	public Category(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
 	public Integer getCategoryId() {
 		return categoryId;
 	}

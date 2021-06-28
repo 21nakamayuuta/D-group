@@ -23,7 +23,7 @@
       ・ランキング表示
         ・同じいいね数の場合のランキングの表示
      -->
-     
+
      <div class="cover display-none">
       <form
         class="signUp-form display-none"
@@ -58,7 +58,7 @@
                 name="password"
                 id="password"
                 placeholder="パスワード"
-                
+
               />
               <span class="error_msg password"></span>
             </label>
@@ -124,7 +124,7 @@
       <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>

@@ -3,6 +3,7 @@ package jp.co.axiz.web.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import jp.co.axiz.web.service.ProcessService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SearchService;
 import jp.co.axiz.web.util.Images;
+import jp.co.axiz.web.util.ParamUtil;
 
 @Controller
 public class UpdateController {
@@ -54,8 +56,18 @@ public class UpdateController {
 	public String editInfoCheck(@Validated @ModelAttribute("editInfo") EditForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			Model model) {
+
+		UserInfo loginUser = (UserInfo) session.getAttribute("user");
+
+		//画像クラス
+		Images imgSave = new Images();
+
+		//画像保存クラス
+		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
+
 		List<Food> foodList = (List<Food>) session.getAttribute("foodInfo");
 		List<Process> processList = (List<Process>) session.getAttribute("processInfo");
+
 		if (binding.hasErrors()) {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
@@ -68,9 +80,12 @@ public class UpdateController {
 			if(form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 			}
+			if (imgPath.equals("noImage")) {
+				model.addAttribute("imageError", "画像を選択してください");
+			}
 			return "edit";
 		}
-		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0) {
+		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0 || imgPath.equals("noImage")) {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			if (foodList.isEmpty()) {
@@ -82,21 +97,9 @@ public class UpdateController {
 			if(form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 			}
-			return "edit";
-		}
-
-
-		UserInfo loginUser = (UserInfo) session.getAttribute("user");
-
-		//画像クラス
-		Images imgSave = new Images();
-
-		//画像保存クラス
-		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
-		if (imgPath.equals("noImage")) {
-			model.addAttribute("imageError", "画像を選択してください");
-			List<Category> categoryList = categoryService.searchCategory();
-			model.addAttribute("categoryList", categoryList);
+			if (imgPath.equals("noImage")) {
+				model.addAttribute("imageError", "画像を選択してください");
+			}
 			return "edit";
 		}
 
@@ -152,9 +155,13 @@ public class UpdateController {
 	@RequestMapping(value = "/editInfoCheck", params = "foodDel", method = RequestMethod.POST)
 	public String foodDel(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			HttpServletRequest req,
 			Model model) {
+		String selectButtonValue = req.getParameter("foodDel");
+		int value = ParamUtil.checkAndParseInt(selectButtonValue);
+
 		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
-		foodInfo.remove(0);
+		foodInfo.remove(value);
 		session.setAttribute("foodInfo", foodInfo);
 
 		List<Category> categoryList = categoryService.searchCategory();
@@ -181,6 +188,7 @@ public class UpdateController {
 			model.addAttribute("categoryList", categoryList);
 			return "edit";
 		}
+		
 		List<Process> processInfo = (List<Process>) session.getAttribute("processInfo");
 		Process newProcessInfo = new Process(form.getProcessDescription());
 		processInfo.add(newProcessInfo);
@@ -195,9 +203,13 @@ public class UpdateController {
 	@RequestMapping(value = "/editInfoCheck", params = "processDel", method = RequestMethod.POST)
 	public String processDel(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			HttpServletRequest req,
 			Model model) {
+		String selectButtonValue = req.getParameter("processDel");
+		int value = ParamUtil.checkAndParseInt(selectButtonValue);
+
 		List<Process> processInfo = (List<Process>) session.getAttribute("processInfo");
-		processInfo.remove(0);
+		processInfo.remove(value);
 		session.setAttribute("processInfo", processInfo);
 
 		List<Category> categoryList = categoryService.searchCategory();
