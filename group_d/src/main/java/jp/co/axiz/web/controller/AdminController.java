@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,11 +74,17 @@ public class AdminController {
 	public String categoryNameInsert(@ModelAttribute("sign") SignUpForm form,
 			@ModelAttribute("RecipeSearch") SearchForm searchForm,
 			@ModelAttribute("adminUser") SearchForm userIdForm,
-			@ModelAttribute("category") SearchForm categoryForm,
+			@Validated @ModelAttribute("category") AdminForm categoryForm,  BindingResult binding,
 			@ModelAttribute("categoryEdit") AdminForm adminForm,
 			Model model) {
 
-		categoryService.insertCategory(categoryForm.getCategoryName());
+		// バリデーション
+	    if (binding.hasErrors()) {
+
+	    }else {
+	    	categoryService.insertCategory(categoryForm.getCategoryName());
+	    }
+
 		return "redirect:admin";
 	}
 	//カテゴリの編集
@@ -121,7 +128,7 @@ public class AdminController {
 	//レシピの削除
 	@RequestMapping(value="/deleteRecipeAdmin", params="deleteRecipe",method= RequestMethod.POST)
 	public String delete(@Validated @ModelAttribute("MyPageForm") MypageForm form,
-			//BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,
+			BindingResult binding, @ModelAttribute("RecipeSearch") SearchForm RecipeForm,
 			HttpServletRequest req,Model model) {
 
 		String ButtonValue = req.getParameter("deleteRecipe");

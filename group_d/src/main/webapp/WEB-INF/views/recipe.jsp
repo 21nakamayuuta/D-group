@@ -200,11 +200,10 @@
              <c:if test="${user.roleId == 1}">
             <!-- 管理者のみ表示 -->
             <div class="delete">
+            <form:form action="deleteRecipeAdmin" method="POST" modelAttribute="MyPageForm">
               <span class="iconify" data-inline="false" data-icon="bi:trash" style="color: #ff6d6d; font-size: 40px">
-	              <form:form action="deleteRecipeAdmin" method="POST" modelAttribute="MyPageForm">
-	              	<button type="submit" value="${fn:escapeXml(recipeInfo.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</button>
-	              </form:form>
               </span>
+             </form:form>
             </div>
             </c:if>
             <!--  -->
