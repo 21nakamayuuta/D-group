@@ -132,6 +132,8 @@ public class RegisterController {
 		//カテゴリテーブルに情報を登録
 		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
 
+		postRecipeService.insertPostRecipe(loginUser.getUserId(), newRecipeId);
+
 		//foodテーブルに情報を登録
 		foodService.registerFood(form.getFoodNameList(),form.getAmountList(), newRecipeId);
 

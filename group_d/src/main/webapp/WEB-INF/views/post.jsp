@@ -121,7 +121,6 @@
               </div>
           </c:otherwise>
         </c:choose>
->>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
       </div>
     </div>
     </header>
