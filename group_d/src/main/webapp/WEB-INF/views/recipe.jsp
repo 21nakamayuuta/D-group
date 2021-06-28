@@ -24,9 +24,9 @@
     ・画像サイズを調整
   -->
   <body>
-    <!-- ログイン機能 -->
-    <div class="cover display-none">
-    <form
+
+     <div class="cover display-none">
+      <form
         class="signUp-form display-none"
       >
       <div class="btn" id="cancel">
@@ -201,12 +201,11 @@
              <c:if test="${user.roleId == 1}">
             <!-- 管理者のみ表示 -->
             <div class="delete">
-              <span
-                class="iconify"
-                data-inline="false"
-                data-icon="bi:trash"
-                style="color: #ff6d6d; font-size: 40px"
-              ></span>
+              <span class="iconify" data-inline="false" data-icon="bi:trash" style="color: #ff6d6d; font-size: 40px">
+	              <form:form action="deleteRecipeAdmin" method="POST" modelAttribute="MyPageForm">
+	              	<button type="submit" value="${fn:escapeXml(recipeInfo.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</button>
+	              </form:form>
+              </span>
             </div>
             </c:if>
             <!--  -->

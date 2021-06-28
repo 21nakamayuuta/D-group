@@ -217,8 +217,8 @@
                 <div class="img-wrap">
                   <img
                     <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
-                    src = "/imgs/20210623124113test.jpg"
-                    alt=""
+                    src="../../imgs/${fn:escapeXml(recipe.completeImage)}"
+                    alt="${fn:escapeXml(recipe.completeImage)}"
                   />
 				<%--  ここにレシピIDを渡せる方法を考える
                   <form:form action="recipeSearch" class="search-recipe">
