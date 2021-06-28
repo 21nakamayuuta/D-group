@@ -22,9 +22,6 @@ let selectDate = [
     new Date().getDate(),
 ];
 
-/** Todo
- * ヘッダーの動的変更
- * */
 let postDate = [];
 let madeDate = [];
 
@@ -80,7 +77,7 @@ let createCalendar = (year, month, dates) => {
         let isSelected = dates[i][0] === selectDate[0] && dates[i][1] === selectDate[1] && dates[i][2] === selectDate[2]
 
         let li = $("<li />", {
-            "class": `cell ${dates[i][0]}-${dates[i][1]}-${dates[i][2]}`
+            "class": `cell ${dates[i][0]}-${dates[i][1]+1}-${dates[i][2]}`
         });
 
         let mark = $("<div />", {
@@ -144,6 +141,7 @@ let displayRecipe = (postRecipe, madeRecipe) => {
                     <span class="recipe-title"></span>
                   </a>
                 </li>`);
+        // el.month--;
         recipeListDom.find('a').attr("href", `recipe?recipeID=${el.recipeId}`);
         recipeListDom.find('.recipe-title').text(el.recipeTitle);
         postRecipeListDom.append(recipeListDom);
@@ -162,6 +160,7 @@ let displayRecipe = (postRecipe, madeRecipe) => {
                     <span class="recipe-title"></span>
                   </a>
                 </li>`);
+        // el.month--;
         recipeListDom.find('a').attr("href", `recipe?recipeID=${el.recipeId}`);
         recipeListDom.find('.recipe-title').text(el.recipeTitle);
         madeRecipeListDom.append(recipeListDom);
@@ -193,11 +192,11 @@ $(".days").click(function (e) {
         split(" ")[1].split("-").
         map(el => Number(el));
 
+        targetDate[1]--;
 
         if (Number(e.target.textContent) != NaN) {
             selectDate = [...targetDate];
             getDates(today.getFullYear(), today.getMonth());
-
         }
     }
 });
@@ -206,7 +205,7 @@ let getRecipeTitle = (selectDate) => {
     axios.get("/userTop/getRecipeTitle", {
         params: {
             year: selectDate[0],
-            month: selectDate[1],
+            month: selectDate[1] + 1,
             day: selectDate[2],
         }
     }).then((res) => {

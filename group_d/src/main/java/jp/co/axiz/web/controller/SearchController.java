@@ -47,8 +47,7 @@ public class SearchController {
 	HttpSession session;
 
 	@RequestMapping("/searchResult")
-	public String searchResult(
-			Model model) {
+	public String searchResult(Model model) {
 		return "searchResult";
 	}
 
@@ -57,11 +56,15 @@ public class SearchController {
 			@ModelAttribute("sign") SignUpForm form, @ModelAttribute("loginForm") LoginForm loginform,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
 
-		//カテゴリの表示
+		if (SearchKeywordForm.getSearchKeyword().isBlank()) {
+			return "redirect:top";
+		}
+
+		// カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
-		//検索の処理
+		// 検索の処理
 		if (searchService.find(SearchKeywordForm.getSearchKeyword()) == null) {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
 		} else {
@@ -69,8 +72,8 @@ public class SearchController {
 			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
 
-			//List<Search> sbList = searchList.subList(0,3);
-			//model.addAttribute("searchList", sbList);
+			// List<Search> sbList = searchList.subList(0,3);
+			// model.addAttribute("searchList", sbList);
 
 		}
 
@@ -91,37 +94,34 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/categorySearch", method = RequestMethod.GET)
-	public String categorySearch(
-			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm,
-			@ModelAttribute("sign") SignUpForm form,
-			@ModelAttribute("loginForm") LoginForm loginform,
-			Model model) {
+	public String categorySearch(@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, @ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform, Model model) {
 
-		//カテゴリの表示
+		// カテゴリの表示
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
-		//カテゴリ検索の処理
+		// カテゴリ検索の処理
 		if (searchService.categoryFind(categorySearchForm.getCategoryId()) == null) {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
 		} else {
 			List<Search> searchList = searchService.categoryFind(categorySearchForm.getCategoryId());
+			System.out.println(searchList.get(0).getRecipeId() + ", " + searchList.get(0).getRecipeTitle() + ", "
+					+ searchList.get(0).getCompleteImage() + ", " + searchList.get(0).getGoodCount());
 			model.addAttribute("searchList", searchList);
 		}
 
-		//レシピ一覧表示の”○○のレシピ”用
+		// レシピ一覧表示の”○○のレシピ”用
 		model.addAttribute("searchKeyword", categorySearchForm.getCategoryName());
 
 		return "searchResult";
 	}
 
 	@GetMapping("/recipe")
-	public String recipeSearch(
-			@RequestParam(name = "recipeID", required = false) Integer recipeId,
-			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			@ModelAttribute("sign") SignUpForm form,
-			Model model) {
+	public String recipeSearch(@RequestParam(name = "recipeID", required = false) Integer recipeId,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, @ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform, Model model) {
 
 		Integer totalGood = recipeService.totalGood(recipeId);
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
@@ -139,12 +139,9 @@ public class SearchController {
 	}
 
 	@GetMapping("/user")
-	public String user(
-			@RequestParam(name = "userID", required = false) Integer userId,
-			@ModelAttribute("RecipeSearch") SearchForm searchForm,
-			@ModelAttribute("sign") SignUpForm form,
-			@ModelAttribute("loginForm") LoginForm loginform,
-			@ModelAttribute("userForm") UserForm userform,
+	public String user(@RequestParam(name = "userID", required = false) Integer userId,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform, @ModelAttribute("userForm") UserForm userform,
 			Model model) {
 
 		List<Search> recipeList = userService.find(userId);

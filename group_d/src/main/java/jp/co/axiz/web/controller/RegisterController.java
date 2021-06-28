@@ -26,6 +26,7 @@ import jp.co.axiz.web.entity.Recipe;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.FoodService;
+import jp.co.axiz.web.service.PostRecipeService;
 import jp.co.axiz.web.service.ProcessService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.util.Images;
@@ -43,6 +44,9 @@ public class RegisterController {
 
 	@Autowired
 	ProcessService processService;
+
+	@Autowired
+	PostRecipeService postRecipeService;
 
 	@Autowired
 	HttpSession session;
@@ -64,13 +68,13 @@ public class RegisterController {
 		return "post";
 	}
 
-
 	@Transactional
 	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
 	public String postInfoCheck(@Validated @ModelAttribute("postInfo") PostForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			Model model) {
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
+
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
 
@@ -113,8 +117,6 @@ public class RegisterController {
 			}
 			return "post";
 		}
-
-
 		//投稿時刻の取得
 		Date nowdate = new Date();
 		java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
@@ -136,12 +138,11 @@ public class RegisterController {
 		//processテーブルに情報を登録
 		processService.registerProcess(form.getProcessInfoList(), newRecipeId);
 
-		return "userTop";
-
+		return "redirect:/userTop";
 
 	}
 
-	//food追加
+	// food追加
 	@RequestMapping(value = "/postInfoCheck", params = "foodAdd", method = RequestMethod.POST)
 	public String foodAdd(
 			@ModelAttribute("postInfo") PostForm form,
@@ -176,19 +177,20 @@ public class RegisterController {
 
 	}
 
-	//food削除
+	// food削除
 	@RequestMapping(value = "/postInfoCheck", params = "foodDel", method = RequestMethod.POST)
 	public String foodDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
-		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
-		>>>>>>> branch 'develop' of git@github.com:21nakamayuuta/D-group.git
-		String selectButtonValue = req.getParameter("foodDel");
+		/*
+		 * 押下されたボタンに応じたところを削除する機能を挑戦した残骸 >>>>>>> branch 'develop' of
+		 * git@github.com:21nakamayuuta/D-group.git String selectButtonValue =
+		 * req.getParameter("foodDel");
+		 *
+		 * System.out.println(selectButtonValue); Integer value =
+		 * ParamUtil.checkAndParseInt(selectButtonValue);
+		 */
 
-		System.out.println(selectButtonValue);
-		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
-		*/
-
-		//現在はどのボタンを押しても一番上が消える仕様となっている
+		// 現在はどのボタンを押しても一番上が消える仕様となっている
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
 		foodList.remove(0);
 		session.setAttribute("foodList", foodList);
@@ -198,8 +200,7 @@ public class RegisterController {
 		return "post";
 	}
 
-
-	//process追加
+	// process追加
 	@RequestMapping(value = "/postInfoCheck", params = "processAdd", method = RequestMethod.POST)
 	public String processAdd(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
@@ -226,19 +227,19 @@ public class RegisterController {
 	}
 
 
-
-	//process削除
+	// process削除
 	@RequestMapping(value = "/postInfoCheck", params = "processDel", method = RequestMethod.POST)
 	public String processDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
-		/*押下されたボタンに応じたところを削除する機能を挑戦した残骸
-		String selectButtonValue = req.getParameter("foodDel");
+		/*
+		 * 押下されたボタンに応じたところを削除する機能を挑戦した残骸 String selectButtonValue =
+		 * req.getParameter("foodDel");
+		 *
+		 * System.out.println(selectButtonValue); Integer value =
+		 * ParamUtil.checkAndParseInt(selectButtonValue);
+		 */
 
-		System.out.println(selectButtonValue);
-		Integer value = ParamUtil.checkAndParseInt(selectButtonValue);
-		*/
-
-		//現在はどのボタンを押しても一番上が消える仕様となっている
+		// 現在はどのボタンを押しても一番上が消える仕様となっている
 
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
 		processList.remove(0);
