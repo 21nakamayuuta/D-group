@@ -31,14 +31,14 @@
   <body>
     <header>
       <div class="header-wrap">
-<<<<<<< HEAD
+<%-- <<<<<<< HEAD
         <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
 		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
             <form:input
             path="searchKeyword"
             id="searchKeyword"
             placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
+          />type="text" name="searchKeyword"
           <form:button>レシピ検索</form:button>
         </form:form>
         <!-- 権限ごとに切り替える部分 -->
@@ -70,10 +70,10 @@
                   data-icon="carbon:user-avatar-filled"
                 ></span>
                 マイページ
-=======
+======= --%>
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -94,7 +94,6 @@
 
               <div class="btn">
                 <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
->>>>>>> 2e61c6abc47f20f281e01812007273d872c377d0
               </div>
 
               <div class="tooltip display-none">
