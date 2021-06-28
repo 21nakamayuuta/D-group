@@ -7,6 +7,8 @@ import jp.co.axiz.web.entity.MadeRecipe;
 public interface MadeRecipeDao {
     public List<MadeRecipe> madeRecipeList(MadeRecipe MadeRecipe);
 
+    public MadeRecipe checkMadeRecipe(MadeRecipe MadeRecipe);
+
     public List<MadeRecipe> allMadeRecipeList(Integer userId);
 
     public void insertMadeRecipe(Integer userId, Integer recipeId);

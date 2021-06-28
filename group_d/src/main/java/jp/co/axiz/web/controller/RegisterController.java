@@ -72,14 +72,13 @@ public class RegisterController {
 	@Transactional
 	@RequestMapping(value = "/postInfoCheck", params = "register", method = RequestMethod.POST)
 	public String postInfoCheck(@Validated @ModelAttribute("postInfo") PostForm form, BindingResult binding,
-			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			Model model) {
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
 		List<Food> foodList = (List<Food>) session.getAttribute("foodList");
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
 
-		//画像保存クラス
+		// 画像保存クラス
 		Images imgSave = new Images();
 		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
 
@@ -92,7 +91,7 @@ public class RegisterController {
 			if (processList.isEmpty()) {
 				model.addAttribute("processErrorMsg", "作り方を追加してください");
 			}
-			if(form.getFormCategoryId().length == 0) {
+			if (form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 				return "post";
 			}
@@ -101,7 +100,8 @@ public class RegisterController {
 			}
 			return "post";
 		}
-		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0 || imgPath.equals("noImage")) {
+		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0
+				|| imgPath.equals("noImage")) {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			if (foodList.isEmpty()) {
@@ -110,7 +110,7 @@ public class RegisterController {
 			if (processList.isEmpty()) {
 				model.addAttribute("processErrorMsg", "作り方を追加してください");
 			}
-			if(form.getFormCategoryId().length == 0) {
+			if (form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 			}
 			if (imgPath.equals("noImage")) {
@@ -118,29 +118,28 @@ public class RegisterController {
 			}
 			return "post";
 		}
-		//投稿時刻の取得
+		// 投稿時刻の取得
 		Date nowdate = new Date();
 		java.sql.Timestamp createTime = new java.sql.Timestamp(nowdate.getTime());
 
-		//recipテーブルに必要な情報を登録
-		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath,
-				form.getCookingTime(), form.getOverview(), createTime);
+		// recipテーブルに必要な情報を登録
+		Recipe InsertRecipe = new Recipe(loginUser.getUserId(), form.getRecipeTitle(), imgPath, form.getCookingTime(),
+				form.getOverview(), createTime);
 		recipeService.registerRecipe(InsertRecipe);
 
-		//登録したレシピIDを取得
+		// 登録したレシピIDを取得
 		Integer newRecipeId = recipeService.searchNewRecipe();
 
-		//カテゴリテーブルに情報を登録
+		// カテゴリテーブルに情報を登録
 		categoryService.registerRecipeAndCategory(newRecipeId, form.getFormCategoryId());
 
-		postRecipeService.insertPostRecipe(loginUser.getUserId(), newRecipeId);
+		// foodテーブルに情報を登録
+		foodService.registerFood(form.getFoodNameList(), form.getAmountList(), newRecipeId);
 
-		//foodテーブルに情報を登録
-		foodService.registerFood(form.getFoodNameList(),form.getAmountList(), newRecipeId);
-
-		//processテーブルに情報を登録
+		// processテーブルに情報を登録
 		processService.registerProcess(form.getProcessInfoList(), newRecipeId);
 
+		postRecipeService.insertPostRecipe(loginUser.getUserId(), newRecipeId);
 
 		return "redirect:/userTop";
 
@@ -148,10 +147,8 @@ public class RegisterController {
 
 	// food追加
 	@RequestMapping(value = "/postInfoCheck", params = "foodAdd", method = RequestMethod.POST)
-	public String foodAdd(
-			@ModelAttribute("postInfo") PostForm form,
-			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
-			Model model) {
+	public String foodAdd(@ModelAttribute("postInfo") PostForm form,
+			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, Model model) {
 		if (form.getAmount().isEmpty() || form.getFoodName().isEmpty()) {
 			if (form.getFoodName().isEmpty()) {
 				model.addAttribute("nameEmpty", "材料は必須です");
@@ -186,7 +183,7 @@ public class RegisterController {
 	@RequestMapping(value = "/postInfoCheck", params = "foodDel", method = RequestMethod.POST)
 	public String foodDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
-//		 押下されたボタンに応じたところを削除する機能
+		// 押下されたボタンに応じたところを削除する機能
 		String selectButtonValue = req.getParameter("foodDel");
 		int value = ParamUtil.checkAndParseInt(selectButtonValue);
 
@@ -225,16 +222,14 @@ public class RegisterController {
 		return "post";
 	}
 
-
 	// process削除
 	@RequestMapping(value = "/postInfoCheck", params = "processDel", method = RequestMethod.POST)
 	public String processDel(@ModelAttribute("postInfo") PostForm form,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm, HttpServletRequest req, Model model) {
 
-//		 押下されたボタンに応じたところを削除する機能
+		// 押下されたボタンに応じたところを削除する機能
 		String selectButtonValue = req.getParameter("processDel");
 		int value = ParamUtil.checkAndParseInt(selectButtonValue);
-
 
 		List<Process> processList = (List<Process>) session.getAttribute("processList");
 		processList.remove(value);

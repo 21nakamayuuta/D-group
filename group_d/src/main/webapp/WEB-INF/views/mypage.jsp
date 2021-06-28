@@ -5,9 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<!-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> -->
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -29,51 +26,11 @@
     ・レシピの編集ページへの遷移
   -->
   <body>
-    <header>
-      <div class="header-wrap">
-<%-- <<<<<<< HEAD
-        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-            <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          />type="text" name="searchKeyword"
-          <form:button>レシピ検索</form:button>
-        </form:form>
-        <!-- 権限ごとに切り替える部分 -->
-        <div class="btn-wrap">
-          <a href="post" class="to-post btn">レシピを投稿する</a>
-          <div class="user-icon">
-            <div class="btn">
-              <span
-                class="iconify"
-                data-inline="false"
-                data-icon="carbon:user-avatar-filled"
-              ></span>
-            </div>
-            <div class="tooltip display-none">
-              <!-- 管理者ログイン時追加 -->
-              <a href="" class="to-admin item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="dashicons:admin-network"
-                ></span>
-                管理ページ
-              </a>
-              <!--  -->
-              <div class="to-mypage item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:user-avatar-filled"
-                ></span>
-                マイページ
-======= --%>
+     <header>
+    <div class="header-wrap">
       <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
            autocomplete="off" />
         <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
@@ -103,10 +60,6 @@
                     管理ページ
                   </a>
                 </c:if>
-                <!-- <a href="./mypage" class="to-mypage item">
-                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
-                    マイページ
-                  </a> -->
                 <form:form action="logout" method="POST">
                   <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
@@ -118,7 +71,7 @@
         </c:choose>
       </div>
     </div>
-    </header>
+  </header>
     <main>
       <div class="wrapper">
         <div class="my-info">
@@ -204,7 +157,8 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/form.js"></script>
   </body>
 </html>
