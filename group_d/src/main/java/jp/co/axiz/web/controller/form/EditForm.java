@@ -35,6 +35,8 @@ public class EditForm {
 
 
 
+
+
 	public List<String> getAmountList() {
 		return amountList;
 	}

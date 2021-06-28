@@ -2,12 +2,16 @@ package jp.co.axiz.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.axiz.web.controller.form.AdminForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
 import jp.co.axiz.web.entity.Category;
@@ -27,63 +31,87 @@ public class AdminController {
 	public String admin(@ModelAttribute("sign") SignUpForm form,
 			@ModelAttribute("RecipeSearch") SearchForm searchForm,
 			@ModelAttribute("category") SearchForm categoryForm,
+			@ModelAttribute("adminUser") SearchForm userIdForm,
+			@ModelAttribute("categoryEdit") AdminForm adminForm,
 			Model model) {
 
 		List<UserInfo> userAdminList = adminService.userAll();
-		System.out.println(userAdminList.get(0).getPassword());
 		model.addAttribute("userAdminList",userAdminList);
 
 		List<Category> categoryList = categoryService.searchCategory();
 		model.addAttribute("categoryList", categoryList);
 
 		List<Search> recipeAllList = adminService.recipeAll();
-		System.out.println(recipeAllList.get(0).getRecipeTitle());
 		model.addAttribute("recipeAllList",recipeAllList);
 
-		System.out.println(categoryList.size());
-		System.out.println(categoryList.get(0).getCategoryName());
-
 		return "admin";
 	}
 
-	@RequestMapping("/userDelete")
+	//ユーザーを削除
+	@RequestMapping(value="/deleteUser", params="deleteUserId", method= RequestMethod.POST)
 	public String userDelete(@ModelAttribute("sign") SignUpForm form,
 			@ModelAttribute("RecipeSearch") SearchForm searchForm,
-			@ModelAttribute("userDelete") SearchForm userIdForm,
+			@ModelAttribute("adminUser") SearchForm userIdForm,
 			@ModelAttribute("category") SearchForm categoryForm,
-			Model model) {
+			HttpServletRequest req, Model model) {
 
-			return "admin";
+		String ButtonValue = req.getParameter("deleteUserId");
+		adminService.userDelete(Integer.parseInt(ButtonValue));
+
+		return "redirect:admin";
 
 	}
 
-
-	@RequestMapping(params="categoryNameSave")
-	public String categoryNameSave(@ModelAttribute("sign") SignUpForm form,
-			@ModelAttribute("RecipeSearch") SearchForm searchForm,
-			@ModelAttribute("category") SearchForm categoryForm,
-			Model model) {
-
-		return "admin";
-	}
-
-	@RequestMapping(params="categoryNameDelete")
-	public String categoryNameDelete(@ModelAttribute("sign") SignUpForm form,
-			@ModelAttribute("RecipeSearch") SearchForm searchForm,
-			@ModelAttribute("category") SearchForm categoryForm,
-			Model model) {
-
-		return "admin";
-	}
-
-	@RequestMapping(params="categoryNameInsert")
+	//カテゴリの追加
+	@RequestMapping(value="/categoryInsert", method= RequestMethod.POST)
 	public String categoryNameInsert(@ModelAttribute("sign") SignUpForm form,
 			@ModelAttribute("RecipeSearch") SearchForm searchForm,
+			@ModelAttribute("adminUser") SearchForm userIdForm,
 			@ModelAttribute("category") SearchForm categoryForm,
+			@ModelAttribute("categoryEdit") AdminForm adminForm,
 			Model model) {
 
-		return "admin";
+		categoryService.insertCategory(categoryForm.getCategoryName());
+		return "redirect:admin";
 	}
+	//カテゴリの編集
+	@RequestMapping(value="/categoryEdit",  params="categoryNameEdit", method=
+			RequestMethod.POST)
+	public String categoryNameSave(@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm,
+			@ModelAttribute("adminUser") SearchForm userIdForm,
+			@ModelAttribute("category") SearchForm categoryForm,
+			@ModelAttribute("categoryEdit") AdminForm adminForm,
+			HttpServletRequest req, Model model) {
+
+
+		String ButtonValue = req.getParameter("categoryNameEdit");
+		System.out.println(ButtonValue);
+		System.out.println(adminForm.getCategoryNameList());
+		System.out.println(adminForm.getCategoryIdList());
+
+		//formで値が取得できない現象が起こっている。これが出来れば何とかなりそう。
+		//updateCategoryが使用出来ることを確認した。
+		//categoryService.updateCategory(Integer.parseInt(ButtonValue), "弁当");
+
+		return "redirect:admin";
+	}
+
+	//カテゴリの削除
+	@RequestMapping(value="/categoryEditDelete", params="categoryNameDelete", method= RequestMethod.POST)
+	public String categoryNameDelete(@ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm,
+			@ModelAttribute("adminUser") SearchForm userIdForm,
+			@ModelAttribute("category") SearchForm categoryForm,
+			//@ModelAttribute("categoryEdit") EditForm editForm,
+			HttpServletRequest req, Model model) {
+		String ButtonValue = req.getParameter("categoryNameDelete");
+		System.out.println(ButtonValue);
+		categoryService.deleteCategory(Integer.parseInt(ButtonValue));
+
+		return "redirect:admin";
+	}
+
 
 
 }

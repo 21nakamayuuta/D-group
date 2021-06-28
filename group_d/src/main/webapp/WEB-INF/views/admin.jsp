@@ -79,12 +79,14 @@
                         <span class="role">権限</span>
                     </li>
                 <c:forEach var="admin" items="${userAdminList}">
+                  <form:form action="deleteUser" method="POST" modelAttribute="adminUser" >
                     <li class="td">
                         <span class="name">${admin.getUserName()}</span>
                         <span class="pass">${admin.getPassword()}</span>
-                        <span class="role">${admin.getRoleId() eq 1 ? "admin" : "user"}  </span>
-                        <button class="form-btn" value= "${admin.getUserId()}">削除</button>
+                        <span class="role">${admin.getRoleId() eq 1 ? "admin" : "user"} </span>
+                        <form:button class="form-btn" value="${admin.getUserId()}" name="deleteUserId">削除</form:button>
                     </li>
+                  </form:form>
                 </c:forEach>
 <%--
                     <li class="td">
@@ -104,25 +106,31 @@
             </section>
             <section class="categories border">
                 <h3 class="title text-bold">カテゴリ</h3>
-                <form:form action="admin" modelAttribute="category" method="post" >
+                <form:form action="categoryInsert" modelAttribute="category" method="post" >
                 <div class="input">
                     <form:input path="categoryName"/>
-                    <form:button name="categoryNameInsert" class="form-btn">追加</form:button>
+                    <form:button class="form-btn">追加</form:button>
                 </div>
                 </form:form>
                 <ul>
                 <%--forEachで回して表示 --%>
 				<c:forEach var="category" items="${categoryList}">
-				  <form:form action="search" modelAttribute="category" method="post" >
+				 <%-- <form:form action="categoryEditDelete" modelAttribute="categoryEdit" method="post" >  --%>
                     <li>
-                        <div class="content-edit-wrap">
-                        <input type="text" class="content" value= "${fn:escapeXml(category.categoryName)}" disabled/>
-                        <button type="button" class="edit form-btn">編集</button>
-                        <form:button name="categoryNameSave" type="submit" class="save form-btn display-none" >保存</form:button>
-                        </div>
-                        <form:button name="categoryNameDelete" type="submit" class="form-btn delete">削除</form:button>
+                      <div class="content-edit-wrap">
+                       <form:form action="categoryEdit" modelAttribute="categoryEdit" method="post" >
+                        <form:input path="categoryNameList" class="content" value= "${category.categoryName}" /> <%--disabled --%>
+                       <%-- <form:input path="categoryIdList" type="hidden" value= "${category.categoryId}" />  --%>
+                        <button type="button" value="${category.categoryName}" class="edit form-btn">編集</button> <%-- --%>
+                        <form:button name="categoryNameEdit" value="${category.categoryName}" class="save form-btn display-none" >保存</form:button> <%--class="save form-btn display-none"  --%>
+                      </form:form>
+
+                      <form:form action="categoryEditDelete"  modelAttribute="category" method="post" >
+                        <form:button name="categoryNameDelete" value="${category.categoryId}" class="form-btn delete">削除</form:button>
+                      </form:form>
+                      </div>
                     </li>
-                    </form:form>
+                 <%--</form:form>  --%>
 				</c:forEach>
 <%--
                     <li>
@@ -181,7 +189,7 @@
                             <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
                                 class="good-num">${recipe.getGoodCount()}</span>
                         </div>
-                        <a href="./recipe.html">
+                        <a href="/recipe?recipeID=${recipe.getRecipeId()}">
                             <div class="img-wrap">
                                 <img src="${recipe.getCompleteImage()}" alt="" />
                             </div>

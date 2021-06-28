@@ -202,7 +202,7 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
-            <span class="search-keyword">${fn:escapeXml(searchKeyword)}</span>
+            <span class="search-keyword"><c:if test="${empty searchKeyword}"> 全部 </c:if>${fn:escapeXml(searchKeyword)}</span>
             のレシピ
             <span class="result-num"><c:if test="${empty searchList.size()}"> 0 </c:if>${searchList.size()}</span>件
           </h3>
