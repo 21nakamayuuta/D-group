@@ -30,7 +30,7 @@ public class PgRecipeDao implements RecipeDao {
 	private static final String USER_RECIPE = "select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id";
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
-	private static final String EDIT_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeID";
+	private static final String EDIT_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jT;

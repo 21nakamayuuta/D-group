@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jp.co.axiz.web.controller.form.LoginForm;
 import jp.co.axiz.web.controller.form.SearchForm;
 import jp.co.axiz.web.controller.form.SignUpForm;
+import jp.co.axiz.web.controller.form.UserForm;
 import jp.co.axiz.web.entity.Category;
 import jp.co.axiz.web.entity.Food;
 import jp.co.axiz.web.entity.Process;
@@ -26,6 +27,7 @@ import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.CategoryService;
 import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SearchService;
+import jp.co.axiz.web.service.UserService;
 
 @Controller
 public class SearchController {
@@ -37,6 +39,9 @@ public class SearchController {
 
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	HttpSession session;
@@ -132,4 +137,17 @@ public class SearchController {
 		return "recipe";
 
 	}
+
+	@GetMapping("/user")
+	public String user(@RequestParam(name = "userID", required = false) Integer userId,
+			@ModelAttribute("RecipeSearch") SearchForm searchForm, @ModelAttribute("sign") SignUpForm form,
+			@ModelAttribute("loginForm") LoginForm loginform, @ModelAttribute("userForm") UserForm userform,
+			Model model) {
+
+		List<Search> recipeList = userService.find(userId);
+		model.addAttribute("recipeList", recipeList);
+		return "user";
+
+	}
+
 }

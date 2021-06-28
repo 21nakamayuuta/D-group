@@ -1,8 +1,6 @@
 package jp.co.axiz.web.dao.impl;
 
 import java.util.List;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Collections;
 import jp.co.axiz.web.dao.PostRecipeDao;
 import jp.co.axiz.web.entity.PostRecipe;

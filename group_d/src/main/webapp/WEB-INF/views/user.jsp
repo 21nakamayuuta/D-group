@@ -15,61 +15,8 @@
   <link rel="stylesheet" href="css/recipeList.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-<!-- task 
-  ・新規登録、ログイン時のページ遷移(バリデーション処理)
-  ・レシピ情報の取得
-  ・レシピページへの遷移
- -->
 <body>
-  <!-- <div class="cover display-none">
-    <form action="userTop.html" class="login-form display-none">
-      <div class="btn" id="cancel">
-        <span class="iconify" data-inline="false" data-icon="topcoat:cancel"></span>
-      </div>
-      <div class="form-wrap">
-        <div class="userId">
-          <label>ID<br />
-            <input type="text" name="userId" id="userId" placeholder="ID" />
-          </label>
-        </div>
-        <div class="password">
-          <label>パスワード<br />
-            <input type="text" name="password" id="password" placeholder="パスワード" />
-          </label>
-        </div>
-        <button>ログイン</button>
-      </div>
-    </form>
-    <form action="userTop.html" class="singUp-form display-none">
-      <div class="btn" id="cancel">
-        <span class="iconify" data-inline="false" data-icon="topcoat:cancel"></span>
-      </div>
-      <div class="form-wrap">
-        <div class="userId">
-          <label>ID<br />
-            <input type="text" name="userId" id="userId" placeholder="ID" />
-          </label>
-        </div>
-        <div class="userName">
-          <label>名前<br />
-            <input type="text" name="userName" id="userName" placeholder="名前" />
-          </label>
-        </div>
-        <div class="password">
-          <label>パスワード<br />
-            <input type="text" name="password" id="password" placeholder="パスワード" />
-          </label>
-        </div>
-        <div class="repass">
-          <label>パスワード-確認<br />
-            <input type="text" name="repass" id="repass" placeholder="パスワード" />
-          </label>
-        </div>
-        <button>新規登録</button>
-      </div>
-    </form>
-  </div> -->
-
+ 
   <div class="cover ${ display ? '' : 'display-none' }">
       <!-- 新規登録フォーム -->
       <form:form

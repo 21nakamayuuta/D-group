@@ -121,11 +121,11 @@
 
             <c:forEach var="f" items="${foodList }">
               <li>
-                <input type="text" class="material" value="${fn:escapeXml(f.foodName)}" readonly/><input
+                <form:input type="text" class="material" value="${fn:escapeXml(f.foodName)}" path="foodNameList" /><form:input
                   type="text"
                   class="amount"
+                  path="amountList"
                   value="${fn:escapeXml(f.amount)}"
-                  readonly
                 /><form:button name="foodDel" type="submit" class="form-btn" value="0" >削除</form:button>
               </li>
             </c:forEach>
@@ -135,7 +135,7 @@
             <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
-              <form:input type="number" name="time" id="time" path="cookingTime"/>分以内
+              <form:input type="number" name="time" id="time" min="1" max="150" path="cookingTime"/>分以内
             </div>
           </div>
           <div class="how-to">
@@ -149,7 +149,7 @@
             <ul>
               <c:forEach var="p" items="${processList }">
                 <li>
-                  <input type="text" value="${fn:escapeXml(p.processDescription)}" readonly/><form:button type="submit" class="form-btn" name="processDel" >
+                  <input type="text" value="${fn:escapeXml(p.processDescription)}" path="foodNameList"/><form:button type="submit" class="form-btn" name="processDel" >
                     削除
                   </form:button>
                 </li>
@@ -163,7 +163,7 @@
             <form:textarea name="comment" id="" cols="30" rows="10" path="overview"></form:textarea>
           </div>
           <div class="category">
-            <h3 class="title">カテゴリ</h3>
+            <h3 class="title">カテゴリ</h3><span class="error_msg">${categoryErrorMsg}</span>
             <ul class="input">
 	          <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
