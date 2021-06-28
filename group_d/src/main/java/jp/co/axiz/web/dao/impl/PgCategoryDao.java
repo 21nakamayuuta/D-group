@@ -18,6 +18,8 @@ public class PgCategoryDao implements CategoryDao{
 	private static final String INSERT_CATEGORY = "INSERT INTO category(category_name) VALUES (:categoryName)";
 	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id = :categoryId";
 	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
+	private static final String DELETE_RECIPE_AND_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
+
 
 	@Autowired
     private NamedParameterJdbcTemplate jT;
@@ -66,6 +68,11 @@ public class PgCategoryDao implements CategoryDao{
 	}
 
 
-
-
+	public void deleteRecipeAndCategory(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = DELETE_RECIPE_AND_CATEGORY;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipeId", recipeId);
+		jT.update(sql,param);
+	}
 }

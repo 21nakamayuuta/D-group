@@ -2,11 +2,11 @@ package jp.co.axiz.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ import jp.co.axiz.web.service.RecipeService;
 import jp.co.axiz.web.service.SignUpService;
 import jp.co.axiz.web.service.UserInfoService;
 
-@Controller
+// @Controller
 public class AuthController {
 
 	@Autowired
@@ -41,12 +41,14 @@ public class AuthController {
 	@Autowired
 	HttpSession session;
 
+	// 新規登録
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String signUp(@Validated @ModelAttribute("sign") SignUpForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm Recipeform, @ModelAttribute("loginForm") LoginForm loginForm,
-			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
+			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model, HttpServletRequest request) {
 		// バリデーション
 		if (binding.hasErrors()) {
+			// System.out.println(binding.getFieldError("userId").getDefaultMessage());
 			model.addAttribute("SignUpDisplay", true);
 			model.addAttribute("display", true);
 
@@ -61,7 +63,8 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			return loginForm.getPageName();
+			// return "top";
 		}
 
 		// 入力情報でユーザー作成
@@ -84,7 +87,8 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			return loginForm.getPageName();
+			// return "top";
 		}
 
 		// サービスで同じログインネームの有無チェック
@@ -104,9 +108,9 @@ public class AuthController {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 
-			return "top";
+			// return "top";
+			return loginForm.getPageName();
 		} else {
-
 			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
@@ -118,23 +122,19 @@ public class AuthController {
 			model.addAttribute("categoryList", categoryList);
 		}
 
-		session.setAttribute("user", user);
 		// ヘッダーのページ遷移用にセッションにfalse保存
+		UserInfo loginUser = userInfoService.authentication(user.getLoginName(), user.getPassword());
 		session.setAttribute("login", false);
-		session.setAttribute("user", user);
+		session.setAttribute("user", loginUser);
 
-		return "userTop";
+		return "redirect:userTop";
 	}
 
 	// ログイン処理 (ログイン画面のログインボタン押下)
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
 			@ModelAttribute("RecipeSearch") SearchForm RecipeForm, @ModelAttribute("sign") SignUpForm signUpForm,
 			@ModelAttribute("categorySearch") SearchForm categorySearchForm, Model model) {
-
-		// String errMsg = messageSource.getMessage("login.error", null,
-		// Locale.getDefault());
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("display", true);
@@ -148,7 +148,9 @@ public class AuthController {
 			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
-			return "top";
+			// return "top";
+			System.out.println(signUpForm.getPageName());
+			return signUpForm.getPageName();
 		}
 
 		UserInfo user = userInfoService.authentication(form.getLoginName(), form.getPassword());
@@ -167,18 +169,12 @@ public class AuthController {
 			// カテゴリの表示
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
-			return "top";
+			// return "top";
+			return signUpForm.getPageName();
 		} else {
 			// ログイン成功
 
-			// role一覧を取得
-			// List<Role> roleList = roleService.findAll();
-
-			// ログインユーザ情報、role一覧をセッションにセット
-			// SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
-
-			// sessionInfo.setLoginUser(user);
-			// sessionInfo.setRoleList(roleList);
+			// 新着レシピ
 			List<Recipe> recipeList = recipeService.newRecipe();
 			model.addAttribute("recipeList", recipeList);
 
@@ -192,7 +188,7 @@ public class AuthController {
 
 			session.setAttribute("user", user);
 			session.setAttribute("login", false);
-			return "userTop";
+			return "redirect:userTop";
 		}
 	}
 
@@ -216,7 +212,7 @@ public class AuthController {
 		model.addAttribute("categoryList", categoryList);
 
 		session.invalidate();
-		return "top";
+		return "redirect:top";
 	}
 
 }

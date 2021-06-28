@@ -18,9 +18,20 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
 
+    <!-- task
+     ・情報の取得
+      ・ユーザー情報
+      ・カテゴリ情報
+      ・レシピの情報
+     ・ユーザー情報の削除
+     ・カテゴリの追加と削除
+     ・ユーザーページへの遷移
+     ・レシピページへの遷移
+     ・スタイルの修正
+    -->
 <body>
     <header>
-        <div class="header-wrap">
+        <!-- <div class="header-wrap">
             <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
 		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
           <form:input
@@ -30,7 +41,6 @@
           /><%-- type="text" name="searchKeyword" --%>
           <form:button>レシピ検索</form:button>
         </form:form>
-            <!-- 権限ごとに切り替える部分 -->
             <div class="btn-wrap">
                 <a href="./post.html" class="to-post btn">レシピを投稿する</a>
                 <div class="user-icon">
@@ -38,21 +48,15 @@
                         <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                     </div>
                     <div class="tooltip display-none">
-                        <!-- 管理者ログイン時追加 -->
-                        <!-- <a href="./admin.html" class="to-admin item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="dashicons:admin-network"
-                ></span>
-                管理ページ
-              </a> -->
-                        <!--  -->
                         <a href="./mypage.html" class="to-mypage item">
                             <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                             マイページ
                         </a>
-              <form:form action="logout" method="POST">
+
+<%--              <form:form action="logout" method="POST">   --%>
+
+              <form:form action="./logout" method="POST">
+
               <button type="submit" class="logout item">
                 <span
                   class="iconify"
@@ -65,8 +69,56 @@
                     </div>
                 </div>
             </div>
-            <!--  -->
-        </div>
+        </div> -->
+
+        <div class="header-wrap">
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
+           autocomplete="off" />
+        <%-- type="text" name="searchKeyword" --%>
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <!-- 権限ごとに切り替える部分 -->
+      <div class="btn-wrap">
+        <c:choose>
+          <%-- 未ログイン時 --%>
+          <c:when test="${empty user}">
+            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
+
+          <%-- ログイン時 --%>
+          <c:otherwise>
+            <a href="post" class="to-post btn">レシピを投稿する</a>
+            <div class="user-icon">
+
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+              </div>
+
+              <div class="tooltip display-none">
+                <!-- <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if> -->
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
+                <form:form action="logout" method="POST">
+                  <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+                </form:form>
+              </div>
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </div>
     </header>
     <main>
         <div class="wrapper">
