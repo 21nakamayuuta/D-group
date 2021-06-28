@@ -70,7 +70,7 @@ public class UpdateController {
 			}
 			return "edit";
 		}
-		if (foodList.isEmpty() || processList.isEmpty()) {
+		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0) {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			if (foodList.isEmpty()) {
@@ -79,16 +79,11 @@ public class UpdateController {
 			if (processList.isEmpty()) {
 				model.addAttribute("processErrorMsg", "作り方を追加してください");
 			}
+			if(form.getFormCategoryId().length == 0) {
+				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
+			}
 			return "edit";
 		}
-
-		if(form.getFormCategoryId().length == 0) {
-			List<Category> categoryList = categoryService.searchCategory();
-			model.addAttribute("categoryList", categoryList);
-			model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
-			return "edit";
-		}
-
 
 
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
@@ -105,20 +100,16 @@ public class UpdateController {
 			return "edit";
 		}
 
-
-
 		//更新時刻の取得
 		Date nowdate = new Date();
 		java.sql.Timestamp updateTime = new java.sql.Timestamp(nowdate.getTime());
 
+		//recipe情報の更新
 		Recipe EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
 		recipeService.editRecipe(EditRecipe, form.getRecipeId());
-
-		foodService.updateFood(form.getFoodNameList(),form.getAmountList(), form.getRecipeId());
-
-		processService.updateProcess(form.getProcessInfoList(),form.getRecipeId());
-
-		//updateかdeleteしてRegisterか相談   food,process,category
+		foodService.delAndRegFood(form.getFoodNameList(), form.getAmountList(), form.getRecipeId());
+		processService.delAndRegProcess(form.getProcessInfoList(), form.getRecipeId());
+		categoryService.delAndRegCategory(form.getRecipeId(), form.getFormCategoryId());
 
 		return "redirect:/userTop";
 
@@ -205,7 +196,7 @@ public class UpdateController {
 	public String processDel(@ModelAttribute("editInfo") EditForm form, BindingResult binding,
 			@ModelAttribute("RecipeSearch") SearchForm SearchKeywordForm,
 			Model model) {
-		List<Food> processInfo = (List<Food>) session.getAttribute("foodInfo");
+		List<Process> processInfo = (List<Process>) session.getAttribute("processInfo");
 		processInfo.remove(0);
 		session.setAttribute("processInfo", processInfo);
 
