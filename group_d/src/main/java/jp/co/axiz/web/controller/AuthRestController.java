@@ -107,6 +107,7 @@ public class AuthRestController {
 
 	@PostMapping("/logout")
 	public void logout() {
+		System.out.println("logout");
 		session.invalidate();
 	}
 

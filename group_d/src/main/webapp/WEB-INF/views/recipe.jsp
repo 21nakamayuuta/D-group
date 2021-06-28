@@ -238,7 +238,7 @@
 <!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
 			  src= "../../imgs/${fn:escapeXml(recipeInfo.completeImage)}"
-              alt=""
+              alt="${fn:escapeXml(recipeInfo.completeImage)}"
             />
           </div>
           <div class="category-material-wrap">

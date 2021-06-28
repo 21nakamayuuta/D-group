@@ -270,7 +270,7 @@ main ul {
 }
 
 .user-recipe .recipe-list {
-    width: 80%;
+    width: 85%;
 }
 
 .user-recipe .pagenation {
@@ -327,11 +327,11 @@ main ul {
 
 .my-recipe .recipe-list {
     width: 85%;
-    grid-column-gap: 10rem;
+    /* grid-column-gap: 10rem; */
 }
 
 .my-recipe .btn-wrap {
-    width: 70%;
+    /* width: 70%; */
     margin: 1rem auto;
     display: flex;
     justify-content: space-between;

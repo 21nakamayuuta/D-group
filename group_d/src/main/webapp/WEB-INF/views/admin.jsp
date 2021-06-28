@@ -184,8 +184,8 @@
                     </li>
                  <%--</form:form>  --%>
 				</c:forEach>
-<%--
-                    <li>
+<!-- <%-- -->
+                    <!-- <li>
                         <div class="content-edit-wrap">
                         <input type="text" class="content" value="洋食" disabled>
                         <button type="button" class="edit form-btn">編集</button>
@@ -220,7 +220,7 @@
                         </div>
                         <button type="button" class="form-btn delete">削除</button>
                     </li>
-     --%>
+     --%> -->
                 </ul>
             </section>
             <section class="total-recipe recipes border">
@@ -249,7 +249,7 @@
                         </a>
                     </li>
 				</c:forEach>
-<%--
+<!-- <%--
                     <li class="card">
                         <div class="user">
                             <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled">
@@ -335,7 +335,7 @@
                             <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
                         </a>
                     </li>
-  --%>
+  --%> -->
                 </ul>
             </section>
         </div>

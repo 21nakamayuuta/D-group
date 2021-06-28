@@ -181,12 +181,12 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
-<%--             ${fn:escapeXml(recipeList[0].userName)} --%>
+<!-- <%--             ${fn:escapeXml(recipeList[0].userName)} --%> -->
             <span class="recipe-num">レシピの総数：${fn:escapeXml(recipeList.size())}</span>
           </h3>
 
           <ul class="recipe-list">
-          <%--検索結果をforEachで回して表示 --%>
+          <!-- <%--検索結果をforEachで回して表示 --%> -->
 			<c:forEach var="search" items="${recipeList}">
             <li class="card">
               <div class="good">
@@ -198,14 +198,13 @@
                 ><span class="good-num">${fn:escapeXml(search.goodCount)}</span>
               </div>
               <a href="/recipe?recipeID=${fn:escapeXml(search.recipeId)}">
-              <%-- <a href="recipeSearch">  --%>
+              <!-- <%-- <a href="recipeSearch">  --%> -->
                 <div class="img-wrap">
                   <img
-                    <%-- src="https://dummyimage.com/600x400/dee0ff/edeeff.png" --%>
-                    src="../../imgs/${fn:escapeXml(recipe.completeImage)}"
-                    alt="${fn:escapeXml(recipe.completeImage)}"
+                    src="../../imgs/${fn:escapeXml(search.completeImage)}"
+                    alt="${fn:escapeXml(search.completeImage)}"
                   />
-				<%--  ここにレシピIDを渡せる方法を考える
+				<!-- <%--  ここにレシピIDを渡せる方法を考える
                   <form:form action="recipeSearch" class="search-recipe">
  		            <form:input
  		              path = "recipeId"
@@ -213,7 +212,7 @@
  		              value= "{fn:escapeXml(search.pecipeId)}"
  		            />
  		          </form:form>
- 		          --%>
+ 		          --%> -->
 
                 </div>
                 <span class="recipe-title"
@@ -223,7 +222,7 @@
             </li>
             </c:forEach>
 
-          <%--
+          <!-- <%--
           <li class="card">
             <div class="good">
               <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
@@ -357,10 +356,10 @@
             </a>
           </li>
 
-           --%>
+           --%> -->
 
 
-        </ul>
+        <!-- </ul>
         <ul class="pagenation">
           <li class="page-num"><a href="">1</a></li>
           <li class="page-num"><a href="">2</a></li>
@@ -372,7 +371,7 @@
               <span class="iconify" data-inline="false" data-icon="entypo:chevron-right"></span>
             </a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </main>

@@ -76,6 +76,7 @@ let login = () => {
 }
 
 let logout = () => {
+    console.log(location.pathname);
     axios.post("/auth/logout").then(() => {
         location.href = "top";
     }).catch(el => console.log(el))
@@ -96,7 +97,10 @@ userIcon.click(() => tooltip.toggleClass("display-none"));
 
 // ログアウト
 logoutBtn.click(() => {
+
     if (confirm("ログアウトしますか？")) {
         logout();
+    } else {
+        console.log(location.pathname);
     }
 })

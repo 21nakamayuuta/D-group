@@ -135,10 +135,9 @@
               </div>
               <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                ${fn:escapeXml(recipe.completeImage)}
                   <img
-                    src="${fn:escapeXml(recipe.completeImage)}"
-                    alt=""
+                    src="../../imgs/${fn:escapeXml(recipe.completeImage)}"
+                    alt="${fn:escapeXml(recipe.completeImage)}"
                   />
                 </div>
                 <span class="recipe-title"
@@ -146,8 +145,8 @@
                 ></a
               >
               <div class="btn-wrap">
-                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="editRecipe" class="to-edit">編集</form:button>
-                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</form:button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="editRecipe" class="to-edit form-btn">編集</form:button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="deleteRecipe" class="delete-recipe form-btn">削除</form:button>
               </div>
             </li>
             </form:form>
