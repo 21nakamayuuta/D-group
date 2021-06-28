@@ -9,4 +9,8 @@ public interface MadeRecipeDao {
 
     public List<MadeRecipe> allMadeRecipeList(Integer userId);
 
+    public void insertMadeRecipe(Integer userId, Integer recipeId);
+
+    public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day);
+
 }

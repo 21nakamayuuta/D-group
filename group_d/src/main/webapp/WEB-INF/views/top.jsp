@@ -1,8 +1,8 @@
-<%@ page pageEncoding="UTF-8"%> <%@ taglib
-uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ taglib
-uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> <%@ taglib
-uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> <%@ taglib
-uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -14,81 +14,19 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/recipeList.css" />
+    <link rel="stylesheet" href="css/category.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <!-- task (・ → 未完了, ✔ → 完了済み)
+    <!-- task
       top
-      ・URLを/topに変更したときの処理
-        ・ログイン時 -> userTop
-        ✔未ログイン時 -> top
       ・ランキング表示
-      ・新着レシピ表示
-      ・カテゴリのスタイル修正
-      header
-      ・権限でのスタイルの動的変更
+        ・同じいいね数の場合のランキングの表示
      -->
-    <div class="cover ${ display ? '' : 'display-none' }">
-
-      <form:form
-        action="login"
-        class="login-form ${ LoginDisplay ? '' : 'display-none' }"
-        method="POST"
-        modelAttribute="loginForm"
-      >
-        <div class="btn" id="cancel">
-          <span
-            class="iconify"
-            data-inline="false"
-            data-icon="topcoat:cancel"
-          ></span>
-        </div>
-        <div class="form-wrap">
-          <label class="error_msg">${errMsg}</label>
-          <div class="userId">
-            <label
-              >ID<br />
-              <form:input
-                type="text"
-                name="userId"
-                id="userId"
-                placeholder="ID"
-                path="loginName"
-              />
-              <form:errors
-                path="loginName"
-                class="error_msg"
-                cssStyle="color:red"
-              />
-            </label>
-          </div>
-          <div class="password">
-            <label
-              >パスワード<br />
-              <form:input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="パスワード"
-                path="password"
-              />
-              <form:errors
-                path="password"
-                class="error_msg"
-                cssStyle="color:red"
-              />
-            </label>
-          </div>
-          <button>ログイン</button>
-        </div>
-      </form:form>
-
-      <!-- 新規登録 -->
-      <form:form
-        action="signUp"
-        modelAttribute="sign"
-        method="post"
-        class="singUp-form ${ SignUpDisplay ? '' : 'display-none' }"
+     
+     <div class="cover display-none">
+      <form
+        class="signUp-form display-none"
       >
         <div class="btn" id="cancel">
           <span
@@ -101,74 +39,139 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           <div class="userId">
             <label
               >ID<br />
-              <form:input path="userId" id="userId" placeholder="ID" />
-              <form:errors path="userId" class="error_msg" />
-              <span class="error_msg">${errMsgID}</span>
+              <input name="userId" id="userId" placeholder="ID"  />
+              <span class="error_msg userId"></span>
             </label>
           </div>
           <div class="userName">
             <label
               >名前<br />
-              <form:input path="userName" id="userName" placeholder="名前" />
-              <form:errors path="userName" class="error_msg" />
+              <input name="userName" id="userName" placeholder="名前"   />
+              <span class="error_msg userName"></span>
             </label>
           </div>
           <div class="password">
             <label
               >パスワード<br />
-              <form:password
-                path="password"
+              <input
+              type="password"
+                name="password"
                 id="password"
                 placeholder="パスワード"
+                
               />
-              <form:errors path="password" class="error_msg" />
+              <span class="error_msg password"></span>
             </label>
           </div>
           <div class="repass">
             <label
               >パスワード-確認<br />
-              <form:password
-                path="repass"
+              <input
+              type="password"
+                name="repass"
                 id="repass"
                 placeholder="パスワード"
               />
-              <form:errors path="repass" class="error_msg" />
-              <span class="error_msg">${errMsgPASS}</span>
+              <span class="error_msg repass"></span>
+              <span class="error_msg errNotPassMatch"></span>
             </label>
           </div>
-          <form:button type="submit">新規登録</form:button>
+          <button type="button">新規登録</button>
         </div>
-      </form:form>
+      </form>
+
+      <form
+        class="login-form display-none"
+      >
+        <div class="btn" id="cancel">
+          <span
+            class="iconify"
+            data-inline="false"
+            data-icon="topcoat:cancel"
+          ></span>
+        </div>
+        <div class="form-wrap">
+          <label class="error_msg errNotUserIdOrPass"></label>
+          <div class="userId">
+            <label
+              >ID<br />
+              <input
+                id="userId"
+                placeholder="ID"
+                name="loginName"
+              />
+              <span class="error_msg loginName"></span>
+            </label>
+          </div>
+          <div class="password">
+            <label
+              >パスワード<br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="パスワード"
+              />
+              <span class="error_msg password"></span>
+            </label>
+          </div>
+          <button type="button">ログイン</button>
+        </div>
+      </form>
     </div>
-    <header>
+
+      <header>
       <div class="header-wrap">
-        <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+           autocomplete="off" />
+        <%-- type="text" name="searchKeyword" --%>
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <!-- 権限ごとに切り替える部分 -->
+      <div class="btn-wrap">
+        <c:choose>
+          <%-- 未ログイン時 --%>
+          <c:when test="${empty user}">
+            <button type="button" id="signUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
 
-        <form:form
-          action="search"
-          modelAttribute="RecipeSearch"
-          method="post"
-          class="search-recipe"
-        >
-          <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
-          <form:button>レシピ検索</form:button>
-        </form:form>
+          <%-- ログイン時 --%>
+          <c:otherwise>
+            <a href="post" class="to-post btn">レシピを投稿する</a>
+            <div class="user-icon">
 
-        <%--
-        <!-- 権限ごとに切り替える部分 -->
-        --%>
-        <div class="btn-wrap">
-          <button type="button" id="singUp">新規登録</button>
-          <button type="button" id="login">ログイン</button>
-        </div>
-        <!--  -->
-        <%-- --%>
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+              </div>
+
+              <div class="tooltip display-none">
+                <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if>
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
+                <form:form action="logout" method="POST">
+                  <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+                </form:form>
+              </div>
+          </c:otherwise>
+        </c:choose>
       </div>
+    </div>
     </header>
+
+
     <main>
       <div class="wrapper">
         <div class="popular-ranking recipes">
@@ -201,7 +204,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 </div>
                 <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                   <div class="img-wrap">
-                    ${fn:escapeXml(recipe.completeImage)}
+                    <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                   </div>
                   <span class="recipe-title"
                     >${fn:escapeXml(recipe.recipeTitle)}</span
@@ -237,7 +240,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 </div>
                 <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                   <div class="img-wrap">
-                    ${fn:escapeXml(recipe.completeImage)}
+                   <img src="../../imgs/${fn:escapeXml(recipe.completeImage)}" alt="${fn:escapeXml(recipe.completeImage)}">
                   </div>
                   <span class="recipe-title">
                     ${fn:escapeXml(recipe.recipeTitle)}
@@ -289,6 +292,8 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
+    <!-- <script src="js/search.js"></script> -->
   </body>
 </html>
