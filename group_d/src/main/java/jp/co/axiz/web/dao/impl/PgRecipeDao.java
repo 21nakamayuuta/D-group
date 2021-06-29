@@ -97,7 +97,8 @@ public class PgRecipeDao implements RecipeDao {
 		param.addValue("recipeId", recipeId);
 		List<Recipe> resultList = jT.query(sql, param, new BeanPropertyRowMapper<Recipe>(Recipe.class));
 
-		return resultList.isEmpty() ? null : resultList.get(0).getGoodCount();
+		// return resultList.isEmpty() ? null : resultList.get(0).getGoodCount();
+		return resultList.isEmpty() ? 0 : resultList.get(0).getGoodCount();
 	}
 
 	@Override
