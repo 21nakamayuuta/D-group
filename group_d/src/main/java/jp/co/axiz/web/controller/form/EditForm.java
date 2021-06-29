@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 public class EditForm {
-	private Integer recipeId;
+	private Integer recipeId1;
 
 	@NotBlank(message="タイトルを入力してください")
 	@Length(min=0,max=50, message="50文字以内で記入してください")
@@ -60,12 +60,12 @@ public class EditForm {
 		this.foodNameList = foodNameList;
 	}
 
-	public Integer getRecipeId() {
-		return recipeId;
+	public Integer getRecipeId1() {
+		return recipeId1;
 	}
 
-	public void setRecipeId(Integer recipeId) {
-		this.recipeId = recipeId;
+	public void setRecipeId1(Integer recipeId1) {
+		this.recipeId1 = recipeId1;
 	}
 
 	public String getRecipeTitle() {

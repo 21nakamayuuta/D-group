@@ -168,7 +168,7 @@
               <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
-          <form:hidden value="${fn:escapeXml(recipeId)}" path="recipeId"/>
+          <form:hidden value="${fn:escapeXml(recipeId1)}" path="recipeId1"/>
           <form:button type="submit" class="submit post-btn" name="register">レシピ編集</form:button>
         </form:form>
       </div>

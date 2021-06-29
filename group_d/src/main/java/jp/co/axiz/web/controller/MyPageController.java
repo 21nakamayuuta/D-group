@@ -127,8 +127,8 @@ public class MyPageController {
 
 		String ButtonValue = req.getParameter("editRecipe");
 
-		editform.setRecipeId(Integer.parseInt(ButtonValue));
-		Integer recipeId = editform.getRecipeId();
+		editform.setRecipeId1(Integer.parseInt(ButtonValue));
+		Integer recipeId = editform.getRecipeId1();
 
 		List<Recipe> recipeInfo = recipeService.searchRecipeInfo(recipeId);
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);

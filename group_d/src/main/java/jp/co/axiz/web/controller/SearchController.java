@@ -69,7 +69,7 @@ public class SearchController {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
 		} else {
 			List<Search> searchList = searchService.find(SearchKeywordForm.getSearchKeyword());
-			System.out.println(searchList.size());
+//			System.out.println(searchList.size());
 			model.addAttribute("searchList", searchList);
 		}
 
