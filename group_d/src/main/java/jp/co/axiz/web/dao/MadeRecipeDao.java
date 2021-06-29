@@ -15,4 +15,8 @@ public interface MadeRecipeDao {
 
     public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day);
 
+    public void deleteMadeByRecipeId(Integer recipeId);
+
+    public void deleteMadeByUserId(Integer userId);
+
 }

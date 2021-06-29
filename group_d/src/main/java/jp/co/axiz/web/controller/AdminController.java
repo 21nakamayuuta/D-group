@@ -22,6 +22,9 @@ import jp.co.axiz.web.entity.Search;
 import jp.co.axiz.web.entity.UserInfo;
 import jp.co.axiz.web.service.AdminService;
 import jp.co.axiz.web.service.CategoryService;
+import jp.co.axiz.web.service.GoodService;
+import jp.co.axiz.web.service.MadeRecipeService;
+import jp.co.axiz.web.service.PostRecipeService;
 import jp.co.axiz.web.service.RecipeService;
 
 @Controller
@@ -32,6 +35,14 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private RecipeService recipeService;
+
+	@Autowired
+	private MadeRecipeService madeRecipeService;
+	@Autowired
+	private PostRecipeService postRecipeService;
+
+	@Autowired
+	private GoodService goodService;
 
 	@RequestMapping("/admin")
 	public String admin(@ModelAttribute("sign") SignUpForm form, @ModelAttribute("RecipeSearch") SearchForm searchForm,
@@ -59,6 +70,10 @@ public class AdminController {
 		String ButtonValue = req.getParameter("deleteUserId");
 		adminService.userDelete(Integer.parseInt(ButtonValue));
 		recipeService.deleteRecipeByUserId(Integer.parseInt(ButtonValue));
+
+		madeRecipeService.deleteMadeUserId(Integer.parseInt(ButtonValue));
+		postRecipeService.deletePostByUserId(Integer.parseInt(ButtonValue));
+		goodService.deleteGoodByUserId(Integer.parseInt(ButtonValue));
 
 		return "redirect:admin";
 

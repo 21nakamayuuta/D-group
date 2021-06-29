@@ -38,4 +38,14 @@ public class MadeRecipeServiceImpl implements MadeRecipeService {
     public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
         madeRecipeDao.deleteMadeRecipe(userId, recipeId, year, month, day);
     }
+
+    @Override
+    public void deleteMadeRecipeId(Integer recipeId) {
+        madeRecipeDao.deleteMadeByRecipeId(recipeId);
+    };
+
+    @Override
+    public void deleteMadeUserId(Integer userId) {
+        madeRecipeDao.deleteMadeByUserId(userId);
+    };
 }

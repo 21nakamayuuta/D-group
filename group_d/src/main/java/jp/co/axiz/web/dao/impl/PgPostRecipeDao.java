@@ -23,6 +23,7 @@ public class PgPostRecipeDao implements PostRecipeDao {
     private static final String INSERT_POST_RECIPE = "INSERT INTO post_recipe VALUES (:userId, :recipeId, now())";
 
     private static final String DELETE_POST_RECIPE = "DELETE FROM post_recipe WHERE recipe_id = :recipeId";
+    private static final String DELETE_POST_BY_USERID = "DELETE FROM post_recipe WHERE user_id = :userId";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
@@ -67,6 +68,14 @@ public class PgPostRecipeDao implements PostRecipeDao {
         String sql = DELETE_POST_RECIPE;
         MapSqlParameterSource param = new MapSqlParameterSource();
         param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deletePostByUserId(Integer userId) {
+        String sql = DELETE_POST_BY_USERID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
         jT.update(sql, param);
     }
 }

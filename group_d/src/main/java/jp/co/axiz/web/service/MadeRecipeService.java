@@ -14,4 +14,8 @@ public interface MadeRecipeService {
     public void insertMadeRecipe(Integer userId, Integer recipeId);
 
     public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day);
+
+    public void deleteMadeRecipeId(Integer recipeId);
+
+    public void deleteMadeUserId(Integer userId);
 }

@@ -105,6 +105,9 @@ public class RecipeRestController {
     @DeleteMapping("/post/{recipeId}")
     public void deleteRecipe(@PathVariable(name = "recipeId") Integer recipeId) {
         postRecipeService.deletePostRecipe(recipeId);
+        madeRecipeService.deleteMadeRecipeId(recipeId);
+        madeRecipeService.deleteMadeRecipeId(recipeId);
+        goodService.deleteGoodByRecipeId(recipeId);
         recipeService.deleteRecipe(recipeId);
     }
 }

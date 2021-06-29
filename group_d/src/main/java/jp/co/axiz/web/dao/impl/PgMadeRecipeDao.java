@@ -27,6 +27,9 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
 
     private static final String DELETE_MADE_RECIPE = "DELETE FROM made_recipe WHERE user_id = :userId AND recipe_id = :recipeId AND date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
 
+    private static final String DELETE_MADE_BY_RECIPEID = "DELETE FROM made_recipe WHERE recipe_id = :recipeId";
+    private static final String DELETE_MADE_BY_USERID = "DELETE FROM made_recipe WHERE user_id = :userId";
+
     @Autowired
     private NamedParameterJdbcTemplate jT;
 
@@ -88,6 +91,22 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
         param.addValue("year", year);
         param.addValue("month", month);
         param.addValue("day", day);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deleteMadeByRecipeId(Integer recipeId) {
+        String sql = DELETE_MADE_BY_RECIPEID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deleteMadeByUserId(Integer userId) {
+        String sql = DELETE_MADE_BY_USERID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
         jT.update(sql, param);
     }
 }

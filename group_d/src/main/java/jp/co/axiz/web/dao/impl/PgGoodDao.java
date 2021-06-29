@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.web.dao.GoodDao;
 import jp.co.axiz.web.entity.Good;
+import jp.co.axiz.web.entity.Recipe;
 
 @Repository
 public class PgGoodDao implements GoodDao {
@@ -20,6 +21,9 @@ public class PgGoodDao implements GoodDao {
     private static final String DELETE_GOOD = "DELETE FROM good_table " + "WHERE "
             + "recipe_id = :recipeId AND user_id = :userId AND "
             + "date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
+
+    private static final String DELETE_GOOD_BY_RECIPEID = "DELETE FROM good_table WHERE recipe_id = :recipeId";
+    private static final String DELETE_GOOD_BY_USERID = "DELETE FROM good_table WHERE user_id = :userId";
 
     @Autowired
     private NamedParameterJdbcTemplate jT;
@@ -55,6 +59,22 @@ public class PgGoodDao implements GoodDao {
         param.addValue("year", good.getYear());
         param.addValue("month", good.getMonth());
         param.addValue("day", good.getDay());
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deleteGoodByRecipeId(Integer recipeId) {
+        String sql = DELETE_GOOD_BY_RECIPEID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deleteGoodByUserId(Integer userId) {
+        String sql = DELETE_GOOD_BY_USERID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
         jT.update(sql, param);
     }
 

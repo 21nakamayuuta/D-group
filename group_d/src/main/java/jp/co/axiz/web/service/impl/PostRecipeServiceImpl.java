@@ -33,4 +33,9 @@ public class PostRecipeServiceImpl implements PostRecipeService {
     public void deletePostRecipe(Integer recipeId) {
         postRecipeDao.deletePostRecipe(recipeId);
     }
+
+    @Override
+    public void deletePostByUserId(Integer userId) {
+        postRecipeDao.deletePostByUserId(userId);
+    }
 }
