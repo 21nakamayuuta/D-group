@@ -97,7 +97,7 @@ public class PgRecipeService implements RecipeService {
 	@Override
 	public void editNoImageRecipe(Recipe recipe, Integer recipeId) {
 		// TODO 自動生成されたメソッド・スタブ
-
+		recipeDao.editNoImageRecipe(recipe, recipeId);
 	}
 
 }

@@ -103,6 +103,7 @@ public class UpdateController {
 
 		Recipe EditRecipe = null;
 
+		System.out.println(imgPath);
 		if(!imgPath.equals("noImage")) {
 			EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
 			recipeService.editRecipe(EditRecipe, form.getRecipeId());
