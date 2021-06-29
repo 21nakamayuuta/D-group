@@ -321,19 +321,18 @@
                     <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                     マイページ
                   </a>
-                <form:form action="logout" method="POST">
-                  <button type="submit" class="logout item">
+                <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
                     ログアウト
                   </button>
-                </form:form>
               </div>
           </c:otherwise>
         </c:choose>
       </div>
     </div>
     </header>
-      <div class="btn-wrap">
+    
+      <!-- <div class="btn-wrap">
         <c:choose>
           <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
@@ -361,18 +360,16 @@
                     <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                     マイページ
                   </a>
-                <form:form action="logout" method="POST">
-                  <button type="submit" class="logout item">
+                <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
                     ログアウト
                   </button>
-                </form:form>
               </div>
           </c:otherwise>
         </c:choose>
       </div>
     </div>
-    </header> -->
+    </header> --> -->
 
 
   <main>

@@ -108,12 +108,10 @@
                     <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
                     マイページ
                   </a>
-                <form:form action="logout" method="POST">
-                  <button type="submit" class="logout item">
+                <button type="submit" class="logout item">
                     <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
                     ログアウト
                   </button>
-                </form:form>
               </div>
           </c:otherwise>
         </c:choose>
