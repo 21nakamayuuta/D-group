@@ -219,7 +219,7 @@ let getPostMadeDate = () => {
     axios.get("/userTop/getPostMadeDate").then((res) => {
         postDate = Array.from(new Set(res.data.postRecipe.map(el => `${el.year}-${el.month}-${el.day}`)));
         madeDate = Array.from(new Set(res.data.madeRecipe.map(el => `${el.year}-${el.month}-${el.day}`)));
-        console.log(res);
+        console.log(res.data);
         getDates(today.getFullYear(), today.getMonth());
     }).catch(el => console.log(el))
 }

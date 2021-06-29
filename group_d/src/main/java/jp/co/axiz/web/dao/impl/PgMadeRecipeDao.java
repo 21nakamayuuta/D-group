@@ -19,7 +19,7 @@ public class PgMadeRecipeDao implements MadeRecipeDao {
     private static final String SELECT_MADE_RECIPE = "SELECT mr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, mr.recipe_id "
             + "FROM made_recipe mr JOIN recipe r ON mr.recipe_id = r.recipe_id "
             + "WHERE mr.user_id = :userId AND date_part('year', dt) = :year AND date_part('month', dt) = :month AND date_part('day', dt) = :day";
-    private static final String SELECT_ALL_MADE_RECIPE = "SELECT mr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, mr.recipe_id "
+    private static final String SELECT_ALL_MADE_RECIPE = "SELECT mr.user_id, r.recipe_title, date_part('year', dt) as year, date_part('month', dt) as month, date_part('day', dt) as day, mr.recipe_id, r.user_id "
             + "FROM made_recipe mr " + "JOIN recipe r ON mr.recipe_id = r.recipe_id " + "WHERE mr.user_id = :userId "
             + "ORDER BY dt";
 
