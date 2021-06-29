@@ -15,9 +15,8 @@ import jp.co.axiz.web.entity.Recipe;
 
 @Repository
 public class PgRecipeDao implements RecipeDao {
-	private static final String SEARCH_RECIPE_INFO = "SELECT r.recipe_title, complete_image, cooking_time, overview, category_name, r.user_id,user_name "
-			+ "FROM recipe r JOIN recipe_and_category rac ON r.recipe_id = rac.recipe_id JOIN category c ON rac.category_id = c.category_id "
-			+ "JOIN user_info ui ON r.user_id = ui.user_id WHERE r.recipe_id = :recipeId ";
+	private static final String SEARCH_RECIPE_INFO = "SELECT r.recipe_title, complete_image, cooking_time, overview, r.user_id,user_name "
+			+ "FROM recipe r JOIN user_info ui ON r.user_id = ui.user_id WHERE r.recipe_id = :recipeId ";
 
 	private static final String SEARCH_FOOD_INFO = "SELECT f.food_name, amount FROM recipe r JOIN food f ON r.recipe_id = f.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_food asc";
 	private static final String SEARCH_PROCESS_INFO = "SELECT process_description FROM recipe r JOIN process p ON r.recipe_id = p.recipe_id WHERE r.recipe_id = :recipeId ORDER BY display_order_process asc";
@@ -34,7 +33,6 @@ public class PgRecipeDao implements RecipeDao {
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
 
 	private static final String EDIT_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";
-
 	@Autowired
 	private NamedParameterJdbcTemplate jT;
 

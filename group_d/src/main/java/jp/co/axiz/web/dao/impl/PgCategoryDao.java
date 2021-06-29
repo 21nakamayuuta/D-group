@@ -21,6 +21,7 @@ public class PgCategoryDao implements CategoryDao{
 	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId ";
 	private static final String DELETE_RECIPE_AND_CATEGORY = "DELETE FROM recipe_and_category WHERE recipe_id = :recipeId";
 	private static final String SELECT_CATEGORY = "SELECT category_id FROM recipe_and_category WHERE recipe_id = :recipeId";
+	private static final String SELECT_CATEGORY_NAME = "SELECT category_name FROM recipe_and_category rac JOIN category c ON rac.category_id = c.category_id JOIN recipe r ON rac.recipe_id = r.recipe_id WHERE r.recipe_id = :recipeId";
 
 	@Autowired
     private NamedParameterJdbcTemplate jT;
@@ -90,4 +91,17 @@ public class PgCategoryDao implements CategoryDao{
 		}
 		return intResult.isEmpty() ? null : intResult;
 	}
+
+	@Override
+	public List<Category> searchCategoryName(Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = SELECT_CATEGORY_NAME;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("recipeId", recipeId);
+		List<Category> result = jT.query(sql,param,new BeanPropertyRowMapper<Category>(Category.class));
+
+		return result.isEmpty() ? null : result;
+	}
+
+
 }

@@ -12,4 +12,5 @@ public interface CategoryDao {
 	public void updateCategory(Integer categoryId, String categoryName);
 	public void deleteRecipeAndCategory(Integer recipeId);
 	public List<Integer> selectCategory(Integer recipeId);
+	public List<Category> searchCategoryName(Integer recipeId);
 }

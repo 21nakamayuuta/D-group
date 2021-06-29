@@ -124,13 +124,14 @@ public class SearchController {
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 
-//		if(recipeInfo == null) {
-//			return "redirect:/top";
-//		}
+		List<Category> categoryList = categoryService.searchCategoryName(recipeId);
+		if(recipeInfo != null) {
+			model.addAttribute("categoryInfo", categoryList);
+		}
+
 		model.addAttribute("totalGood", totalGood);
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
 		model.addAttribute("foodInfo", foodInfo);
-		model.addAttribute("categoryInfo", recipeInfo);
 		model.addAttribute("processInfo", processInfo);
 
 		session.setAttribute("recipeId", recipeId);

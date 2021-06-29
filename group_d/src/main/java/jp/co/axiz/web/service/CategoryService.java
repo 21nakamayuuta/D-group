@@ -12,4 +12,5 @@ public interface CategoryService {
 	public void updateCategory(Integer categoryId, String categoryName);
 	public void deleteRecipeAndCategory(Integer recipeId, Integer[] categoryId);
 	public List<Integer> selectCategory(Integer recipeId);
+	public List<Category> searchCategoryName(Integer recipeId);
 }
