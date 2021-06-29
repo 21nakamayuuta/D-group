@@ -119,9 +119,12 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           <c:forEach items="${rankingList}" var="recipe" varStatus="loop">
             <li class="card">
               <div class="rank-good-wrap">
-                <div class="rank">
+                <!-- <div class="rank">
                   <span>${fn:escapeXml(loop.index+1)}位</span>
-                </div>
+                </div> -->
+                <div class="rank rank${recipe.rank}">
+                    <span>${recipe.rank}位</span>
+                  </div>
                 <div class="good">
                   <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
                     class="good-num">${fn:escapeXml(recipe.goodCount)}</span>

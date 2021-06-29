@@ -103,8 +103,6 @@ public class SearchController {
 			model.addAttribute("message", "一致するレシピは見つかりませんでした。");
 		} else {
 			List<Search> searchList = searchService.categoryFind(categorySearchForm.getCategoryId());
-			System.out.println(searchList.get(0).getRecipeId() + ", " + searchList.get(0).getRecipeTitle() + ", "
-					+ searchList.get(0).getCompleteImage() + ", " + searchList.get(0).getGoodCount());
 			model.addAttribute("searchList", searchList);
 		}
 
@@ -125,7 +123,7 @@ public class SearchController {
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 
 		List<Category> categoryList = categoryService.searchCategoryName(recipeId);
-		if(recipeInfo != null) {
+		if (recipeInfo != null) {
 			model.addAttribute("categoryInfo", categoryList);
 		}
 

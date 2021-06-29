@@ -179,8 +179,11 @@
             <c:forEach items="${rankingList}" var="recipe" varStatus="loop">
               <li class="card">
                 <div class="rank-good-wrap">
-                  <div class="rank">
+                  <!-- <div class="rank">
                     <span>${fn:escapeXml(loop.index+1)}位</span>
+                  </div> -->
+                  <div class="rank rank${recipe.rank}">
+                    <span>${recipe.rank}位</span>
                   </div>
                   <div class="good">
                     <span
