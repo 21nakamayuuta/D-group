@@ -221,5 +221,5 @@ let getPostMadeDate = () => {
         madeDate = Array.from(new Set(res.data.madeRecipe.map(el => `${el.year}-${el.month}-${el.day}`)));
         console.log(res.data);
         getDates(today.getFullYear(), today.getMonth());
-    }).catch(el => console.log(el))
+    }).catch(err => console.log(err))
 }
