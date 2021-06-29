@@ -103,19 +103,19 @@ public class UpdateController {
 
 		Recipe EditRecipe = null;
 
-		System.out.println(imgPath);
+		System.out.println(form.getRecipeId1()+"!!!!!!");
 		if(!imgPath.equals("noImage")) {
 			EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
-			recipeService.editRecipe(EditRecipe, form.getRecipeId());
+			recipeService.editRecipe(EditRecipe, form.getRecipeId1());
 		}else {
 			//recipe情報の更新
 			EditRecipe = new Recipe(form.getRecipeTitle(), form.getCookingTime(), form.getOverview(), updateTime);
-			recipeService.editNoImageRecipe(EditRecipe, form.getRecipeId());
+			recipeService.editNoImageRecipe(EditRecipe, form.getRecipeId1());
 		}
 
-		foodService.delAndRegFood(form.getFoodNameList(), form.getAmountList(), form.getRecipeId());
-		processService.delAndRegProcess(form.getProcessInfoList(), form.getRecipeId());
-		categoryService.deleteRecipeAndCategory(form.getRecipeId(), form.getFormCategoryId());
+		foodService.delAndRegFood(form.getFoodNameList(), form.getAmountList(), form.getRecipeId1());
+		processService.delAndRegProcess(form.getProcessInfoList(), form.getRecipeId1());
+		categoryService.deleteRecipeAndCategory(form.getRecipeId1(), form.getFormCategoryId());
 
 		return "redirect:/userTop";
 
