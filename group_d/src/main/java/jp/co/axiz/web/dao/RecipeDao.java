@@ -19,4 +19,5 @@ public interface RecipeDao {
 	public void editRecipe(Recipe recipe, Integer recipeId);
 	public List<Recipe> userRecipe(Integer recipeId);
 	public void deleteRecipe(Integer recipe_id);
+	public void editNoImageRecipe(Recipe recipe, Integer recipeId);
 }

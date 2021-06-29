@@ -59,12 +59,6 @@ public class UpdateController {
 
 		UserInfo loginUser = (UserInfo) session.getAttribute("user");
 
-		//画像クラス
-		Images imgSave = new Images();
-
-		//画像保存メソッド
-		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
-
 		List<Food> foodList = (List<Food>) session.getAttribute("foodInfo");
 		List<Process> processList = (List<Process>) session.getAttribute("processInfo");
 
@@ -80,12 +74,9 @@ public class UpdateController {
 			if(form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 			}
-			if (imgPath.equals("noImage")) {
-				model.addAttribute("imageError", "画像を選択してください");
-			}
 			return "edit";
 		}
-		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0 || imgPath.equals("noImage")) {
+		if (foodList.isEmpty() || processList.isEmpty() || form.getFormCategoryId().length == 0) {
 			List<Category> categoryList = categoryService.searchCategory();
 			model.addAttribute("categoryList", categoryList);
 			if (foodList.isEmpty()) {
@@ -97,9 +88,6 @@ public class UpdateController {
 			if(form.getFormCategoryId().length == 0) {
 				model.addAttribute("categoryErrorMsg", "カテゴリーを選択してください");
 			}
-			if (imgPath.equals("noImage")) {
-				model.addAttribute("imageError", "画像を選択してください");
-			}
 			return "edit";
 		}
 
@@ -107,9 +95,23 @@ public class UpdateController {
 		Date nowdate = new Date();
 		java.sql.Timestamp updateTime = new java.sql.Timestamp(nowdate.getTime());
 
-		//recipe情報の更新
-		Recipe EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
-		recipeService.editRecipe(EditRecipe, form.getRecipeId());
+		//画像クラス
+		Images imgSave = new Images();
+
+		//画像保存メソッド
+		String imgPath = imgSave.imagePathSave(form.getCompleteImage(), loginUser.getUserId());
+
+		Recipe EditRecipe = null;
+
+		if(!imgPath.equals("noImage")) {
+			EditRecipe = new Recipe(form.getRecipeTitle(), imgPath, form.getCookingTime(), form.getOverview(), updateTime);
+			recipeService.editRecipe(EditRecipe, form.getRecipeId());
+		}else {
+			//recipe情報の更新
+			EditRecipe = new Recipe(form.getRecipeTitle(), form.getCookingTime(), form.getOverview(), updateTime);
+			recipeService.editNoImageRecipe(EditRecipe, form.getRecipeId());
+		}
+
 		foodService.delAndRegFood(form.getFoodNameList(), form.getAmountList(), form.getRecipeId());
 		processService.delAndRegProcess(form.getProcessInfoList(), form.getRecipeId());
 		categoryService.deleteRecipeAndCategory(form.getRecipeId(), form.getFormCategoryId());
@@ -140,9 +142,8 @@ public class UpdateController {
 			model.addAttribute("categoryList", categoryList);
 			return "edit";
 		}
-		
-		session.setAttribute("imgFile", form.getCompleteImage());
-		
+
+
 		List<Food> foodInfo = (List<Food>) session.getAttribute("foodInfo");
 		Food newFoodList = new Food(form.getFoodName(), form.getAmount());
 		foodInfo.add(newFoodList);

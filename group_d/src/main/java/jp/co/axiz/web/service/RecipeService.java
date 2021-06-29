@@ -19,4 +19,5 @@ public interface RecipeService {
 	public void editRecipe(Recipe recipe, Integer recipeId);
 	public List<Recipe> userRecipe(Integer user_id);
 	public void deleteRecipe(Integer recipe_id);
+	public void editNoImageRecipe(Recipe recipe, Integer recipeId);
 }

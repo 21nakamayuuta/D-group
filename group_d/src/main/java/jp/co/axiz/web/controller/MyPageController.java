@@ -138,6 +138,7 @@ public class MyPageController {
 		session.setAttribute("processInfo", processInfo);
 		model.addAttribute("categoryList", categoryList);
 		editform.setOverview(recipeInfo.get(0).getOverview());
+		session.setAttribute("oldImage", recipeInfo.get(0).getCompleteImage());
 
 		return "edit";
 	}

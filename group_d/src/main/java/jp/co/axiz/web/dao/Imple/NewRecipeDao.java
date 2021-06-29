@@ -87,6 +87,12 @@ public class NewRecipeDao implements RecipeDao{
 
 	}
 
+	@Override
+	public void editNoImageRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
 
 
 }
