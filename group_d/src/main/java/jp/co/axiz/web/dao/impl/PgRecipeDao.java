@@ -26,11 +26,12 @@ public class PgRecipeDao implements RecipeDao {
 	private static final String REGISTER_RECIPE = "INSERT INTO recipe(user_id, recipe_title, complete_image, cooking_time, overview, create_datetime) VALUES (:userId, :recipeTitle, :completeImage, :cookingTime, :overview, :createDateTime)";
 	private static final String SEARCH_NEW_RECIPE = "SELECT recipe_id FROM recipe ORDER BY create_datetime desc OFFSET 0 LIMIT 1";
 	private static final String SELECT_RECIPE_TOTAL = "select count(recipe_id) as recipeCount from recipe where user_id=:user_id group by user_id;";
-	private static final String USER_RECIPE ="select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id order by recipe_id";
+	private static final String USER_RECIPE = "select r.*, coalesce(g.cnt, 0) as goodCount from recipe r left join (select recipe_id, count(*) cnt from good_table group by recipe_id) g on r.recipe_id = g.recipe_id where r.user_id = :user_id order by recipe_id";
 
 	private static final String EDIT_NOIMAGE_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";
 
 	private static final String DELETE_RECIPE = "delete from recipe where recipe_id=:recipe_id";
+	private static final String DELETE_RECIPE_BY_USERID = "delete from recipe where user_id=:user_id";
 
 	private static final String EDIT_RECIPE = "UPDATE recipe SET recipe_title = :recipeTitle, complete_image = :completeImage, cooking_time = :cookingTime, overview = :overview, update_datetime = :updateDateTime WHERE recipe_id = :recipeId";
 	@Autowired
@@ -162,6 +163,14 @@ public class PgRecipeDao implements RecipeDao {
 	}
 
 	@Override
+	public void deleteRecipeByUserId(Integer user_id) {
+		String sql = DELETE_RECIPE_BY_USERID;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("user_id", user_id);
+		jT.update(sql, param);
+	}
+
+	@Override
 	public void editNoImageRecipe(Recipe recipe, Integer recipeId) {
 		// TODO 自動生成されたメソッド・スタブ
 		String sql = EDIT_NOIMAGE_RECIPE;
@@ -173,6 +182,5 @@ public class PgRecipeDao implements RecipeDao {
 		param.addValue("recipeId", recipeId);
 		jT.update(sql, param);
 	}
-
 
 }
