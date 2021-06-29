@@ -90,10 +90,10 @@
 				<c:forEach var="category" items="${categoryList}">
                     <li>
                       <div class="content-edit-wrap">
-                       <form:form action="categoryEdit" modelAttribute="categoryEdit" method="post" >
+                       <form:form action="categoryEdit" modelAttribute="categoryEdit" method="post" class="categoryEdit">
                         <form:input path="categoryIdList" type="hidden" value= "${category.categoryId}" />
                         <form:input path="categoryNameList" class="content" value= "${category.categoryName}" />
-                        <button type="button" value="${category.categoryName}" class="edit form-btn">編集</button>
+                        <!-- <button type="button" value="${category.categoryName}" class="edit form-btn">編集</button> -->
                         <form:button name="categoryNameEdit" value="${category.categoryId}" class="edit form-btn" >保存</form:button>
                       </form:form>
 
