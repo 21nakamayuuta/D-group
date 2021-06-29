@@ -17,14 +17,6 @@
     <link rel="stylesheet" href="css/recipeList.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
-  <!-- task
-    ・ユーザー情報のバリデーション処理
-    ・ユーザー情報の変更のボタンの切り分け
-    ・レシピ一覧表示のスタイル
-    ・レシピページへの遷移
-    ・レシピの削除
-    ・レシピの編集ページへの遷移
-  -->
   <body>
      <header>
     <div class="header-wrap">
@@ -32,19 +24,15 @@
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="singUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
-          <%-- ログイン時 --%>
           <c:otherwise>
             <a href="post" class="to-post btn">レシピを投稿する</a>
             <div class="user-icon">
@@ -78,9 +66,8 @@
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                <span class="error_msg myName"></span>
-                  <!-- <span class="error_msg">エラーメッセージ</span> --><br>
-              <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
+                <span class="error_msg myName"></span><br>
+              <form:input path="myName" value="${userName}" />
               </div>
               <button type="button"  class="edit display-none" >編集</button>
               <form:button type="submit" class="save " >保存</form:button>
@@ -91,8 +78,7 @@
               <label for="pass">パスワード</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <form:password path="myPass" value="${password}" /><!-- disabledは一旦無し -->
+              <form:password path="myPass" value="${password}" />
               </div>
               <button type="button" class="edit display-none">編集</button>
               <form:button type="submit" class="save ">保存</form:button>

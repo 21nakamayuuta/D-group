@@ -18,11 +18,6 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <!-- task
-      top
-      ・ランキング表示
-        ・同じいいね数の場合のランキングの表示
-     -->
 
      <div class="cover display-none">
       <form
@@ -126,19 +121,15 @@
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="signUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
-          <%-- ログイン時 --%>
           <c:otherwise>
             <a href="post" class="to-post btn">レシピを投稿する</a>
             <div class="user-icon">
@@ -294,6 +285,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/auth.js"></script>
-    <!-- <script src="js/search.js"></script> -->
   </body>
 </html>

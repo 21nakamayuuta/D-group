@@ -29,13 +29,13 @@
       <form
         class="signUp-form display-none"
       >
-      <div class="btn" id="cancel">
+     <div class="btn" id="cancel">
           <span
             class="iconify"
             data-inline="false"
-            dataXb-icon="topcoat:cancel"
+            data-icon="topcoat:cancel"
           ></span>
-    </div>
+        </div>
 
     <div class="form-wrap">
           <div class="userId">
@@ -127,19 +127,15 @@
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="signUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
-          <%-- ログイン時 --%>
           <c:otherwise>
             <a href="post" class="to-post btn">レシピを投稿する</a>
             <div class="user-icon">
@@ -174,7 +170,6 @@
       <div class="wrapper">
         <section class="cuisine">
           <div class="good-make-wrap">
-            <!-- ゲストのみ css → opacity:1 -->
 
             <div class="good ${empty user ? 'not-click' : ''}">
               <span
@@ -184,9 +179,6 @@
               ></span>
               <span class="good-num"> ${fn:escapeXml(totalGood)}</span>
             </div>
-             <!-- <c:if test="${empty user}"></c:if> -->
-            <!--  -->
-            <!-- 会員ユーザー、管理者のみ表示 -->
              <c:if test="${not empty user}">
             <div class="make">
               <span
@@ -197,7 +189,6 @@
               ></span>
             </div>
              <c:if test="${user.roleId == 1}">
-            <!-- 管理者のみ表示 -->
             <div class="delete">
             <form:form action="deleteRecipeAdmin" method="POST" modelAttribute="MyPageForm">
               <span class="iconify" data-inline="false" data-icon="bi:trash" style="color: #ff6d6d; font-size: 40px">
@@ -205,9 +196,7 @@
              </form:form>
             </div>
             </c:if>
-            <!--  -->
             </c:if>
-            <!--  -->
 
           </div>
           <div class="empty"></div>
@@ -232,7 +221,6 @@
 
 
           <div class="cuisine-img">
-<!--               src="https://dummyimage.com/600x400/dee0ff/edeeff.png" -->
             <img
 			  src= "../../imgs/${fn:escapeXml(recipeInfo.completeImage)}"
               alt="${fn:escapeXml(recipeInfo.completeImage)}"

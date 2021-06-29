@@ -16,11 +16,6 @@
     <link rel="stylesheet" href="css/recipeForm.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
-  <!-- task
-    ・材料の追加、削除時or作り方の追加、削除時に画像ファイルがリセットさせる
-    ・フォーム内のスタイル(フォントサイズなど)
-    ・カテゴリのスタイル変更
-  -->
   <body>
     <header>
       <div class="header-wrap">
@@ -28,21 +23,15 @@
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="singUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
-
-          <%-- ログイン時 --%>
           <c:otherwise>
-            <!-- <a href="post" class="to-post btn">レシピを投稿する</a> -->
             <div class="user-icon">
 
               <div class="btn">

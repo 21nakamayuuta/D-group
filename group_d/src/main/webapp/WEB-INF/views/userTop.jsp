@@ -19,13 +19,6 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   <link rel="stylesheet" href="css/category.css" />
   <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
-
-<!-- task
-  ・レシピ一覧表示
-    ・画像が入っていない
-  ・レシピカテゴリのスタイル
-  ・カレンダー小丸の並びを逆にする
- -->
 <body>
   <header>
     <div class="header-wrap">
@@ -33,19 +26,15 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="singUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
-          <%-- ログイン時 --%>
           <c:otherwise>
             <a href="post" class="to-post btn">レシピを投稿する</a>
             <div class="user-icon">
@@ -178,9 +167,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
         <ul class="categories">
           <c:forEach var="category" items="${categoryList}">
             <form:form action="categorySearch" modelAttribute="categorySearch" method="get">
-              <%--
-                formにcategoryIdとcategoryNameを反映させたいのでinputタグを使用している
-                --%>
+           
               <form:input path="categoryId" type="hidden" value="${fn:escapeXml(category.categoryId)}" />
               <form:input path="categoryName" type="hidden" value="${fn:escapeXml(category.categoryName)}" />
               <li class="category btn">

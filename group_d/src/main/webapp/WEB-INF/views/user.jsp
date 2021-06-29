@@ -119,19 +119,15 @@
       <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
         <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
            autocomplete="off" />
-        <%-- type="text" name="searchKeyword" --%>
         <form:button>レシピ検索</form:button>
       </form:form>
-      <!-- 権限ごとに切り替える部分 -->
       <div class="btn-wrap">
         <c:choose>
-          <%-- 未ログイン時 --%>
           <c:when test="${empty user}">
             <button type="button" id="signUp">新規登録</button>
             <button type="button" id="login">ログイン</button>
           </c:when>
 
-          <%-- ログイン時 --%>
           <c:otherwise>
             <a href="post" class="to-post btn">レシピを投稿する</a>
             <div class="user-icon">
@@ -179,12 +175,10 @@
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span>
-<!-- <%--             ${fn:escapeXml(recipeList[0].userName)} --%> -->
             <span class="recipe-num">レシピの総数：${fn:escapeXml(recipeList.size())}</span>
           </h3>
 
           <ul class="recipe-list">
-          <!-- <%--検索結果をforEachで回して表示 --%> -->
 			<c:forEach var="search" items="${recipeList}">
             <li class="card">
               <div class="good">
@@ -196,21 +190,11 @@
                 ><span class="good-num">${fn:escapeXml(search.goodCount)}</span>
               </div>
               <a href="/recipe?recipeID=${fn:escapeXml(search.recipeId)}">
-              <!-- <%-- <a href="recipeSearch">  --%> -->
                 <div class="img-wrap">
                   <img
                     src="../../imgs/${fn:escapeXml(search.completeImage)}"
                     alt="${fn:escapeXml(search.completeImage)}"
                   />
-				<!-- <%--  ここにレシピIDを渡せる方法を考える
-                  <form:form action="recipeSearch" class="search-recipe">
- 		            <form:input
- 		              path = "recipeId"
- 		              type="hidden"
- 		              value= "{fn:escapeXml(search.pecipeId)}"
- 		            />
- 		          </form:form>
- 		          --%> -->
 
                 </div>
                 <span class="recipe-title"
@@ -219,157 +203,6 @@
               >
             </li>
             </c:forEach>
-
-          <!-- <%--
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-          <li class="card">
-            <div class="good">
-              <span class="iconify" data-inline="false" data-icon="bx:bxs-like"></span><span
-                class="good-num">1000</span>
-            </div>
-            <a href="">
-              <div class="img-wrap">
-                <img src="https://dummyimage.com/600x400/dee0ff/edeeff.png" alt="" />
-              </div>
-              <span class="recipe-title">オーツミルクで全粒粉入りパンケーキ</span>
-            </a>
-          </li>
-
-           --%> -->
-
-
-        <!-- </ul>
-        <ul class="pagenation">
-          <li class="page-num"><a href="">1</a></li>
-          <li class="page-num"><a href="">2</a></li>
-          <li class="page-num"><a href="">3</a></li>
-          <li class="page-num"><a href="">4</a></li>
-          <li class="page-num"><a href="">5</a></li>
-          <li class="next-page icon">
-            <a href="">
-              <span class="iconify" data-inline="false" data-icon="entypo:chevron-right"></span>
-            </a>
-          </li>
-        </ul> -->
       </div>
     </div>
   </main>
