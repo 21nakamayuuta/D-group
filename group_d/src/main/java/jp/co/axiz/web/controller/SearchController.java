@@ -1,9 +1,7 @@
 
 package jp.co.axiz.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -126,6 +124,9 @@ public class SearchController {
 		List<Food> foodInfo = recipeService.searchFoodInfo(recipeId);
 		List<Process> processInfo = recipeService.searchProcessInfo(recipeId);
 
+		if(recipeInfo == null) {
+			return "redirect:/top";
+		}
 		model.addAttribute("totalGood", totalGood);
 		model.addAttribute("recipeInfo", recipeInfo.get(0));
 		model.addAttribute("foodInfo", foodInfo);
