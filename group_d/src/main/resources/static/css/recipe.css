@@ -56,6 +56,11 @@
     grid-area: title;
     font-weight: bold;
 }
+.cuisine .title .icon{
+    display: inline-block;
+    /* width: 100%; */
+    height: 40px;
+}
 
 .post-user{
     grid-area: post-user;

@@ -201,12 +201,13 @@
           </div>
           <div class="empty"></div>
           <h3 class="title">
+            <span class="icon">
             <span
               class="iconify"
               data-inline="false"
               data-icon="fluent:food-24-filled"
             ></span
-            > ${fn:escapeXml(recipeInfo.recipeTitle)}
+            ></span> ${fn:escapeXml(recipeInfo.recipeTitle)}
           </h3>
 
 
