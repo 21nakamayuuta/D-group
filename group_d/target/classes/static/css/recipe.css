@@ -2,7 +2,7 @@
     width: 100%;
     margin: 3rem 0 5rem;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(60%, 2fr) 1fr;
     grid-template-rows: repeat(2, auto) 2fr repeat(2, auto);
     grid-template-areas: 
     "good-make empty"
@@ -34,6 +34,9 @@
     opacity: .35;
     transition: opacity 0.35s;
 }
+.good-make-wrap .good.not-click{
+    opacity: 1;
+}
 .good-make-wrap .good-num {
     font-size: 3.2rem;
 }
@@ -53,6 +56,10 @@
     grid-area: title;
     font-weight: bold;
 }
+.cuisine .title .icon{
+    display: inline-block;
+    height: 40px;
+}
 
 .post-user{
     grid-area: post-user;
@@ -65,8 +72,10 @@
     font-size: 4rem;
 }
 
-.cuisine-image{
+.cuisine-img{
+    width: 100%;
     grid-area: image;
+    aspect-ratio: 7/5;
 }
 
 .category-material-wrap{

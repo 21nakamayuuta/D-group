@@ -20,7 +20,32 @@ public class MadeRecipeServiceImpl implements MadeRecipeService {
     }
 
     @Override
+    public MadeRecipe checkMadeRecipe(MadeRecipe MadeRecipe) {
+        return madeRecipeDao.checkMadeRecipe(MadeRecipe);
+    }
+
+    @Override
     public List<MadeRecipe> getAllMadeRecipe(Integer userId) {
         return madeRecipeDao.allMadeRecipeList(userId);
     }
+
+    @Override
+    public void insertMadeRecipe(Integer userId, Integer recipeId) {
+        madeRecipeDao.insertMadeRecipe(userId, recipeId);
+    }
+
+    @Override
+    public void deleteMadeRecipe(Integer userId, Integer recipeId, Integer year, Integer month, Integer day) {
+        madeRecipeDao.deleteMadeRecipe(userId, recipeId, year, month, day);
+    }
+
+    @Override
+    public void deleteMadeRecipeId(Integer recipeId) {
+        madeRecipeDao.deleteMadeByRecipeId(recipeId);
+    };
+
+    @Override
+    public void deleteMadeUserId(Integer userId) {
+        madeRecipeDao.deleteMadeByUserId(userId);
+    };
 }

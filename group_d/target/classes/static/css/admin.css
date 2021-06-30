@@ -87,7 +87,6 @@
 }
 
 .categories li {
-    /* width: 100%; */
     background: #fff;
     gap: 2rem;
     margin-bottom: 1rem;
@@ -98,14 +97,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 2rem;
+}
+.content-edit-wrap .categoryEdit{
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+.categoryEdit input {
+    width: 83%;
 }
 
+.categories li .content-edit-wrap button {
+    width: 73px;
+}
 .categories li .content {
     font-size: 2rem;
     color: #000000;
     border: none;
-    width: 100%;
 }
 
 .categories li input.content:disabled {

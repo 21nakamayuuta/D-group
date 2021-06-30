@@ -147,7 +147,7 @@ header .tooltip button .iconify {
     width: 600px;
     background: #ffffff;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -164,12 +164,12 @@ header .tooltip button .iconify {
 }
 
 .cover .form-wrap {
-    margin: 2rem auto 4rem;
+    margin: 0 auto 4rem;
     width: 360px;
 }
 
 .cover div {
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 
 .cover label {

@@ -103,7 +103,15 @@ main .title {
     font-size: 2.8rem;
     font-weight: bold;
 }
-
+.result-recipe .title .result-num {
+    margin-left: 0.5rem;
+    font-size: 2.8rem;
+    font-weight: bold;
+}
+.result-recipe .not-result-message{
+    font-size: 2.8rem;
+    margin: 1rem;
+}
 main .title .iconify {
     font-size: 4rem;
     margin-right: 0.3rem;
@@ -138,15 +146,30 @@ main ul {
     align-items: center;
 }
 
-.card:nth-of-type(1) .rank {
+/* .card:nth-of-type(1) .rank, .rank1 {
     background: #DBB34D;
 }
 
-.card:nth-of-type(2) .rank {
+.card:nth-of-type(2) .rank, .rank2 {
     background: #C3C7C3;
 }
 
-.card:nth-of-type(3) .rank {
+.card:nth-of-type(3) .rank, .rank3 {
+    background: #AA6443;
+} */
+
+
+.rank1 {
+    background: #DBB34D;
+}
+
+
+.rank2 {
+    background: #C3C7C3;
+}
+
+
+.rank3 {
     background: #AA6443;
 }
 
@@ -262,7 +285,7 @@ main ul {
 }
 
 .user-recipe .recipe-list {
-    width: 80%;
+    width: 85%;
 }
 
 .user-recipe .pagenation {
@@ -319,11 +342,11 @@ main ul {
 
 .my-recipe .recipe-list {
     width: 85%;
-    grid-column-gap: 10rem;
+    /* grid-column-gap: 10rem; */
 }
 
 .my-recipe .btn-wrap {
-    width: 70%;
+    /* width: 70%; */
     margin: 1rem auto;
     display: flex;
     justify-content: space-between;

@@ -1,5 +1,7 @@
 package jp.co.axiz.web.controller.form;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -7,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 public class EditForm {
-	private Integer recipeId;
+	private Integer recipeId1;
 
 	@NotBlank(message="タイトルを入力してください")
 	@Length(min=0,max=50, message="50文字以内で記入してください")
@@ -16,6 +18,11 @@ public class EditForm {
 	private MultipartFile completeImage;
 	private String foodName;
 	private String amount;
+
+	private List<String> foodNameList;
+	private List<String> amountList;
+
+	private List<String> processInfoList;
 
 	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
@@ -29,13 +36,36 @@ public class EditForm {
 	private Integer[] formCategoryId;
 
 
-
-	public Integer getRecipeId() {
-		return recipeId;
+	public List<String> getProcessInfoList() {
+		return processInfoList;
 	}
 
-	public void setRecipeId(Integer recipeId) {
-		this.recipeId = recipeId;
+	public void setProcessInfoList(List<String> processInfoList) {
+		this.processInfoList = processInfoList;
+	}
+
+	public List<String> getAmountList() {
+		return amountList;
+	}
+
+	public void setAmountList(List<String> amountList) {
+		this.amountList = amountList;
+	}
+
+	public List<String> getFoodNameList() {
+		return foodNameList;
+	}
+
+	public void setFoodNameList(List<String> foodNameList) {
+		this.foodNameList = foodNameList;
+	}
+
+	public Integer getRecipeId1() {
+		return recipeId1;
+	}
+
+	public void setRecipeId1(Integer recipeId1) {
+		this.recipeId1 = recipeId1;
 	}
 
 	public String getRecipeTitle() {

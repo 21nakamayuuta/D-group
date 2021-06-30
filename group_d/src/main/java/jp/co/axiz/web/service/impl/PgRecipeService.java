@@ -16,7 +16,7 @@ public class PgRecipeService implements RecipeService {
 	@Autowired
 	RecipeDao recipeDao;
 
-//	レシピ情報取得
+	// レシピ情報取得
 	@Override
 	public List<Recipe> searchRecipeInfo(Integer recipeId) {
 		return recipeDao.searchRecipeInfo(recipeId);
@@ -47,12 +47,12 @@ public class PgRecipeService implements RecipeService {
 
 	@Override
 	public Recipe totalRecipe(Integer userId) {
-		Recipe recipe= null;
+		Recipe recipe = null;
 		List<Recipe> resultList = null;
 		resultList = recipeDao.totalRecipe(userId);
-		try{
+		try {
 			recipe = resultList.get(0);
-		} catch(Exception e) {
+		} catch (Exception e) {
 		}
 
 		return recipe;
@@ -79,8 +79,7 @@ public class PgRecipeService implements RecipeService {
 		recipeDao.editRecipe(recipe, recipeId);
 	}
 
-
-	public List<Recipe> userRecipe(Integer user_id){
+	public List<Recipe> userRecipe(Integer user_id) {
 		return recipeDao.userRecipe(user_id);
 	}
 
@@ -90,5 +89,15 @@ public class PgRecipeService implements RecipeService {
 		recipeDao.deleteRecipe(recipe_id);
 	}
 
+	@Override
+	public void deleteRecipeByUserId(Integer user_Id) {
+		recipeDao.deleteRecipeByUserId(user_Id);
+	}
+
+	@Override
+	public void editNoImageRecipe(Recipe recipe, Integer recipeId) {
+		// TODO 自動生成されたメソッド・スタブ
+		recipeDao.editNoImageRecipe(recipe, recipeId);
+	}
 
 }

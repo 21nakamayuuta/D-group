@@ -14,16 +14,12 @@ public class PgSignUpService implements SignUpService {
 
 	@Override
 	public boolean INSERT_AND_CHECK(UserInfo user) {
-	//同じIDのユーザーがいるかチェック
-	if(userDao.isFindLoginName(user.getLoginName())) {
-		return false;
+		// 同じIDのユーザーがいるかチェック
+		return userDao.isFindLoginName(user.getLoginName());
 	}
 
-	//いない場合インサート
-	userDao.insert(user);
-
-	return true;
-}
-
-
+	@Override
+	public void signUp(UserInfo user) {
+		userDao.insert(user);
+	}
 }

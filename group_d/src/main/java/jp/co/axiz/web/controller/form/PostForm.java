@@ -1,5 +1,7 @@
 package jp.co.axiz.web.controller.form;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +22,10 @@ public class PostForm {
 	private String foodName;
 	private String amount;
 
-	private String foodDelete;
+	private List<String> foodNameList;
+	private List<String> amountList;
+
+	private List<String> processInfoList;
 
 	@NotNull(message="調理時間を入力してください")
 	private Integer cookingTime;
@@ -37,6 +42,14 @@ public class PostForm {
 
 	private Integer[] formCategoryId;
 
+
+
+	public List<String> getProcessInfoList() {
+		return processInfoList;
+	}
+	public void setProcessInfoList(List<String> processInfoList) {
+		this.processInfoList = processInfoList;
+	}
 	public String getRecipeTitle() {
 		return recipeTitle;
 	}
@@ -99,11 +112,18 @@ public class PostForm {
 	public void setFormCategoryId(Integer[] formCategoryId) {
 		this.formCategoryId = formCategoryId;
 	}
-	public String getFoodDelete() {
-		return foodDelete;
+
+	public List<String> getFoodNameList() {
+		return foodNameList;
 	}
-	public void setFoodDelete(String foodDelete) {
-		this.foodDelete = foodDelete;
+	public void setFoodNameList(List<String> foodNameList) {
+		this.foodNameList = foodNameList;
+	}
+	public List<String> getAmountList() {
+		return amountList;
+	}
+	public void setAmountList(List<String> amountList) {
+		this.amountList = amountList;
 	}
 
 

@@ -5,9 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -21,63 +18,46 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
   </head>
   <body>
-    <header>
-      <div class="header-wrap">
-        <h1><a href="./userTop" class="page-title">おさるのレシピ</a></h1>
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-            <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
-          <form:button>レシピ検索</form:button>
-        </form:form>
-        <!-- 権限ごとに切り替える部分 -->
-        <div class="btn-wrap">
-          <a href="" class="to-post btn">レシピを投稿する</a>
-          <div class="user-icon">
-            <div class="btn">
-              <span
-                class="iconify"
-                data-inline="false"
-                data-icon="carbon:user-avatar-filled"
-              ></span>
-            </div>
-            <div class="tooltip display-none">
-              <!-- 管理者ログイン時追加 -->
-              <a href="" class="to-admin item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="dashicons:admin-network"
-                ></span>
-                管理ページ
-              </a>
-              <!--  -->
-              <div class="to-mypage item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:user-avatar-filled"
-                ></span>
-                マイページ
+     <header>
+    <div class="header-wrap">
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名" 
+           autocomplete="off" />
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <div class="btn-wrap">
+        <c:choose>
+          <c:when test="${empty user}">
+            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
+
+          <c:otherwise>
+            <a href="post" class="to-post btn">レシピを投稿する</a>
+            <div class="user-icon">
+
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
               </div>
-              <form:form action="logout" method="POST">
-              <button type="submit" class="logout item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:logout"
-                ></span>
-                ログアウト
-              </button>
-              </form:form>
-            </div>
-          </div>
-        </div>
-        <!--  -->
+
+              <div class="tooltip display-none">
+                <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if>
+                <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+              </div>
+          </c:otherwise>
+        </c:choose>
       </div>
-    </header>
+    </div>
+  </header>
     <main>
       <div class="wrapper">
         <div class="my-info">
@@ -86,8 +66,8 @@
               <label for="name">名前</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <form:input path="myName" value="${userName}" /><!-- disabledは一旦無し -->
+                <span class="error_msg myName"></span><br>
+              <form:input path="myName" value="${userName}" />
               </div>
               <button type="button"  class="edit display-none" >編集</button>
               <form:button type="submit" class="save " >保存</form:button>
@@ -98,8 +78,7 @@
               <label for="pass">パスワード</label>
               <div class="input-btn-wrap">
                 <div class="input">
-                  <!-- <span class="error_msg">エラーメッセージ</span><br> -->
-              <form:password path="myPass" value="${password}" /><!-- disabledは一旦無し -->
+              <form:password path="myPass" value="${password}" />
               </div>
               <button type="button" class="edit display-none">編集</button>
               <form:button type="submit" class="save ">保存</form:button>
@@ -138,12 +117,11 @@
                 ></span
                 ><span class="good-num">${fn:escapeXml(recipe.goodCount)}</span>
               </div>
-              <a href="./recipe.html">
+              <a href="/recipe?recipeID=${fn:escapeXml(recipe.recipeId)}">
                 <div class="img-wrap">
-                ${fn:escapeXml(recipe.completeImage)}
                   <img
-                    src="https://dummyimage.com/600x400/dee0ff/edeeff.png"
-                    alt=""
+                    src="../../imgs/${fn:escapeXml(recipe.completeImage)}"
+                    alt="${fn:escapeXml(recipe.completeImage)}"
                   />
                 </div>
                 <span class="recipe-title"
@@ -151,8 +129,8 @@
                 ></a
               >
               <div class="btn-wrap">
-                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="editRecipe" class="to-edit">編集</form:button>
-                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="deleteRecipe" class="delete-recipe">削除</form:button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="editRecipe" class="to-edit form-btn">編集</form:button>
+                <form:button type="submit" value="${fn:escapeXml(recipe.recipeId) }" name="deleteRecipe" class="delete-recipe form-btn">削除</form:button>
               </div>
             </li>
             </form:form>
@@ -162,7 +140,8 @@
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/form.js"></script>
   </body>
 </html>

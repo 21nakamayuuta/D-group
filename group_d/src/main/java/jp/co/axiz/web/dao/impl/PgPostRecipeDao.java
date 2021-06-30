@@ -20,6 +20,11 @@ public class PgPostRecipeDao implements PostRecipeDao {
             + "FROM post_recipe pr " + "JOIN recipe r ON pr.recipe_id = r.recipe_id " + "WHERE pr.user_id = :userId "
             + "ORDER BY dt";
 
+    private static final String INSERT_POST_RECIPE = "INSERT INTO post_recipe VALUES (:userId, :recipeId, now())";
+
+    private static final String DELETE_POST_RECIPE = "DELETE FROM post_recipe WHERE recipe_id = :recipeId";
+    private static final String DELETE_POST_BY_USERID = "DELETE FROM post_recipe WHERE user_id = :userId";
+
     @Autowired
     private NamedParameterJdbcTemplate jT;
 
@@ -46,7 +51,31 @@ public class PgPostRecipeDao implements PostRecipeDao {
         param.addValue("userId", userId);
 
         List<PostRecipe> list = jT.query(sql, param, new BeanPropertyRowMapper<PostRecipe>(PostRecipe.class));
-        list.get(0).getAllData();
         return list.isEmpty() ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public void insertPostRecipe(Integer userId, Integer recipeId) {
+        String sql = INSERT_POST_RECIPE;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deletePostRecipe(Integer recipeId) {
+        String sql = DELETE_POST_RECIPE;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("recipeId", recipeId);
+        jT.update(sql, param);
+    }
+
+    @Override
+    public void deletePostByUserId(Integer userId) {
+        String sql = DELETE_POST_BY_USERID;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+        jT.update(sql, param);
     }
 }

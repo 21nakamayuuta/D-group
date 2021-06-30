@@ -18,64 +18,51 @@
   <body>
     <header>
       <div class="header-wrap">
-        <h1><a href="./userTop" class="page-title">おさるのレシピaa</a></h1>
-		<form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
-          <form:input
-            path="searchKeyword"
-            id="searchKeyword"
-            placeholder="料理名・食材名"
-          /><%-- type="text" name="searchKeyword" --%>
-          <form:button>レシピ検索</form:button>
-        </form:form>
-        <!-- 権限ごとに切り替える部分 -->
-        <div class="btn-wrap">
-          <div class="user-icon">
-            <div class="btn">
-              <span
-                class="iconify"
-                data-inline="false"
-                data-icon="carbon:user-avatar-filled"
-              ></span>
-            </div>
-            <div class="tooltip display-none">
-              <!-- 管理者ログイン時追加 -->
-              <a href="" class="to-admin item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="dashicons:admin-network"
-                ></span>
-                管理ページ
-              </a>
-              <!--  -->
-              <a href="./mypage.html" class="to-mypage item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:user-avatar-filled"
-                ></span>
-                マイページ
-              </a>
-              <form:form action="logout" method="POST">
-              <button type="submit" class="logout item">
-                <span
-                  class="iconify"
-                  data-inline="false"
-                  data-icon="carbon:logout"
-                ></span>
-                ログアウト
-              </button>
-              </form:form>
-            </div>
-          </div>
-        </div>
-        <!--  -->
+      <h1><a href="./top" class="page-title">おさるのレシピ</a></h1>
+      <form:form action="search" modelAttribute="RecipeSearch" method="post" class="search-recipe">
+        <form:input path="searchKeyword" id="searchKeyword" placeholder="料理名・食材名"
+           autocomplete="off" />
+        <form:button>レシピ検索</form:button>
+      </form:form>
+      <div class="btn-wrap">
+        <c:choose>
+          <c:when test="${empty user}">
+            <button type="button" id="singUp">新規登録</button>
+            <button type="button" id="login">ログイン</button>
+          </c:when>
+          <c:otherwise>
+            <div class="user-icon">
+
+              <div class="btn">
+                <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+              </div>
+
+              <div class="tooltip display-none">
+                <c:if test="${user.roleId == 1}">
+                  <a href="./admin" class="to-admin item">
+                    <span class="iconify" data-inline="false" data-icon="dashicons:admin-network"></span>
+                    管理ページ
+                  </a>
+                </c:if>
+                 <a href="./mypage" class="to-mypage item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:user-avatar-filled"></span>
+                    マイページ
+                  </a>
+               <button type="submit" class="logout item">
+                    <span class="iconify" data-inline="false" data-icon="carbon:logout"></span>
+                    ログアウト
+                  </button>
+              </div>
+          </c:otherwise>
+        </c:choose>
       </div>
+    </div>
     </header>
     <main>
       <div class="wrapper">
         <form:form action="editInfoCheck" modelAttribute="editInfo" method="post" class="recipe-form" enctype="multipart/form-data">
           <div class="name">
+            <form:errors path="recipeTitle" class="error_msg"/>
             <label for="title" class="title">レシピタイトル</label>
             <form:input
               type="text"
@@ -86,7 +73,8 @@
             />
           </div>
           <div class="image">
-            <img src="${fn:escapeXml(recipeInfo.completeImage)}" class="preview display-none" />
+            <img src="../../imgs/${fn:escapeXml(oldImage)}"/>
+            <img src="../../imgs/" class="preview display-none" />
             <label for="file" class="image-wrap">
               <div class="text">
                 <span
@@ -99,49 +87,44 @@
               </div>
               <form:input path="completeImage" accept="image/jpeg,image/png" type="file" name="image" id="file" class="display-none" />
             </label>
+            <c:if test="${not empty imageError }">
+              <span class="error_msg">${imageError }</span>
+            </c:if>
           </div>
           <div class="material">
+            <c:if test="${not empty foodErrorMsg }">
+              <span class="error_msg">${foodErrorMsg }</span>
+            </c:if>
             <h3 class="title">材料・分量</h3>
+            <c:if test="${not empty nameEmpty }">
+              <span class="error_msg">${nameEmpty }</span>
+            </c:if>
+            <c:if test="${not empty amountEmpty }">
+              <span class="error_msg">${amountEmpty }</span>
+            </c:if>
             <div class="input">
               <label
-                >材料名<input type="text" name="material" id="material"
+                >材料名<form:input type="text" name="material" id="material" path="foodName"
               /></label>
-              <label>分量<input type="text" name="amount" id="amount" /></label>
-              <button type="button" class="form-btn">追加</button>
+              <label>分量<form:input type="text" name="amount" id="amount" path="amount"/></label>
+              <form:button type="submit" class="form-btn" name="foodAdd">追加</form:button>
             </div>
 
             <ul>
+              <c:forEach var="f" items="${foodInfo }" varStatus="loop">
               <li>
-                <input type="text" class="material" value="ニンジン" /><input
+                <form:input type="text" class="material" value="${fn:escapeXml(f.foodName)}" path="foodNameList" /><form:input
                   type="text"
                   class="amount"
-                  value="1本"
-                /><button type="button" class="form-btn">削除</button>
+                  path="amountList"
+                  value="${fn:escapeXml(f.amount)}"
+                /><form:button name="foodDel" type="submit" class="form-btn" value="${fn:escapeXml(loop.index) }" >削除</form:button>
               </li>
-              <li>
-                <input type="text" class="material" value="ジャガイモ" /><input
-                  type="text"
-                  class="amount"
-                  value="1個"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
-              <li>
-                <input type="text" class="material" value="玉ねぎ" /><input
-                  type="text"
-                  class="amount"
-                  value="1個"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
-              <li>
-                <input type="text" class="material" value="鶏肉" /><input
-                  type="text"
-                  class="amount"
-                  value="200"
-                /><button type="button" class="form-btn">削除</button>
-              </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="time">
+            <form:errors path="cookingTime" class="error_msg"/>
             <label class="title" for="time"> 調理時間</label>
             <div class="input">
               <form:input
@@ -157,51 +140,42 @@
           </div>
           <div class="how-to">
             <h3 class="title">
-              作り方<span class="error_msg">エラーメッセージ</span>
+              作り方<span class="error_msg">${processErrorMsg }<c:if test="${not empty processEmpty }">${processEmpty }</c:if></span>
             </h3>
             <div class="input">
-              <input type="text" />
-              <button type="button" class="form-btn">追加</button>
-            </div>
+              <form:input type="text" path="processDescription"/>
+              <form:button type="submit" class="form-btn" name="processAdd">追加</form:button>
+           </div>
             <ul>
-              <li>
-                <input type="text" value="手順1 野菜を洗う" /><button
-                  type="button"
-                  class="form-btn"
-
-                >
-                  削除
-                </button>
-              </li>
-              <li>
-                <input type="text" value="手順2 野菜を切る"/><button
-                  type="button"
-                  class="form-btn"
-                >
-                  削除
-                </button>
-              </li>
+              <c:forEach var="p" items="${processInfo }" varStatus="loop">
+                <li>
+                  <form:input type="text" value="${fn:escapeXml(p.processDescription)}" path="processInfoList"/><form:button type="submit" class="form-btn" name="processDel" value="${fn:escapeXml(loop.index) }">
+                    削除
+                  </form:button>
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="comment">
             <h3 class="title">
-              コメント<span class="error_msg">エラーメッセージ</span>
+              コメント<span class="error_msg"><form:errors path="overview"/></span>
             </h3>
             <form:textarea name="comment" id="" cols="30" rows="20" path="overview" ></form:textarea>
           </div>
           <div class="category">
-            <h3 class="title">カテゴリ</h3>
+            <h3 class="title">カテゴリ</h3><span class="error_msg">${categoryErrorMsg}</span>
             <ul class="input">
               <li><form:checkboxes items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" path="formCategoryId" delimiter=" " /></li>
             </ul>
           </div>
-          <form:hidden value="${fn:escapeXml(recipeId)}" path="recipeId"/>
-          <form:button type="submit" class="submit post-btn" name="register">レシピ投稿</form:button>
+          <form:hidden value="${fn:escapeXml(recipeId1)}" path="recipeId1"/>
+          <form:button type="submit" class="submit post-btn" name="register">レシピ編集</form:button>
         </form:form>
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/post.js"></script>
   </body>
 </html>
